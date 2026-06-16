@@ -1964,35 +1964,55 @@ function openModal(cat,id=null){
 }
 function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); editingId=null; }
 
-async function salvarHospede() {
-
-  const nome = document.getElementById('f_nome').value.trim();
+function salvarHospede() {
+  const nome     = document.getElementById('f_nome').value.trim();
   const telefone = document.getElementById('f_telefone')?.value.trim() || '';
-  const quarto = document.getElementById('f_quarto').value.trim();
+  const quarto   = document.getElementById('f_quarto').value.trim();
 
-  if (!nome) {
-    alert('Digite o nome');
-    return;
+  if (!nome) { alert('Digite o nome'); return; }
+
+  const isMbrf = modalCat === 'mbrf';
+  const arr    = isMbrf ? mbrfs : hospedes;
+
+  if (editingId) {
+    // Editing existing
+    const idx = arr.findIndex(x => x.id === editingId);
+    if (idx !== -1) {
+      arr[idx] = {
+        ...arr[idx],
+        nome, telefone, quarto,
+        checkin:   document.getElementById('f_checkin').value,
+        checkout:  document.getElementById('f_checkout').value,
+        diaria:    Number(document.getElementById('f_diaria').value || 0),
+        diasPagos: Number(document.getElementById('f_diasPagos').value || 0),
+        obs:       document.getElementById('f_obs').value,
+        matricula: document.getElementById('f_matricula')?.value || '',
+        setor:     document.getElementById('f_setor')?.value || '',
+      };
+    }
+  } else {
+    // New record
+    const novo = {
+      id:        Date.now(),
+      nome, telefone, quarto,
+      checkin:   document.getElementById('f_checkin').value,
+      checkout:  document.getElementById('f_checkout').value,
+      diaria:    Number(document.getElementById('f_diaria').value || 0),
+      diasPagos: Number(document.getElementById('f_diasPagos').value || 0),
+      obs:       document.getElementById('f_obs').value,
+      matricula: document.getElementById('f_matricula')?.value || '',
+      setor:     document.getElementById('f_setor')?.value || '',
+      categoria: isMbrf ? 'mbrf' : 'hotel',
+      criadoEm:  new Date().toISOString()
+    };
+    arr.push(novo);
   }
 
-  const hospede = {
-    id: Date.now(),
-    nome,
-    telefone,
-    quarto,
-    checkin: document.getElementById('f_checkin').value,
-    checkout: document.getElementById('f_checkout').value,
-    diaria: Number(document.getElementById('f_diaria').value || 0),
-    diasPagos: Number(document.getElementById('f_diasPagos').value || 0),
-    obs: document.getElementById('f_obs').value,
-    criadoEm: new Date().toISOString()
-  };
-
-  await salvarHospedeFirebase(hospede);
-
-  alert("Hóspede salvo com sucesso!");
+  if (isMbrf) saveMbrf(); else saveHotel();
 
   closeModal();
+  renderAll();
+  showNotif(editingId ? 'Hóspede atualizado!' : (isMbrf ? 'Funcionário BRF cadastrado!' : 'Hóspede cadastrado!'));
 }
 
 function removerHospede(cat,id){
@@ -2050,74 +2070,7 @@ setTimeout(()=>{
 }, 3000);
 </script>
 
-<script>
-async function salvarHospedeFirebase(hospede){
-
-  try{
-
-    const db = window._fbDb;
-
-    await window._fbSetDoc(
-      window._fbDoc(db, "hospedes", String(hospede.id)),
-      hospede
-    );
-
-    console.log("Salvo na Firebase");
-
-  }catch(e){
-
-    console.error("Erro Firebase:", e);
-    alert("Erro ao salvar na Firebase. Verifique as regras do Firestore.");
-
-  }
-
-}
-</script>
-
-
-<script>
-
-async function sincronizarFirebase(){
-
-  try{
-
-    const db = window._fbDb;
-
-    if(!db) return;
-
-    document.getElementById('fbLoadingBar').style.display = 'flex';
-
-    if(window.hospedes){
-
-      for(const hospede of hospedes){
-
-        await window._fbSetDoc(
-          window._fbDoc(db, "hospedes", String(hospede.id)),
-          hospede
-        );
-
-      }
-
-    }
-
-    document.getElementById('fbLoadingBar').style.display = 'none';
-    document.getElementById('fbSyncOk').style.display = 'flex';
-
-    console.log("Sincronização automática concluída");
-
-  }catch(e){
-
-    console.error("Erro sincronização:", e);
-
-    document.getElementById('fbLoadingBar').style.display = 'none';
-
-  }
-
-}
-
-setInterval(sincronizarFirebase, 5000);
-
-</script>
+<!-- Sync is handled automatically by Firestore onSnapshot + DB.set() -->
 
 </body>
 </html>
