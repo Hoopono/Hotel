@@ -4,6 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Don Pita Hotel — Sistema de Hóspedes</title>
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDmKbWwT7AcnyJLUXgxg3VICMoU8GAleqs",
+    authDomain: "don-pita-hotel-64d9d.firebaseapp.com",
+    projectId: "don-pita-hotel-64d9d",
+    storageBucket: "don-pita-hotel-64d9d.firebasestorage.app",
+    messagingSenderId: "135402539938",
+    appId: "1:135402539938:web:d6d29c4d585cf3b7f180fb"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  // Expose Firestore helpers to global scope so the main script can use them
+  window._fbDb = db;
+  window._fbDoc = doc;
+  window._fbGetDoc = getDoc;
+  window._fbSetDoc = setDoc;
+  window._fbOnSnapshot = onSnapshot;
+  window._fbCollection = collection;
+  window._firebaseReady = true;
+
+  // Signal that Firebase is ready
+  window.dispatchEvent(new Event('firebaseReady'));
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -421,6 +450,8 @@
   .status-opt.selected.livre      { border-color: var(--green); background: var(--green-light); color: var(--green); }
   .status-opt.selected.manutencao { border-color: var(--red); background: var(--red-light); color: var(--red); }
 
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
   /* RESPONSIVE */
   @media (max-width: 960px) {
     main { padding: 16px; }
@@ -456,6 +487,16 @@
     </div>
   </div>
   <div class="header-right">
+    <div id="storageWarn" style="display:none;background:rgba(178,59,59,0.18);border:1px solid rgba(178,59,59,0.4);border-radius:8px;padding:6px 10px;font-size:11px;color:#ffaaaa;text-align:center;max-width:160px;line-height:1.3;">
+      ⚠️ Firebase offline<br>verifique a conexão
+    </div>
+    <!-- Firebase sync indicator -->
+    <div id="fbLoadingBar" style="display:none;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.35);border-radius:8px;padding:6px 12px;font-size:11px;color:var(--gold-light);display:flex;align-items:center;gap:6px;">
+      <span style="animation:spin 1s linear infinite;display:inline-block;">🔄</span> Sincronizando...
+    </div>
+    <div id="fbSyncOk" style="display:none;background:rgba(46,125,82,0.15);border:1px solid rgba(46,125,82,0.35);border-radius:8px;padding:6px 12px;font-size:11px;color:#7ddfaa;">
+      ☁️ Nuvem ativa
+    </div>
     <div class="header-date">
       <span id="clock"></span>
       <span id="dateDisplay"></span>
@@ -729,47 +770,47 @@
     <div class="modal-title" id="modalTitle">🏨 Novo Hóspede</div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Nome *</label>
+        <label class="form-label">Nome <span style="color:var(--red)">*</span></label>
         <input class="form-input" id="f_nome" placeholder="João da Silva">
       </div>
       <div class="form-group">
-        <label class="form-label">Quarto</label>
+        <label class="form-label">Quarto <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_quarto" placeholder="101">
       </div>
     </div>
     <div class="form-row" id="f_matricula_row" style="display:none">
       <div class="form-group">
-        <label class="form-label">Matrícula BRF</label>
+        <label class="form-label">Matrícula BRF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_matricula" placeholder="BRF-00000">
       </div>
       <div class="form-group">
-        <label class="form-label">Setor / Cargo</label>
+        <label class="form-label">Setor / Cargo <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_setor" placeholder="Produção">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Data Check-in</label>
+        <label class="form-label">Data Check-in <span style="color:var(--gray);font-weight:400;font-size:9px;">(padrão: hoje)</span></label>
         <input class="form-input" type="date" id="f_checkin">
       </div>
       <div class="form-group" id="f_checkout_group">
-        <label class="form-label">Data Check-out (previsto)</label>
+        <label class="form-label">Data Check-out <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" type="date" id="f_checkout">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Valor por Diária (R$)</label>
-        <input class="form-input" type="number" id="f_diaria" placeholder="150.00">
+        <label class="form-label">Valor por Diária (R$) <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" type="number" id="f_diaria" placeholder="0">
       </div>
       <div class="form-group">
-        <label class="form-label">Dias Pagos</label>
+        <label class="form-label">Dias Pagos <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" type="number" id="f_diasPagos" placeholder="0">
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observações</label>
+        <label class="form-label">Observações <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_obs" placeholder="Café da manhã incluído...">
       </div>
     </div>
@@ -962,13 +1003,49 @@
 </div>
 
 <script>
+// ── FIREBASE FIRESTORE ENGINE ──
+// All data is stored in a single Firestore document: donpita/dados
+// Real-time sync: any change made on one device appears instantly on all others.
+
+const DB = {
+  _colName: 'donpita',
+  _docName: 'dados',
+  _keys: ['donpita_hotel','donpita_mbrf','donpita_reservas','donpita_refeicoes','donpita_historico','donpita_quartos'],
+
+  _getRef(){
+    return window._fbDoc(window._fbDb, this._colName, this._docName);
+  },
+
+  // Read a key from the local in-memory cache (kept in sync by onSnapshot)
+  get(key){
+    return window._fbCache ? (window._fbCache[key] || null) : null;
+  },
+
+  // Write a key — saves full cache to Firestore
+  async set(key, val){
+    if(!window._fbDb) return;
+    window._fbCache = window._fbCache || {};
+    window._fbCache[key] = val;
+    try {
+      await window._fbSetDoc(this._getRef(), window._fbCache);
+    } catch(e){
+      console.error('Firebase save error:', e);
+    }
+  },
+
+  isAvailable(){ return !!window._fbDb; }
+};
+
+// ── IN-MEMORY CACHE (updated by real-time listener) ──
+window._fbCache = {};
+
 // ── DATA ──
-let hospedes  = JSON.parse(localStorage.getItem('donpita_hotel')     || '[]');
-let mbrfs     = JSON.parse(localStorage.getItem('donpita_mbrf')      || '[]');
-let reservas  = JSON.parse(localStorage.getItem('donpita_reservas')  || '[]');
-let refeicoes = JSON.parse(localStorage.getItem('donpita_refeicoes') || '[]');
-let historico = JSON.parse(localStorage.getItem('donpita_historico') || '[]');
-let quartos   = JSON.parse(localStorage.getItem('donpita_quartos')   || '[]');
+let hospedes  = [];
+let mbrfs     = [];
+let reservas  = [];
+let refeicoes = [];
+let historico = [];
+let quartos   = [];
 
 let currentTab      = 'hotel';
 let editingId       = null;
@@ -988,52 +1065,100 @@ let saidaTarget = { cat: null, id: null };
 // quarto tipo selecionado
 let quartoTipoSel = 'Standard';
 
-// ── SEED DATA ──
-if (!hospedes.length) {
-  hospedes = [
-    { id:1, nome:'Carlos Mendes', quarto:'101', checkin:'2026-06-10', checkout:'2026-06-18', diaria:180, diasPagos:8, obs:'Café da manhã incluído', categoria:'hotel' },
-    { id:2, nome:'Ana Paula Souza', quarto:'205', checkin:'2026-06-13', checkout:'2026-06-20', diaria:200, diasPagos:4, obs:'', categoria:'hotel' },
-    { id:3, nome:'Roberto Lima', quarto:'310', checkin:'2026-06-05', checkout:'2026-06-16', diaria:150, diasPagos:11, obs:'Pediu quarto silencioso', categoria:'hotel' },
-  ];
-  saveHotel();
-}
-if (!mbrfs.length) {
-  mbrfs = [
-    { id:1, nome:'Fernanda Costa', quarto:'402', matricula:'BRF-00421', setor:'Qualidade', checkin:'2026-06-08', checkout:'', diaria:130, diasPagos:6, obs:'', categoria:'mbrf' },
-    { id:2, nome:'Marcos Oliveira', quarto:'403', matricula:'BRF-00188', setor:'Produção',  checkin:'2026-06-12', checkout:'', diaria:130, diasPagos:2, obs:'', categoria:'mbrf' },
-  ];
-  saveMbrf();
-}
-if (!reservas.length) {
-  reservas = [
-    { id:1, nome:'Juliana Ferreira', quarto:'202', telefone:'(47) 99999-1234', origem:'Booking', checkin:'2026-06-20', checkout:'2026-06-24', diaria:180, status:'confirmada', obs:'Casal com criança' },
-    { id:2, nome:'Pedro Alves',      quarto:'305', telefone:'(47) 98888-5678', origem:'Direto',  checkin:'2026-06-22', checkout:'2026-06-25', diaria:150, status:'pendente',   obs:'' },
-  ];
-  saveReservas();
-}
-if (!quartos.length) {
-  quartos = [
-    { id:1,  numero:'101', andar:'1º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Ar condicionado, TV a cabo, frigobar e banheiro privativo. Vista para o jardim.' },
-    { id:2,  numero:'102', andar:'1º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Ar condicionado, TV a cabo e banheiro privativo.' },
-    { id:3,  numero:'201', andar:'2º Andar', tipo:'Duplo',     capacidade:3, statusManual:'', descricao:'Duas camas de solteiro, ar condicionado, TV, frigobar.' },
-    { id:4,  numero:'202', andar:'2º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Vista para a rua, banheiro reformado.' },
-    { id:5,  numero:'205', andar:'2º Andar', tipo:'Executivo', capacidade:1, statusManual:'', descricao:'Escrivaninha, poltrona, TV 40", minibar, café expresso.' },
-    { id:6,  numero:'305', andar:'3º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Quarto padrão com ventilador e TV.' },
-    { id:7,  numero:'310', andar:'3º Andar', tipo:'Duplo',     capacidade:4, statusManual:'', descricao:'Quarto amplo para família, duas camas casal.' },
-    { id:8,  numero:'401', andar:'4º Andar', tipo:'Suíte',     capacidade:2, statusManual:'', descricao:'Suíte com banheira de hidromassagem, varanda e frigobar premium.' },
-    { id:9,  numero:'402', andar:'4º Andar', tipo:'BRF',       capacidade:1, statusManual:'', descricao:'Quarto destinado a funcionários BRF, com armário individual.' },
-    { id:10, numero:'403', andar:'4º Andar', tipo:'BRF',       capacidade:1, statusManual:'', descricao:'Quarto destinado a funcionários BRF, com armário individual.' },
-    { id:11, numero:'404', andar:'4º Andar', tipo:'Standard',  capacidade:2, statusManual:'manutencao', descricao:'Em reforma — troca de encanamento. Previsão: fim do mês.' },
-  ];
-  saveQuartos();
+// (seed data is handled inside seedDefaults(), called by initFirebase when doc doesn't exist)
+
+function saveHotel()    { DB.set('donpita_hotel',     hospedes); }
+function saveMbrf()     { DB.set('donpita_mbrf',      mbrfs); }
+function saveReservas() { DB.set('donpita_reservas',  reservas); }
+function saveRefeicoes(){ DB.set('donpita_refeicoes', refeicoes); }
+function saveHistorico(){ DB.set('donpita_historico', historico); }
+function saveQuartos()  { DB.set('donpita_quartos',   quartos); }
+
+// ── FIREBASE REAL-TIME LISTENER ──
+// Called once Firebase is ready. Sets up a live listener so any change
+// saved on another device instantly updates this screen.
+function initFirebase(){
+  const ref = window._fbDoc(window._fbDb, 'donpita', 'dados');
+
+  // Show loading indicator
+  const loadEl = document.getElementById('fbLoadingBar');
+  if(loadEl) loadEl.style.display = '';
+
+  window._fbOnSnapshot(ref, (snap) => {
+    if(snap.exists()){
+      const data = snap.data();
+      window._fbCache = data;
+
+      // Update local arrays from Firestore
+      hospedes  = data.donpita_hotel      || [];
+      mbrfs     = data.donpita_mbrf       || [];
+      reservas  = data.donpita_reservas   || [];
+      refeicoes = data.donpita_refeicoes  || [];
+      historico = data.donpita_historico  || [];
+      quartos   = data.donpita_quartos    || [];
+    } else {
+      // Document doesn't exist yet — seed with defaults if needed
+      window._fbCache = {};
+      hospedes  = []; mbrfs = []; reservas = [];
+      refeicoes = []; historico = []; quartos = [];
+      seedDefaults();
+    }
+
+    if(loadEl) loadEl.style.display = 'none';
+    const okEl = document.getElementById('fbSyncOk');
+    if(okEl){ okEl.style.display = ''; }
+    renderAll();
+  }, (err) => {
+    console.error('Firestore listener error:', err);
+    if(loadEl) loadEl.style.display = 'none';
+    showNotif('⚠️ Erro de conexão com o banco de dados!', 'danger');
+  });
 }
 
-function saveHotel()    { localStorage.setItem('donpita_hotel',     JSON.stringify(hospedes)); }
-function saveMbrf()     { localStorage.setItem('donpita_mbrf',      JSON.stringify(mbrfs)); }
-function saveReservas() { localStorage.setItem('donpita_reservas',  JSON.stringify(reservas)); }
-function saveRefeicoes(){ localStorage.setItem('donpita_refeicoes', JSON.stringify(refeicoes)); }
-function saveHistorico(){ localStorage.setItem('donpita_historico', JSON.stringify(historico)); }
-function saveQuartos()  { localStorage.setItem('donpita_quartos',   JSON.stringify(quartos)); }
+function seedDefaults(){
+  let changed = false;
+  if (!hospedes.length) {
+    hospedes = [
+      { id:1, nome:'Carlos Mendes', quarto:'101', checkin:'2026-06-10', checkout:'2026-06-18', diaria:180, diasPagos:8, obs:'Café da manhã incluído', categoria:'hotel' },
+      { id:2, nome:'Ana Paula Souza', quarto:'205', checkin:'2026-06-13', checkout:'2026-06-20', diaria:200, diasPagos:4, obs:'', categoria:'hotel' },
+      { id:3, nome:'Roberto Lima', quarto:'310', checkin:'2026-06-05', checkout:'2026-06-16', diaria:150, diasPagos:11, obs:'Pediu quarto silencioso', categoria:'hotel' },
+    ];
+    changed = true;
+  }
+  if (!mbrfs.length) {
+    mbrfs = [
+      { id:1, nome:'Fernanda Costa', quarto:'402', matricula:'BRF-00421', setor:'Qualidade', checkin:'2026-06-08', checkout:'', diaria:130, diasPagos:6, obs:'', categoria:'mbrf' },
+      { id:2, nome:'Marcos Oliveira', quarto:'403', matricula:'BRF-00188', setor:'Produção',  checkin:'2026-06-12', checkout:'', diaria:130, diasPagos:2, obs:'', categoria:'mbrf' },
+    ];
+    changed = true;
+  }
+  if (!reservas.length) {
+    reservas = [
+      { id:1, nome:'Juliana Ferreira', quarto:'202', telefone:'(47) 99999-1234', origem:'Booking', checkin:'2026-06-20', checkout:'2026-06-24', diaria:180, status:'confirmada', obs:'Casal com criança' },
+      { id:2, nome:'Pedro Alves',      quarto:'305', telefone:'(47) 98888-5678', origem:'Direto',  checkin:'2026-06-22', checkout:'2026-06-25', diaria:150, status:'pendente',   obs:'' },
+    ];
+    changed = true;
+  }
+  if (!quartos.length) {
+    quartos = [
+      { id:1,  numero:'101', andar:'1º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Ar condicionado, TV a cabo, frigobar e banheiro privativo. Vista para o jardim.' },
+      { id:2,  numero:'102', andar:'1º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Ar condicionado, TV a cabo e banheiro privativo.' },
+      { id:3,  numero:'201', andar:'2º Andar', tipo:'Duplo',     capacidade:3, statusManual:'', descricao:'Duas camas de solteiro, ar condicionado, TV, frigobar.' },
+      { id:4,  numero:'202', andar:'2º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Vista para a rua, banheiro reformado.' },
+      { id:5,  numero:'205', andar:'2º Andar', tipo:'Executivo', capacidade:1, statusManual:'', descricao:'Escrivaninha, poltrona, TV 40", minibar, café expresso.' },
+      { id:6,  numero:'305', andar:'3º Andar', tipo:'Standard',  capacidade:2, statusManual:'', descricao:'Quarto padrão com ventilador e TV.' },
+      { id:7,  numero:'310', andar:'3º Andar', tipo:'Duplo',     capacidade:4, statusManual:'', descricao:'Quarto amplo para família, duas camas casal.' },
+      { id:8,  numero:'401', andar:'4º Andar', tipo:'Suíte',     capacidade:2, statusManual:'', descricao:'Suíte com banheira de hidromassagem, varanda e frigobar premium.' },
+      { id:9,  numero:'402', andar:'4º Andar', tipo:'BRF',       capacidade:1, statusManual:'', descricao:'Quarto destinado a funcionários BRF, com armário individual.' },
+      { id:10, numero:'403', andar:'4º Andar', tipo:'BRF',       capacidade:1, statusManual:'', descricao:'Quarto destinado a funcionários BRF, com armório individual.' },
+      { id:11, numero:'404', andar:'4º Andar', tipo:'Standard',  capacidade:2, statusManual:'manutencao', descricao:'Em reforma — troca de encanamento. Previsão: fim do mês.' },
+    ];
+    changed = true;
+  }
+  if(changed){
+    saveHotel(); saveMbrf(); saveReservas(); saveQuartos();
+  }
+}
 
 // ── UTILS ──
 function today()   { return new Date().toISOString().split('T')[0]; }
@@ -1838,14 +1963,14 @@ function salvarHospede(){
   const checkin=document.getElementById('f_checkin').value||today();
   const obj={
     nome,
-    quarto:     document.getElementById('f_quarto').value.trim(),
+    quarto:     document.getElementById('f_quarto').value.trim()||'',
     checkin,
-    checkout:   document.getElementById('f_checkout').value,
+    checkout:   document.getElementById('f_checkout').value||'',
     diaria:     parseFloat(document.getElementById('f_diaria').value)||0,
     diasPagos:  parseInt(document.getElementById('f_diasPagos').value)||0,
-    obs:        document.getElementById('f_obs').value.trim(),
-    matricula:  document.getElementById('f_matricula').value.trim(),
-    setor:      document.getElementById('f_setor').value.trim(),
+    obs:        document.getElementById('f_obs').value.trim()||'',
+    matricula:  document.getElementById('f_matricula').value.trim()||'',
+    setor:      document.getElementById('f_setor').value.trim()||'',
     categoria:  modalCat
   };
   const arr=modalCat==='hotel'?hospedes:mbrfs;
@@ -1890,7 +2015,24 @@ Object.entries(overlayMap).forEach(([oid, fn])=>{
 });
 
 // ── INIT ──
-renderAll();
+// Wait for Firebase module to initialize, then start real-time listener
+function startApp(){
+  if(window._firebaseReady && window._fbDb){
+    initFirebase();
+  } else {
+    window.addEventListener('firebaseReady', () => initFirebase(), { once: true });
+  }
+}
+startApp();
+
+// Storage check (now Firebase-based)
+setTimeout(()=>{
+  if(!window._fbDb){
+    const w=document.getElementById('storageWarn');
+    if(w) w.style.display='';
+    showNotif('⚠️ Firebase indisponível — verifique a conexão!','danger');
+  }
+}, 3000);
 </script>
 </body>
 </html>
