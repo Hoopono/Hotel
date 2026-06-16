@@ -51,48 +51,51 @@
 
   /* HEADER */
   header {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-    padding: 0 32px;
+    background: linear-gradient(135deg, #111827 0%, var(--navy) 60%, var(--navy-mid) 100%);
+    padding: 0 36px;
     display: flex; align-items: center; justify-content: space-between;
-    height: 72px; position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 20px rgba(26,35,64,0.25);
+    height: 76px; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 30px rgba(10,16,40,0.4);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
   }
-  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo { display: flex; align-items: center; gap: 16px; }
   .logo-icon {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-    border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif; font-size: 17px; color: var(--navy); font-weight: 700;
-    box-shadow: 0 2px 8px rgba(201,168,76,0.4);
+    width: 48px; height: 48px;
+    background: linear-gradient(145deg, var(--gold) 0%, var(--gold-light) 60%, #F5DFA0 100%);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); font-weight: 700;
+    box-shadow: 0 4px 16px rgba(201,168,76,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+    letter-spacing: -0.5px;
   }
-  .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); letter-spacing: 0.3px; }
-  .logo-sub { font-size: 10px; color: var(--gold-light); letter-spacing: 2.5px; text-transform: uppercase; margin-top: 2px; }
+  .logo-text { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); letter-spacing: 0.3px; line-height: 1.1; }
+  .logo-sub { font-size: 9.5px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; opacity: 0.85; }
   .header-right { display: flex; align-items: center; gap: 20px; }
-  .header-date { font-size: 12px; color: rgba(255,255,255,0.55); text-align: right; }
-  .header-date span { display: block; color: var(--gold-light); font-weight: 600; font-size: 13px; }
+  .header-date { font-size: 11.5px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.5; }
+  .header-date span { display: block; color: var(--gold-light); font-weight: 600; font-size: 14px; letter-spacing: 0.5px; }
 
   /* TABS */
   .tabs {
-    background: var(--navy-mid);
+    background: linear-gradient(180deg, #1C2B4A 0%, var(--navy-mid) 100%);
     display: flex; gap: 0; padding: 0 28px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab {
-    padding: 0 20px; height: 52px; font-size: 12px; font-weight: 600;
-    letter-spacing: 0.7px; text-transform: uppercase;
-    color: rgba(255,255,255,0.45); cursor: pointer;
-    border-bottom: 3px solid transparent; transition: all 0.2s;
+    padding: 0 18px; height: 54px; font-size: 11.5px; font-weight: 600;
+    letter-spacing: 0.6px; text-transform: uppercase;
+    color: rgba(255,255,255,0.38); cursor: pointer;
+    border-bottom: 3px solid transparent; transition: all 0.18s;
     display: flex; align-items: center; gap: 7px; white-space: nowrap; flex-shrink: 0;
+    position: relative;
   }
-  .tab:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.04); }
-  .tab.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(201,168,76,0.07); }
+  .tab:hover { color: rgba(255,255,255,0.78); background: rgba(255,255,255,0.035); }
+  .tab.active { color: var(--gold-light); border-bottom-color: var(--gold); background: rgba(201,168,76,0.08); }
   .tab-icon { font-size: 15px; }
   .badge {
-    font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: 700;
+    font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 700;
     min-width: 18px; text-align: center;
-    background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);
   }
   .tab.active .badge { background: var(--gold); color: var(--navy); }
   .badge-purple { background: var(--mbrf-purple); color: white; }
@@ -189,20 +192,23 @@
   /* STATS */
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
   .stat {
-    background: var(--white); border-radius: 12px; padding: 18px 20px;
-    border: 1px solid var(--border); border-top: 3px solid var(--gold);
+    background: var(--white); border-radius: 14px; padding: 20px 22px;
+    border: 1px solid var(--border); border-left: 4px solid var(--gold);
     position: relative; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(26,35,64,0.05);
+    transition: box-shadow 0.2s, transform 0.2s;
   }
-  .stat.green  { border-top-color: var(--green); }
-  .stat.red    { border-top-color: var(--red); }
-  .stat.purple { border-top-color: var(--mbrf-purple); }
-  .stat.teal   { border-top-color: var(--food-teal); }
-  .stat.blue   { border-top-color: var(--reserva-blue); }
-  .stat.brown  { border-top-color: var(--hist-brown); }
-  .stat.orange { border-top-color: var(--quarto-orange); }
-  .stat-label { font-size: 10px; color: var(--gray); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; font-weight: 600; }
-  .stat-value { font-size: 26px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif; }
-  .stat-sub   { font-size: 11px; color: var(--gray); margin-top: 3px; }
+  .stat:hover { box-shadow: 0 6px 20px rgba(26,35,64,0.1); transform: translateY(-1px); }
+  .stat.green  { border-left-color: var(--green); }
+  .stat.red    { border-left-color: var(--red); }
+  .stat.purple { border-left-color: var(--mbrf-purple); }
+  .stat.teal   { border-left-color: var(--food-teal); }
+  .stat.blue   { border-left-color: var(--reserva-blue); }
+  .stat.brown  { border-left-color: var(--hist-brown); }
+  .stat.orange { border-left-color: var(--quarto-orange); }
+  .stat-label { font-size: 10px; color: var(--gray); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; font-weight: 700; }
+  .stat-value { font-size: 28px; font-weight: 700; color: var(--navy); font-family: 'Playfair Display', serif; line-height: 1; }
+  .stat-sub   { font-size: 11px; color: var(--gray); margin-top: 5px; }
 
   /* TOOLBAR */
   .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -544,16 +550,30 @@
   /* ── RELATÓRIOS ── */
   .rel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 4px; }
   .rel-card {
-    background: var(--white); border-radius: 16px; border: 1px solid var(--border);
-    padding: 28px 24px; box-shadow: 0 2px 16px rgba(26,35,64,0.07);
+    background: var(--white); border-radius: 18px; border: 1px solid var(--border);
+    padding: 30px 26px; box-shadow: 0 4px 20px rgba(26,35,64,0.07);
     display: flex; flex-direction: column; gap: 14px;
+    transition: box-shadow 0.2s, transform 0.2s;
   }
-  .rel-icon { font-size: 42px; margin-bottom: 4px; }
-  .rel-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); font-weight: 700; }
-  .rel-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
-  .rel-info { display: flex; flex-direction: column; gap: 6px; }
-  .rel-info-item { font-size: 12px; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+  .rel-card:hover { box-shadow: 0 8px 30px rgba(26,35,64,0.12); transform: translateY(-2px); }
+  .rel-icon { font-size: 44px; margin-bottom: 2px; }
+  .rel-title { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--navy); font-weight: 700; }
+  .rel-desc { font-size: 13px; color: var(--gray); line-height: 1.65; }
+  .rel-info { display: flex; flex-direction: column; gap: 7px; }
+  .rel-info-item { font-size: 12.5px; color: var(--navy); display: flex; align-items: center; gap: 8px; }
   .rel-info-item::before { content: '✓'; color: var(--green); font-weight: 700; }
+  /* Seletor de período */
+  .rel-periodo { display: flex; gap: 8px; margin-bottom: 2px; }
+  .rel-periodo-btn {
+    flex: 1; padding: 10px 0; border-radius: 10px; border: 2px solid var(--border);
+    background: var(--cream); cursor: pointer; font-size: 12px; font-weight: 700;
+    font-family: 'Inter', sans-serif; color: var(--gray);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    transition: all 0.15s;
+  }
+  .rel-periodo-btn .p-icon { font-size: 22px; }
+  .rel-periodo-btn:hover { border-color: var(--navy); color: var(--navy); }
+  .rel-periodo-btn.selected { border-color: var(--gold); background: linear-gradient(135deg,#FFFBE8,#FFF6CC); color: var(--amber); }
   @media (max-width: 700px) { .rel-grid { grid-template-columns: 1fr; } }
 
   /* ── PRINT ── */
@@ -856,8 +876,19 @@
       <!-- Relatório de Hóspedes -->
       <div class="rel-card">
         <div class="rel-icon">🛏️</div>
-        <div class="rel-title">Relatório Diário de Hóspedes</div>
-        <div class="rel-desc">Lista completa dos hóspedes ativos com quarto, código de ficha, check-in, previsão de saída e status de pagamento.</div>
+        <div class="rel-title">Relatório de Hóspedes</div>
+        <div class="rel-desc">Lista completa dos hóspedes com quarto, código de ficha, check-in, previsão de saída e status de pagamento.</div>
+
+        <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Período</div>
+        <div class="rel-periodo" id="relHospPeriodo">
+          <button class="rel-periodo-btn selected" data-val="diario" onclick="selectRelPeriodo('hospedes','diario',this)">
+            <span class="p-icon">📅</span> Diário
+          </button>
+          <button class="rel-periodo-btn" data-val="mensal" onclick="selectRelPeriodo('hospedes','mensal',this)">
+            <span class="p-icon">📆</span> Mensal
+          </button>
+        </div>
+
         <div class="rel-info">
           <div class="rel-info-item">Nome e código de ficha</div>
           <div class="rel-info-item">Número do quarto</div>
@@ -865,7 +896,7 @@
           <div class="rel-info-item">Status do pagamento</div>
           <div class="rel-info-item">Inclui hóspedes Hotel + BRF</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirHospedes()">🖨️ Gerar e Imprimir</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirHospedesComPeriodo()">🖨️ Gerar e Imprimir</button>
       </div>
 
       <!-- Relatório de Caixa -->
@@ -873,6 +904,17 @@
         <div class="rel-icon">💰</div>
         <div class="rel-title">Relatório de Caixa</div>
         <div class="rel-desc">Resumo financeiro completo com receita recebida, saldos pendentes, totais por categoria e balanço geral do período.</div>
+
+        <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Período</div>
+        <div class="rel-periodo" id="relCaixaPeriodo">
+          <button class="rel-periodo-btn selected" data-val="diario" onclick="selectRelPeriodo('caixa','diario',this)">
+            <span class="p-icon">📅</span> Diário
+          </button>
+          <button class="rel-periodo-btn" data-val="mensal" onclick="selectRelPeriodo('caixa','mensal',this)">
+            <span class="p-icon">📆</span> Mensal
+          </button>
+        </div>
+
         <div class="rel-info">
           <div class="rel-info-item">Receita total recebida</div>
           <div class="rel-info-item">Saldos pendentes por hóspede</div>
@@ -880,7 +922,7 @@
           <div class="rel-info-item">Balanço geral</div>
           <div class="rel-info-item">Formas de pagamento</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirCaixa()">🖨️ Gerar e Imprimir</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirCaixaComPeriodo()">🖨️ Gerar e Imprimir</button>
       </div>
 
     </div>
@@ -1313,6 +1355,46 @@
     <button class="modal-close" onclick="document.getElementById('produtoHistOverlay').classList.remove('open')">✕</button>
     <div class="modal-title" id="produtoHistTitle">📋 Histórico do Produto</div>
     <div id="produtoHistBody"></div>
+  </div>
+</div>
+
+<!-- MODAL VENDA DIRETA (Estoque) -->
+<div class="modal-overlay" id="vendaModalOverlay">
+  <div class="modal" style="width:480px;">
+    <button class="modal-close" onclick="closeVendaModal()">✕</button>
+    <div class="modal-title">🛒 Venda de Produto</div>
+    <div id="vendaModalProdInfo" style="background:var(--cream);border-radius:10px;padding:12px 16px;border:1px solid var(--border);margin-bottom:18px;font-size:13px;"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Quantidade *</label>
+        <input class="form-input" type="number" id="venda_qtd" min="1" placeholder="1" oninput="updateVendaResumo()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Quarto (opcional)</label>
+        <input class="form-input" id="venda_quarto" placeholder="101, 205...">
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div class="form-label" style="margin-bottom:8px;">Forma de Pagamento</div>
+      <div class="pgto-formas">
+        <button class="pgto-forma-btn" data-forma="Dinheiro" onclick="selectVendaForma(this)"><span class="icon">💵</span><span class="label">Dinheiro</span></button>
+        <button class="pgto-forma-btn" data-forma="Pix"      onclick="selectVendaForma(this)"><span class="icon">📱</span><span class="label">Pix</span></button>
+        <button class="pgto-forma-btn" data-forma="Débito"   onclick="selectVendaForma(this)"><span class="icon">💳</span><span class="label">Débito</span></button>
+        <button class="pgto-forma-btn" data-forma="Crédito"  onclick="selectVendaForma(this)"><span class="icon">🏦</span><span class="label">Crédito</span></button>
+        <button class="pgto-forma-btn" data-forma="Fiado"    onclick="selectVendaForma(this)"><span class="icon">📄</span><span class="label">Fiado</span></button>
+      </div>
+    </div>
+    <div class="form-row full">
+      <div class="form-group">
+        <label class="form-label">Observação (opcional)</label>
+        <input class="form-input" id="venda_obs" placeholder="Nota, detalhe...">
+      </div>
+    </div>
+    <div class="mov-resumo" id="vendaResumo" style="margin-bottom:14px;"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeVendaModal()">Cancelar</button>
+      <button class="btn btn-estoque" onclick="confirmarVenda()">✅ Confirmar Venda</button>
+    </div>
   </div>
 </div>
 
@@ -2480,6 +2562,7 @@ const overlayMap = {
   'quartoDetailOverlay':   ()=>closeQuartoDetail(),
   'estoqueModalOverlay':   ()=>closeEstoqueModal(),
   'movModalOverlay':       ()=>closeMovModal(),
+  'vendaModalOverlay':     ()=>closeVendaModal(),
   'produtoHistOverlay':    ()=>document.getElementById('produtoHistOverlay').classList.remove('open'),
 };
 Object.entries(overlayMap).forEach(([oid, fn])=>{
@@ -2568,8 +2651,9 @@ function renderEstoque(){
         </div>
         ${p.obs?`<div style="font-size:11px;color:var(--gray);margin-bottom:8px;">📝 ${p.obs}</div>`:''}
         <div class="estoque-footer">
-          <button class="btn btn-sm" onclick="openMovModal(${p.id})">📤 Movimentar</button>
-          <button class="btn btn-sm" onclick="openProdutoHist(${p.id})">📋 Histórico</button>
+          <button class="btn btn-sm" style="background:linear-gradient(135deg,var(--estoque-green),#28A060);color:white;border:none;" onclick="openVendaModal(${p.id})">🛒 Vender</button>
+          <button class="btn btn-sm" onclick="openMovModal(${p.id})">📤 Entrada/Saída</button>
+          <button class="btn btn-sm" onclick="openProdutoHist(${p.id})">📋</button>
           <button class="btn btn-sm" onclick="openEstoqueModal(${p.id})">✏️</button>
           <button class="btn btn-sm danger" onclick="removerProduto(${p.id})">🗑️</button>
         </div>
@@ -2756,23 +2840,119 @@ function openProdutoHist(id){
 }
 
 
+// ── VENDA DIRETA DE ESTOQUE ──
+let vendaTarget = null;
+let vendaForma  = '';
+
+function openVendaModal(id){
+  const p = estoque.find(x=>x.id===id);
+  if(!p){ showNotif('Produto não encontrado!','warn'); return; }
+  if(qtdAtual(p) <= 0){ showNotif('Produto sem estoque!','warn'); return; }
+  vendaTarget = id;
+  vendaForma  = '';
+  document.querySelectorAll('#vendaModalOverlay .pgto-forma-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('venda_qtd').value    = 1;
+  document.getElementById('venda_quarto').value = '';
+  document.getElementById('venda_obs').value    = '';
+  document.getElementById('vendaModalProdInfo').innerHTML =
+    `<strong>${p.nome}</strong> <span style="color:var(--gray);font-size:11px;">${p.codigo||''}</span><br>
+     <span style="color:var(--estoque-green);font-weight:700;font-size:16px;">${fmt(p.preco)}</span>
+     <span style="color:var(--gray);font-size:11px;"> / ${p.unidade||'un'} · Estoque: ${qtdAtual(p)} ${p.unidade||'un'}</span>`;
+  updateVendaResumo();
+  document.getElementById('vendaModalOverlay').classList.add('open');
+}
+function closeVendaModal(){
+  document.getElementById('vendaModalOverlay').classList.remove('open');
+  vendaTarget = null; vendaForma = '';
+}
+function selectVendaForma(btn){
+  document.querySelectorAll('#vendaModalOverlay .pgto-forma-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  vendaForma = btn.dataset.forma;
+  updateVendaResumo();
+}
+function updateVendaResumo(){
+  const p   = estoque.find(x=>x.id===vendaTarget);
+  const qtd = parseInt(document.getElementById('venda_qtd')?.value)||0;
+  const res = document.getElementById('vendaResumo');
+  if(!p||!res) return;
+  const total = p.preco * qtd;
+  res.innerHTML = `
+    <div class="mov-resumo-row"><span class="rl">Produto</span><span class="rv">${p.nome}</span></div>
+    <div class="mov-resumo-row"><span class="rl">Quantidade</span><span class="rv">${qtd} ${p.unidade||'un'}</span></div>
+    <div class="mov-resumo-row"><span class="rl">Preço unitário</span><span class="rv">${fmt(p.preco)}</span></div>
+    <div class="mov-resumo-row total saida-total"><span class="rl">Total da venda</span><span class="rv" style="color:var(--estoque-green);">${fmt(total)}</span></div>
+    ${vendaForma?`<div class="mov-resumo-row"><span class="rl">Pagamento</span><span class="rv">${pgtoIcon(vendaForma)} ${vendaForma}</span></div>`:''}`;
+}
+async function confirmarVenda(){
+  const p      = estoque.find(x=>x.id===vendaTarget);
+  const qtd    = parseInt(document.getElementById('venda_qtd').value)||0;
+  const quarto = document.getElementById('venda_quarto').value.trim();
+  const obs    = document.getElementById('venda_obs').value.trim();
+  if(!p)                       { showNotif('Produto não encontrado!','warn'); return; }
+  if(qtd < 1)                  { showNotif('Informe a quantidade!','warn'); return; }
+  if(qtdAtual(p) < qtd)        { showNotif('Qtd. insuficiente no estoque!','warn'); return; }
+  if(!vendaForma)              { showNotif('Selecione a forma de pagamento!','warn'); return; }
+  const mov = {
+    tipo: 'saida', qtd, data: new Date().toISOString(),
+    obs: (quarto ? `Quarto ${quarto} — ` : '') + (vendaForma ? vendaForma : '') + (obs ? ' · '+obs : ''),
+    quarto, forma: vendaForma, venda: true
+  };
+  if(!p.movimentacoes) p.movimentacoes = [];
+  p.movimentacoes.push(mov);
+  await saveEstoque();
+  closeVendaModal(); renderAll();
+  showNotif(`Venda registrada: ${qtd}× ${p.nome} (${vendaForma})${quarto?' · Q.'+quarto:''}`);
+}
+
+// ── SELETOR DE PERÍODO DOS RELATÓRIOS ──
+const relPeriodo = { hospedes:'diario', caixa:'diario' };
+function selectRelPeriodo(tipo, val, btn){
+  relPeriodo[tipo] = val;
+  const container = document.getElementById(tipo==='hospedes'?'relHospPeriodo':'relCaixaPeriodo');
+  container.querySelectorAll('.rel-periodo-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function imprimirHospedesComPeriodo(){ imprimirHospedes(relPeriodo.hospedes); }
+function imprimirCaixaComPeriodo()   { imprimirCaixa(relPeriodo.caixa); }
+
 // ── RELATÓRIOS / IMPRESSÃO ──
-function imprimirHospedes(){
+function imprimirHospedes(periodo='diario'){
   const n = nowBR();
   const dataHoje = n.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
   const horaHoje = n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const mesAtual = today().slice(0,7); // "2026-06"
+  const mesLabel = n.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
 
-  const todos = [
-    ...hospedes.map(h=>({...h, _cat:'Hotel'})),
-    ...mbrfs.map(h=>({...h, _cat:'BRF'}))
-  ].sort((a,b)=>String(a.quarto).localeCompare(String(b.quarto),undefined,{numeric:true}));
+  // Para mensal, inclui ativos + histórico do mês
+  let todos = [];
+  if(periodo === 'mensal'){
+    const ativos = [
+      ...hospedes.map(h=>({...h, _cat:'Hotel', _status:'Ativo'})),
+      ...mbrfs.map(h=>({...h, _cat:'BRF', _status:'Ativo'}))
+    ];
+    const histMes = historico
+      .filter(x=>x.checkout && x.checkout.startsWith(mesAtual))
+      .map(x=>({...x, _cat:x.categoria==='mbrf'?'BRF':'Hotel', _status:'Saída', diasPagos:x.diasHospedado}));
+    todos = [...ativos, ...histMes];
+  } else {
+    todos = [
+      ...hospedes.map(h=>({...h, _cat:'Hotel', _status:'Ativo'})),
+      ...mbrfs.map(h=>({...h, _cat:'BRF', _status:'Ativo'}))
+    ];
+  }
+  todos.sort((a,b)=>String(a.quarto).localeCompare(String(b.quarto),undefined,{numeric:true}));
 
   const linhas = todos.map(h => {
-    const dias = diasNoHotel(h.checkin);
+    const dias = h._status==='Saída' ? (h.diasHospedado||0) : diasNoHotel(h.checkin);
     const status = statusPgto(h);
     const saldo = Math.max(0, h.diaria*dias - h.diaria*h.diasPagos);
     const badgeCls = status==='pago'?'pago':status==='vencido'?'vencido':'pendente';
     const badgeTxt = status==='pago'?'PAGO':status==='vencido'?'VENCIDO':'PENDENTE';
+    const statusBadge = h._status==='Saída'
+      ? `<span class="badge" style="background:#FDF1E6;color:#7A4A1A;">CHECKOUT</span>`
+      : `<span class="rpt-badge ${badgeCls}">${badgeTxt}</span>`;
     return `<tr>
       <td><strong>${h.nome}</strong>${h.codigoFicha?'<br><span style="font-size:10px;color:#888;">📋 '+h.codigoFicha+'</span>':''}</td>
       <td style="text-align:center;"><strong>${h.quarto||'—'}</strong></td>
@@ -2782,11 +2962,15 @@ function imprimirHospedes(){
       <td style="text-align:center;">${dias}d</td>
       <td style="text-align:right;">${fmt(h.diaria*dias)}</td>
       <td style="text-align:right;">${saldo>0?'<span style="color:#B23B3B;">'+fmt(saldo)+'</span>':'<span style="color:#2E7D52;">Quitado</span>'}</td>
-      <td style="text-align:center;"><span class="rpt-badge ${badgeCls}">${badgeTxt}</span></td>
+      <td style="text-align:center;">${statusBadge}</td>
     </tr>`;
   }).join('');
 
-  const totalHosp = hospedes.length + mbrfs.length;
+  const totalHosp = todos.length;
+  const periodoLabel = periodo==='mensal'
+    ? `Mensal — ${mesLabel}`
+    : `Diário — ${dataHoje}`;
+
   const w = window.open('','_blank','width=900,height=700');
   w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
   <title>Relatório de Hóspedes — Don Pita Hotel</title>
@@ -2797,12 +2981,14 @@ function imprimirHospedes(){
     .rpt-hotel-sub{font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
     .rpt-meta{text-align:right;font-size:12px;color:#555;}
     .rpt-meta strong{display:block;font-size:15px;color:#1A2340;margin-bottom:2px;}
+    .rpt-periodo-badge{display:inline-block;background:#E6EFF8;color:#1A4A7A;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;margin-top:4px;}
     .rpt-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1A2340;border-bottom:1px solid #ddd;padding-bottom:6px;margin:20px 0 10px;}
     table{width:100%;border-collapse:collapse;font-size:11px;}
     th{background:#1A2340;color:white;padding:8px 8px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.8px;}
     td{padding:7px 8px;border-bottom:1px solid #eee;vertical-align:middle;}
     tr:nth-child(even) td{background:#f8f8f8;}
     .badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;}
+    .rpt-badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700;}
     .pago{background:#EAF5EF;color:#2E7D52;}
     .pendente{background:#FDF5E0;color:#B07D1A;}
     .vencido{background:#FBF0F0;color:#B23B3B;}
@@ -2816,7 +3002,8 @@ function imprimirHospedes(){
   <div class="rpt-header">
     <div>
       <div class="rpt-hotel-name">🏨 Don Pita Hotel</div>
-      <div class="rpt-hotel-sub">Relatório Diário de Hóspedes</div>
+      <div class="rpt-hotel-sub">Relatório de Hóspedes</div>
+      <div class="rpt-periodo-badge">${periodo==='mensal'?'📆':'📅'} ${periodoLabel}</div>
     </div>
     <div class="rpt-meta">
       <strong>${dataHoje}</strong>
@@ -2824,7 +3011,7 @@ function imprimirHospedes(){
     </div>
   </div>
 
-  <div class="rpt-section-title">Hóspedes Ativos — ${totalHosp} no total</div>
+  <div class="rpt-section-title">Hóspedes${periodo==='mensal'?' do mês':' de hoje'} — ${totalHosp} no total</div>
   <table>
     <thead><tr>
       <th>Nome / Código Ficha</th>
@@ -2846,11 +3033,11 @@ function imprimirHospedes(){
       <div class="totais-value">${totalHosp}</div>
     </div>
     <div class="totais-item">
-      <div class="totais-label">Hotel</div>
+      <div class="totais-label">Hotel Ativos</div>
       <div class="totais-value">${hospedes.length}</div>
     </div>
     <div class="totais-item">
-      <div class="totais-label">BRF</div>
+      <div class="totais-label">BRF Ativos</div>
       <div class="totais-value">${mbrfs.length}</div>
     </div>
     <div class="totais-item">
@@ -2867,10 +3054,12 @@ function imprimirHospedes(){
   w.document.close();
 }
 
-function imprimirCaixa(){
+function imprimirCaixa(periodo='diario'){
   const n = nowBR();
   const dataHoje = n.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
   const horaHoje = n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const mesAtual = today().slice(0,7);
+  const mesLabel = n.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
 
   // Calcular totais Hotel
   const recHotel  = hospedes.reduce((a,h)=>a+h.diaria*h.diasPagos,0);
@@ -2887,9 +3076,39 @@ function imprimirCaixa(){
   const histMes = historico.filter(x=>x.checkout&&x.checkout.startsWith(mes));
   const recHist  = histMes.reduce((a,x)=>a+(x.valorPago||0),0);
 
-  const recTotal  = recHotel + recMbrf;
+  // Vendas de estoque (movimentações com venda:true)
+  const hoje = today(); // "2026-06-16"
+  const vendasEstoque = [];
+  estoque.forEach(p => {
+    (p.movimentacoes||[]).forEach(m => {
+      if(!m.venda) return;
+      const dataVenda = m.data ? m.data.slice(0,10) : '';
+      if(periodo === 'mensal' && !dataVenda.startsWith(mes)) return;
+      if(periodo === 'diario' && dataVenda !== hoje) return;
+      vendasEstoque.push({
+        nome: p.nome,
+        codigo: p.codigo||'',
+        unidade: p.unidade||'un',
+        preco: p.preco,
+        qtd: m.qtd,
+        total: p.preco * m.qtd,
+        quarto: m.quarto||'—',
+        forma: m.forma||'—',
+        data: m.data,
+        obs: m.obs||''
+      });
+    });
+  });
+  vendasEstoque.sort((a,b)=> (b.data||'').localeCompare(a.data||''));
+  const recVendas = vendasEstoque.reduce((a,v)=>a+v.total, 0);
+
+  // Para mensal, soma histórico também
+  const recHistMensal = periodo==='mensal' ? recHist : 0;
+
+  const recTotal  = recHotel + recMbrf + (periodo==='mensal' ? recHistMensal : 0) + recVendas;
   const saldTotal = saldHotel + saldMbrf;
   const totTotal  = totHotel + totMbrf;
+  const periodoLabel = periodo==='mensal' ? `Mensal — ${mesLabel}` : `Diário — ${dataHoje}`;
 
   // Linhas hóspedes Hotel
   const linhasHotel = hospedes.map(h=>{
@@ -2934,6 +3153,7 @@ function imprimirCaixa(){
     .rpt-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #1A2340;padding-bottom:14px;margin-bottom:20px;}
     .rpt-hotel-name{font-size:22px;font-weight:700;color:#1A2340;}
     .rpt-hotel-sub{font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+    .rpt-periodo-badge{display:inline-block;background:#E6EFF8;color:#1A4A7A;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;margin-top:5px;}
     .rpt-meta{text-align:right;font-size:12px;color:#555;}
     .rpt-meta strong{display:block;font-size:15px;color:#1A2340;margin-bottom:2px;}
     .rpt-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1A2340;border-bottom:1px solid #ddd;padding-bottom:6px;margin:20px 0 10px;}
@@ -2964,6 +3184,7 @@ function imprimirCaixa(){
     <div>
       <div class="rpt-hotel-name">🏨 Don Pita Hotel</div>
       <div class="rpt-hotel-sub">Relatório de Caixa</div>
+      <div class="rpt-periodo-badge">${periodo==='mensal'?'📆':'📅'} ${periodoLabel}</div>
     </div>
     <div class="rpt-meta">
       <strong>${dataHoje}</strong>
@@ -2971,7 +3192,7 @@ function imprimirCaixa(){
     </div>
   </div>
 
-  <div class="resumo-grid">
+  <div class="resumo-grid" style="grid-template-columns:repeat(4,1fr);">
     <div class="resumo-card hotel">
       <div class="resumo-label">Hotel — Recebido</div>
       <div class="resumo-value" style="color:#1A4A7A;">${fmt(recHotel)}</div>
@@ -2981,6 +3202,11 @@ function imprimirCaixa(){
       <div class="resumo-label">BRF — Recebido</div>
       <div class="resumo-value" style="color:#5B3A8C;">${fmt(recMbrf)}</div>
       <div class="resumo-sub">Pendente: ${fmt(saldMbrf)}</div>
+    </div>
+    <div class="resumo-card" style="background:#E6F4EC;border-color:#1A6B3A;">
+      <div class="resumo-label">Vendas Estoque</div>
+      <div class="resumo-value" style="color:#1A6B3A;">${fmt(recVendas)}</div>
+      <div class="resumo-sub">${vendasEstoque.length} venda(s)</div>
     </div>
     <div class="resumo-card total">
       <div class="resumo-label">Total em Caixa</div>
@@ -3009,10 +3235,40 @@ function imprimirCaixa(){
     <tbody>${linhasMbrf}</tbody>
   </table>` : '<p style="color:#aaa;font-size:12px;">Nenhum funcionário BRF ativo.</p>'}
 
+  <div class="rpt-section-title">📦 Vendas de Estoque (${vendasEstoque.length})</div>
+  ${vendasEstoque.length ? `<table>
+    <thead><tr>
+      <th>Produto</th>
+      <th style="text-align:center;">Qtd</th>
+      <th style="text-align:right;">Unit.</th>
+      <th style="text-align:right;">Total</th>
+      <th style="text-align:center;">Quarto</th>
+      <th style="text-align:center;">Pagamento</th>
+      <th>Data</th>
+    </tr></thead>
+    <tbody>
+      ${vendasEstoque.map(v=>`<tr>
+        <td><strong>${v.nome}</strong>${v.codigo?'<br><span style="font-size:10px;color:#888;">'+v.codigo+'</span>':''}</td>
+        <td style="text-align:center;">${v.qtd} ${v.unidade}</td>
+        <td style="text-align:right;">${fmt(v.preco)}</td>
+        <td style="text-align:right;font-weight:700;color:#1A6B3A;">${fmt(v.total)}</td>
+        <td style="text-align:center;">${v.quarto||'—'}</td>
+        <td style="text-align:center;">${v.forma||'—'}</td>
+        <td style="font-size:10px;">${v.data?new Date(v.data).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—'}</td>
+      </tr>`).join('')}
+      <tr style="background:#E6F4EC;">
+        <td colspan="3" style="font-weight:700;color:#1A6B3A;">Total Vendas</td>
+        <td style="text-align:right;font-weight:700;color:#1A6B3A;">${fmt(recVendas)}</td>
+        <td colspan="3"></td>
+      </tr>
+    </tbody>
+  </table>` : '<p style="color:#aaa;font-size:12px;">Nenhuma venda de estoque no período.</p>'}
+
   <div class="balanço">
-    <div class="bal-row"><span>💵 Receita Hotel</span><span>${fmt(recHotel)}</span></div>
-    <div class="bal-row"><span>🏢 Receita BRF</span><span>${fmt(recMbrf)}</span></div>
-    <div class="bal-row"><span>📁 Recebido no mês (saídas)</span><span>${fmt(recHist)}</span></div>
+    <div class="bal-row"><span>💵 Receita Hotel (ativo)</span><span>${fmt(recHotel)}</span></div>
+    <div class="bal-row"><span>🏢 Receita BRF (ativo)</span><span>${fmt(recMbrf)}</span></div>
+    <div class="bal-row"><span>📦 Vendas de Estoque</span><span>${fmt(recVendas)}</span></div>
+    <div class="bal-row"><span>📁 Checkouts${periodo==='mensal'?' do mês':' (histórico)'}</span><span>${fmt(recHist)}</span></div>
     <div class="bal-row"><span>⏳ Total pendente</span><span style="color:#ffaaaa;">${fmt(saldTotal)}</span></div>
     <div class="bal-row"><span>💰 TOTAL EM CAIXA</span><span>${fmt(recTotal)}</span></div>
   </div>
