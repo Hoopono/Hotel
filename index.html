@@ -1039,10 +1039,15 @@
         </div>
       </div>
     </div>
-    <div class="form-row">
+    <div class="form-row three">
       <div class="form-group">
         <label class="form-label">Data Check-in <span style="color:var(--gray);font-weight:400;font-size:9px;">(padrão: hoje)</span></label>
         <input class="form-input" type="date" id="f_checkin">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Hora Entrada <span style="color:var(--gold);font-weight:700;font-size:9px;">⏰ Regra 11h</span></label>
+        <input class="form-input" type="time" id="f_checkin_hora" placeholder="HH:MM">
+        <div style="font-size:9px;color:var(--gray);margin-top:3px;">Antes 11h = +1 diária · Depois 11h = normal</div>
       </div>
       <div class="form-group" id="f_checkout_group">
         <label class="form-label">Data Check-out <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
@@ -1596,7 +1601,17 @@ function nowBR()   { return new Date(new Date().toLocaleString('en-US', {timeZon
 function today()   { const n=nowBR(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`; }
 function nowISO()  { return new Date().toISOString(); }
 function diffDays(a,b){ return Math.max(0, Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000)); }
-function diasNoHotel(checkin){ return Math.max(1, Math.round((nowBR()-new Date(checkin+'T12:00:00'))/86400000)); }
+function diasNoHotel(checkin, checkinHora){
+  // Regra: diária vai das 11h às 11h do dia seguinte
+  // Se entrou ANTES das 11h → conta +1 diária (dormiu a noite anterior)
+  // Se entrou DEPOIS das 11h (ou sem hora) → conta normal
+  const hora = checkinHora || '11:00'; // sem hora = exatamente 11h = normal
+  const [hh, mm] = hora.split(':').map(Number);
+  const entradaAntes11 = hh < 11 || (hh === 11 && mm === 0 && false); // antes = hh < 11
+  const bonus = (hh < 11) ? 1 : 0;
+  const dias = Math.max(0, Math.round((nowBR() - new Date(checkin+'T12:00:00')) / 86400000));
+  return Math.max(1, dias + bonus);
+}
 function fmt(v){ return 'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2}); }
 function fmtDate(d){ if(!d) return '—'; const [y,m,dd]=d.split('-'); return `${dd}/${m}/${y}`; }
 function fmtDateFull(d){ if(!d) return ''; return new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{timeZone:TZ,weekday:'long',day:'2-digit',month:'long',year:'numeric'}); }
@@ -1605,7 +1620,7 @@ function fmtDateTimeShort(iso){ if(!iso) return '—'; return new Date(iso).toLo
 function fmtTime(iso){ if(!iso) return ''; return new Date(iso).toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'}); }
 function initials(nome){ return nome.split(' ').slice(0,2).map(p=>p[0]).join('').toUpperCase(); }
 function statusPgto(h){
-  const dias=diasNoHotel(h.checkin), pago=h.diasPagos;
+  const dias=diasNoHotel(h.checkin, h.checkinHora), pago=h.diasPagos;
   if(pago>=dias) return 'pago';
   if(h.checkout && new Date(h.checkout)<new Date(today())) return 'vencido';
   return 'pendente';
@@ -1694,7 +1709,7 @@ function renderTable(cat, filter=''){
   }
 
   tbody.innerHTML=rows.map(h=>{
-    const dias=diasNoHotel(h.checkin);
+    const dias=diasNoHotel(h.checkin, h.checkinHora);
     const valorTotal=h.diaria*dias;
     const valorPago=h.diaria*h.diasPagos;
     const saldo=valorTotal-valorPago;
@@ -1713,7 +1728,7 @@ function renderTable(cat, filter=''){
           ${h.obs?`<div style="font-size:11px;color:#8A8F9E;margin-top:2px;">📝 ${h.obs}</div>`:''}
         </td>
         <td><span class="badge-status badge-mbrf">${h.matricula||'—'}</span><div style="font-size:11px;color:#8A8F9E;margin-top:2px;">${h.setor||''}</div></td>
-        <td>${fmtDate(h.checkin)}</td>
+        <td>${fmtDate(h.checkin)}${h.checkinHora?`<div style="font-size:10px;color:var(--gray);margin-top:2px;">⏰ ${h.checkinHora}${parseInt(h.checkinHora)<11?'<span style="color:var(--amber);font-weight:700;margin-left:4px;">+1d</span>':''}</div>`:''}</td>
         <td><div style="font-weight:700;font-size:16px;color:var(--mbrf-purple);">${dias}d</div><div class="open-stay-badge">⏱ Em aberto</div></td>
         <td><div style="font-weight:600;">${h.diasPagos} dias</div><div style="font-size:11px;color:#8A8F9E;">${fmt(valorPago)}</div>${pgtoLabel}</td>
         <td><div style="font-weight:600;">${fmt(valorTotal)}</div><div style="font-size:11px;color:#8A8F9E;">${dias}d × ${fmt(h.diaria)}</div></td>
@@ -1743,7 +1758,7 @@ function renderTable(cat, filter=''){
           ${h.codigoFicha?`<div style="font-size:10px;color:var(--amber);font-weight:700;margin-top:2px;">📋 ${h.codigoFicha}</div>`:''}
           ${h.obs?`<div style="font-size:11px;color:#8A8F9E;margin-top:2px;">📝 ${h.obs}</div>`:''}
         </td>
-        <td>${fmtDate(h.checkin)}</td>
+        <td>${fmtDate(h.checkin)}${h.checkinHora?`<div style="font-size:10px;color:var(--gray);margin-top:2px;">⏰ ${h.checkinHora}${parseInt(h.checkinHora)<11?'<span style="color:var(--amber);font-weight:700;margin-left:4px;">+1d</span>':''}</div>`:''}</td>
         <td>${h.checkout
           ? (()=>{
               const restam = diffDays(today(), h.checkout);
@@ -1783,7 +1798,7 @@ function renderStats(){
     <div class="stat red"><div class="stat-label">Pendentes</div><div class="stat-value">${pendente}</div><div class="stat-sub">aguardando pagamento</div></div>
     <div class="stat"><div class="stat-label">Receita Recebida</div><div class="stat-value" style="font-size:18px;">${fmt(receita)}</div><div class="stat-sub">total em caixa</div></div>`;
 
-  const totalDevido=mbrfs.reduce((a,h)=>a+Math.max(0,h.diaria*diasNoHotel(h.checkin)-h.diaria*h.diasPagos),0);
+  const totalDevido=mbrfs.reduce((a,h)=>a+Math.max(0,h.diaria*diasNoHotel(h.checkin, h.checkinHora)-h.diaria*h.diasPagos),0);
   const mrReceita=mbrfs.reduce((a,h)=>a+h.diaria*h.diasPagos,0);
   document.getElementById('statsMbrf').innerHTML=`
     <div class="stat purple"><div class="stat-label">Funcionários BRF</div><div class="stat-value">${mbrfs.length}</div><div class="stat-sub">hospedados agora</div></div>
@@ -1938,7 +1953,7 @@ function openQuartoDetail(id){
     const arr = hospede.cat==='hotel' ? hospedes : mbrfs;
     const h   = arr.find(x=>x.id===hospede.id);
     if(h){
-      const dias = diasNoHotel(h.checkin);
+      const dias = diasNoHotel(h.checkin, h.checkinHora);
       const saldo= Math.max(0, h.diaria*dias - h.diaria*h.diasPagos);
       document.getElementById('qd_guestInfo').innerHTML = `
         <div style="background:var(--cream);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
@@ -2047,7 +2062,7 @@ function openConfirmSaida(cat, id){
   const h   = arr.find(x=>x.id===id);
   if(!h) return;
   saidaTarget = { cat, id };
-  const dias  = diasNoHotel(h.checkin);
+  const dias  = diasNoHotel(h.checkin, h.checkinHora);
   const saldo = Math.max(0, h.diaria*dias - h.diaria*h.diasPagos);
   const valorPago = h.diaria*h.diasPagos;
 
@@ -2076,7 +2091,7 @@ function executarSaida(){
   const h   = arr.find(x=>x.id===id);
   if(!h) return;
 
-  const dias    = diasNoHotel(h.checkin);
+  const dias    = diasNoHotel(h.checkin, h.checkinHora);
   const saldo   = Math.max(0, h.diaria*dias - h.diaria*h.diasPagos);
   const valorPago = h.diaria * h.diasPagos;
   const valorTotal = h.diaria * dias;
@@ -2303,7 +2318,7 @@ function openPgtoModal(cat, id){
   const h   = arr.find(x=>x.id===id);
   if(!h) return;
   document.querySelectorAll('.pgto-forma-btn').forEach(b=>b.classList.remove('selected'));
-  document.getElementById('pgto_dias').value = Math.max(0, diasNoHotel(h.checkin)-h.diasPagos);
+  document.getElementById('pgto_dias').value = Math.max(0, diasNoHotel(h.checkin, h.checkinHora)-h.diasPagos);
   document.getElementById('pgto_obs').value  = '';
   updatePgtoResumo();
   document.getElementById('pgtoModalOverlay').classList.add('open');
@@ -2319,7 +2334,7 @@ function updatePgtoResumo(){
   const arr=cat==='hotel'?hospedes:mbrfs;
   const h=arr.find(x=>x.id===id);
   if(!h) return;
-  const dias  = diasNoHotel(h.checkin);
+  const dias  = diasNoHotel(h.checkin, h.checkinHora);
   const add   = parseInt(document.getElementById('pgto_dias').value)||0;
   const novoPago  = h.diasPagos+add;
   const valorAdd  = add*h.diaria;
@@ -2366,7 +2381,7 @@ function confirmarImpressaoRecibo(){
 function gerarReciboPagamento(cat, h, diasPagos, forma){
   const emissao = new Date().toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
                 + ' às ' + new Date().toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
-  const diasTotal = diasNoHotel(h.checkin);
+  const diasTotal = diasNoHotel(h.checkin, h.checkinHora);
   const valorPago = h.diaria * h.diasPagos; // já atualizado
   const valorTotal = h.diaria * diasTotal;
   const saldoRestante = Math.max(0, valorTotal - valorPago);
@@ -2537,7 +2552,7 @@ function openInfoModal(cat, id){
   const h=arr.find(x=>x.id===id);
   if(!h) return;
 
-  const dias       = diasNoHotel(h.checkin);
+  const dias       = diasNoHotel(h.checkin, h.checkinHora);
   const valorQuarto= h.diaria * dias;
   const valorPago  = h.diaria * h.diasPagos;
   const saldo      = Math.max(0, valorQuarto - valorPago);
@@ -2625,7 +2640,7 @@ function imprimirFichaHospede(cat, id){
   const h   = arr.find(x=>x.id===id);
   if(!h) return;
 
-  const dias         = diasNoHotel(h.checkin);
+  const dias         = diasNoHotel(h.checkin, h.checkinHora);
   const valorQuarto  = h.diaria * dias;
   const valorPago    = h.diaria * h.diasPagos;
   const saldo        = Math.max(0, valorQuarto - valorPago);
@@ -3092,6 +3107,7 @@ function openModal(cat,id=null){
       document.getElementById('f_nome').value=h.nome||'';
       document.getElementById('f_telefone').value=h.telefone||'';
       document.getElementById('f_checkin').value=h.checkin||'';
+      document.getElementById('f_checkin_hora').value=h.checkinHora||'';
       document.getElementById('f_checkout').value=h.checkout||'';
       document.getElementById('f_diaria').value=h.diaria||'';
       document.getElementById('f_diasPagos').value=h.diasPagos||0;
@@ -3106,6 +3122,9 @@ function openModal(cat,id=null){
     document.getElementById('f_nome').value = isMbrf ? 'BRF-' : '';
     document.getElementById('f_matricula').value = isMbrf ? 'BRF-' : '';
     document.getElementById('f_checkin').value=today();
+    // Hora atual no campo de entrada
+    const agora = nowBR();
+    document.getElementById('f_checkin_hora').value = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
     document.getElementById('f_diasPagos').value='0';
     populateQuartosSelect(cat, '');
     // Foco no nome após o prefixo
@@ -3142,8 +3161,9 @@ async function salvarHospede() {
 
   const obj = {
     nome: nomeFormatado, telefone, quarto,
-    checkin:    document.getElementById('f_checkin').value,
-    checkout:   isMbrf ? '' : document.getElementById('f_checkout').value,
+    checkin:      document.getElementById('f_checkin').value,
+    checkinHora:  document.getElementById('f_checkin_hora').value || '',
+    checkout:     isMbrf ? '' : document.getElementById('f_checkout').value,
     diaria:     Number(document.getElementById('f_diaria').value || 0),
     diasPagos:  Number(document.getElementById('f_diasPagos').value || 0),
     obs:        document.getElementById('f_obs').value.trim(),
@@ -3591,7 +3611,7 @@ function imprimirHospedes(periodo='diario'){
   todos.sort((a,b)=>String(a.quarto).localeCompare(String(b.quarto),undefined,{numeric:true}));
 
   const linhas = todos.map(h => {
-    const dias = h._status==='Saída' ? (h.diasHospedado||0) : diasNoHotel(h.checkin);
+    const dias = h._status==='Saída' ? (h.diasHospedado||0) : diasNoHotel(h.checkin, h.checkinHora);
     const status = statusPgto(h);
     const saldo = Math.max(0, h.diaria*dias - h.diaria*h.diasPagos);
     const badgeCls = status==='pago'?'pago':status==='vencido'?'vencido':'pendente';
@@ -3709,13 +3729,13 @@ function imprimirCaixa(periodo='diario'){
 
   // Calcular totais Hotel
   const recHotel  = hospedes.reduce((a,h)=>a+h.diaria*h.diasPagos,0);
-  const saldHotel = hospedes.reduce((a,h)=>a+Math.max(0,h.diaria*diasNoHotel(h.checkin)-h.diaria*h.diasPagos),0);
-  const totHotel  = hospedes.reduce((a,h)=>a+h.diaria*diasNoHotel(h.checkin),0);
+  const saldHotel = hospedes.reduce((a,h)=>a+Math.max(0,h.diaria*diasNoHotel(h.checkin, h.checkinHora)-h.diaria*h.diasPagos),0);
+  const totHotel  = hospedes.reduce((a,h)=>a+h.diaria*diasNoHotel(h.checkin, h.checkinHora),0);
 
   // Calcular totais BRF
   const recMbrf   = mbrfs.reduce((a,h)=>a+h.diaria*h.diasPagos,0);
-  const saldMbrf  = mbrfs.reduce((a,h)=>a+Math.max(0,h.diaria*diasNoHotel(h.checkin)-h.diaria*h.diasPagos),0);
-  const totMbrf   = mbrfs.reduce((a,h)=>a+h.diaria*diasNoHotel(h.checkin),0);
+  const saldMbrf  = mbrfs.reduce((a,h)=>a+Math.max(0,h.diaria*diasNoHotel(h.checkin, h.checkinHora)-h.diaria*h.diasPagos),0);
+  const totMbrf   = mbrfs.reduce((a,h)=>a+h.diaria*diasNoHotel(h.checkin, h.checkinHora),0);
 
   // Histórico do mês
   const mes = today().slice(0,7);
@@ -3758,7 +3778,7 @@ function imprimirCaixa(periodo='diario'){
 
   // Linhas hóspedes Hotel
   const linhasHotel = hospedes.map(h=>{
-    const dias=diasNoHotel(h.checkin);
+    const dias=diasNoHotel(h.checkin, h.checkinHora);
     const total=h.diaria*dias;
     const pago=h.diaria*h.diasPagos;
     const saldo=Math.max(0,total-pago);
@@ -3775,7 +3795,7 @@ function imprimirCaixa(periodo='diario'){
   }).join('');
 
   const linhasMbrf = mbrfs.map(h=>{
-    const dias=diasNoHotel(h.checkin);
+    const dias=diasNoHotel(h.checkin, h.checkinHora);
     const total=h.diaria*dias;
     const pago=h.diaria*h.diasPagos;
     const saldo=Math.max(0,total-pago);
