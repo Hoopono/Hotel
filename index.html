@@ -923,24 +923,6 @@
           <div class="rel-info-item">Formas de pagamento</div>
         </div>
         <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirCaixaComPeriodo()">🖨️ Gerar e Imprimir</button>
-
-        <!-- 🧹 Botão de limpeza de vendas de teste -->
-        <!-- Para DESATIVAR este botão, adicione o atributo: data-disabled="true" -->
-        <div id="btnLimparVendasWrap" style="margin-top:10px;">
-          <button
-            id="btnLimparVendas"
-            data-disabled="false"
-            class="btn"
-            style="width:100%;justify-content:center;background:linear-gradient(135deg,#6B2020 0%,#9B3B3B 100%);color:white;font-size:12px;opacity:0.75;border:1.5px dashed rgba(255,255,255,0.3);"
-            onclick="limparVendasTeste()"
-          >
-            🧹 Limpar Vendas de Teste
-          </button>
-          <div style="font-size:10px;color:var(--gray);text-align:center;margin-top:5px;line-height:1.4;">
-            ⚠️ Remove <strong>todas</strong> as movimentações de venda do Supabase.<br>Use apenas para apagar dados de teste.
-          </div>
-        </div>
-
       </div>
 
     </div>
@@ -3503,70 +3485,6 @@ function imprimirCaixa(periodo='diario'){
   w.document.close();
 }
 
-// ── LIMPAR VENDAS DE TESTE ──
-async function limparVendasTeste(){
-  // Verifica se o botão está desativado via HTML (data-disabled="true")
-  const btn = document.getElementById('btnLimparVendas');
-  if(btn && btn.getAttribute('data-disabled') === 'true'){
-    showNotif('🔒 Botão de limpeza está desativado.','warning');
-    return;
-  }
-
-  const confirmado = confirm(
-    '⚠️ ATENÇÃO: Esta ação irá apagar TODAS as movimentações com venda=true do Supabase.\n\n' +
-    'Isso afetará o relatório de caixa permanentemente.\n\n' +
-    'Tem certeza que deseja continuar?'
-  );
-  if(!confirmado) return;
-
-  const confirmado2 = confirm('🔴 Confirmar novamente: apagar TODAS as vendas de estoque?');
-  if(!confirmado2) return;
-
-  if(!window._supa){
-    showNotif('⚠️ Supabase não disponível.','danger');
-    return;
-  }
-
-  try {
-    if(btn){ btn.disabled = true; btn.textContent = '⏳ Limpando...'; }
-
-    // Busca todas as movimentações com venda=true
-    const { data: vendas, error: errBusca } = await window._supa
-      .from('movimentacoes')
-      .select('id')
-      .eq('venda', true);
-
-    if(errBusca) throw errBusca;
-
-    if(!vendas || vendas.length === 0){
-      showNotif('✅ Nenhuma venda encontrada para apagar.','success');
-      if(btn){ btn.disabled = false; btn.textContent = '🧹 Limpar Vendas de Teste'; }
-      return;
-    }
-
-    const ids = vendas.map(v => v.id);
-
-    const { error: errDel } = await window._supa
-      .from('movimentacoes')
-      .delete()
-      .in('id', ids);
-
-    if(errDel) throw errDel;
-
-    showNotif(`🧹 ${ids.length} venda(s) de teste removidas com sucesso!`, 'success');
-    if(typeof renderAll === 'function') renderAll();
-
-  } catch(e) {
-    console.error('Erro ao limpar vendas:', e);
-    showNotif('❌ Erro ao limpar vendas: ' + (e.message || e), 'danger');
-  } finally {
-    if(btn){ btn.disabled = false; btn.textContent = '🧹 Limpar Vendas de Teste'; }
-  }
-}
-
-// Para desativar o botão via JS após o carregamento (alternativa ao data-disabled no HTML):
-// document.getElementById('btnLimparVendas')?.setAttribute('data-disabled','true');
-
 // ── INIT ──
 function startApp(){
   if(window._supaReady && window._supa){
@@ -3589,4 +3507,3 @@ setTimeout(()=>{
 
 </body>
 </html>
-
