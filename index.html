@@ -1082,14 +1082,28 @@
   <div class="modal">
     <button class="modal-close" onclick="closeReservaModal()">✕</button>
     <div class="modal-title" id="reservaModalTitle">📋 Nova Reserva</div>
+
+    <!-- TIPO: Hotel ou BRF -->
+    <div style="margin-bottom:18px;">
+      <div class="form-label" style="margin-bottom:8px;">Tipo de Hóspede</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <button type="button" id="r_tipo_hotel" class="mov-tipo-btn entrada selected" onclick="selectReservaTipo('hotel')" style="border-color:var(--reserva-blue);background:var(--reserva-light);">
+          <span class="icon">🏨</span><span class="label" style="color:var(--reserva-blue);">Hóspede Hotel</span>
+        </button>
+        <button type="button" id="r_tipo_brf" class="mov-tipo-btn saida" onclick="selectReservaTipo('brf')">
+          <span class="icon">🏢</span><span class="label">Funcionário BRF</span>
+        </button>
+      </div>
+    </div>
+
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Nome do Hóspede *</label>
+        <label class="form-label" id="r_nome_label">Nome do Hóspede *</label>
         <input class="form-input" id="r_nome" placeholder="João da Silva">
       </div>
       <div class="form-group">
-        <label class="form-label">Quarto</label>
-        <input class="form-input" id="r_quarto" placeholder="101">
+        <label class="form-label">Quarto <span style="color:var(--gray);font-weight:400;font-size:9px;">(disponíveis)</span></label>
+        <select class="form-select" id="r_quarto"></select>
       </div>
     </div>
     <div class="form-row">
@@ -1503,6 +1517,7 @@ let estoque   = [];
 let currentTab      = 'hotel';
 let editingId       = null;
 let editingReservaId= null;
+let reservaTipoSel = 'hotel'; // 'hotel' ou 'brf'
 let editingQuartoId = null;
 let foodDate        = new Date().toISOString().split('T')[0];
 let quartoFilter    = 'todos';
@@ -1565,17 +1580,38 @@ async function initSupabase(){
   renderAll();
 
   // Realtime: escuta mudanças na tabela donpita
-  window._supa
-    .channel('donpita-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'donpita' }, async (payload) => {
-      // Atualiza cache local com a linha que mudou
-      if(payload.new && payload.new.chave){
-        DB._cache[payload.new.chave] = payload.new.valor;
-      }
-      applyData();
-      renderAll();
-    })
-    .subscribe();
+  let _realtimeChannel = null;
+  function setupRealtime(){
+    if(_realtimeChannel){
+      try{ window._supa.removeChannel(_realtimeChannel); } catch(e){}
+    }
+    _realtimeChannel = window._supa
+      .channel('donpita-changes-' + Date.now())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'donpita' }, async (payload) => {
+        if(payload.new && payload.new.chave){
+          DB._cache[payload.new.chave] = payload.new.valor;
+        }
+        applyData();
+        renderAll();
+      })
+      .subscribe((status) => {
+        if(status === 'SUBSCRIBED'){
+          const okEl = document.getElementById('fbSyncOk');
+          if(okEl) okEl.title = '🟢 Realtime conectado';
+        }
+        if(status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED'){
+          // Reconecta após 3s
+          setTimeout(setupRealtime, 3000);
+        }
+      });
+  }
+  setupRealtime();
+
+  // Polling de fallback a cada 30s — garante sincronização mesmo sem realtime
+  setInterval(async () => {
+    const ok = await DB.loadAll();
+    if(ok){ applyData(); renderAll(); }
+  }, 30000);
 }
 
 function seedDefaults(){
@@ -2960,7 +2996,7 @@ function renderReservas(filter=''){
     return `<div class="reserva-card">
       <div class="reserva-date-badge"><div class="reserva-date-day">${day}</div><div class="reserva-date-mon">${mon}</div></div>
       <div class="reserva-info">
-        <div class="reserva-name">${r.nome}</div>
+        <div class="reserva-name">${r.nome} ${r.tipo==='brf'?'<span style="font-size:10px;background:var(--mbrf-light);color:var(--mbrf-purple);padding:2px 8px;border-radius:10px;font-weight:700;vertical-align:middle;">🏢 BRF</span>':'<span style="font-size:10px;background:var(--reserva-light);color:var(--reserva-blue);padding:2px 8px;border-radius:10px;font-weight:700;vertical-align:middle;">🏨 Hotel</span>'}</div>
         <div class="reserva-details">
           <span>🚪 Quarto ${r.quarto||'—'}</span>
           ${nights>0?`<span>🌙 ${nights} noite${nights!==1?'s':''} · ${total}</span>`:''}
@@ -2975,7 +3011,7 @@ function renderReservas(filter=''){
         <div style="display:flex;gap:6px;">
           <button class="btn-sm" style="${r.status==='confirmada'?'opacity:0.4;pointer-events:none':''}" onclick="confirmarReserva(${r.id})">✓</button>
           <button class="btn-sm" onclick="editReserva(${r.id})">✏️</button>
-          <button class="btn-sm" onclick="converterReserva(${r.id})" title="Converter para hóspede ativo">🏨</button>
+          <button class="btn-sm" onclick="converterReserva(${r.id})" title="Converter para hóspede ativo">${r.tipo==='brf'?'🏢':'🏨'} Check-in</button>
           <button class="btn-sm danger" onclick="removerReserva(${r.id})">🗑️</button>
         </div>
       </div>
@@ -2983,6 +3019,60 @@ function renderReservas(filter=''){
   }).join('');
 }
 function filterReservas(val){ renderReservas(val); }
+function selectReservaTipo(tipo){
+  reservaTipoSel = tipo;
+  const btnHotel = document.getElementById('r_tipo_hotel');
+  const btnBrf   = document.getElementById('r_tipo_brf');
+  const nomeInput = document.getElementById('r_nome');
+  const nomeLbl   = document.getElementById('r_nome_label');
+
+  btnHotel.classList.toggle('selected', tipo === 'hotel');
+  btnBrf.classList.toggle('selected', tipo === 'brf');
+
+  if(tipo === 'hotel'){
+    btnHotel.style.borderColor = 'var(--reserva-blue)';
+    btnHotel.style.background  = 'var(--reserva-light)';
+    btnHotel.querySelector('.label').style.color = 'var(--reserva-blue)';
+    btnBrf.style.borderColor = 'var(--border)';
+    btnBrf.style.background  = 'white';
+    btnBrf.querySelector('.label').style.color = 'var(--gray)';
+    nomeInput.placeholder = 'João da Silva';
+    if(nomeLbl) nomeLbl.textContent = 'Nome do Hóspede *';
+    // Remove prefixo BRF- se estava BRF
+    if(nomeInput.value.startsWith('BRF-')) nomeInput.value = nomeInput.value.slice(4);
+  } else {
+    btnBrf.style.borderColor = 'var(--mbrf-purple)';
+    btnBrf.style.background  = 'var(--mbrf-light)';
+    btnBrf.querySelector('.label').style.color = 'var(--mbrf-purple)';
+    btnHotel.style.borderColor = 'var(--border)';
+    btnHotel.style.background  = 'white';
+    btnHotel.querySelector('.label').style.color = 'var(--gray)';
+    nomeInput.placeholder = 'BRF-Nome do funcionário';
+    if(nomeLbl) nomeLbl.textContent = 'Nome do Funcionário *';
+    // Coloca prefixo BRF- automaticamente se ainda não tem
+    if(nomeInput.value && !nomeInput.value.startsWith('BRF-')) nomeInput.value = 'BRF-' + nomeInput.value;
+    else if(!nomeInput.value) nomeInput.value = 'BRF-';
+    // Foca e posiciona cursor após BRF-
+    setTimeout(()=>{ nomeInput.focus(); nomeInput.setSelectionRange(4,4); }, 50);
+  }
+}
+
+function populateReservaQuartosSelect(currentQuarto=''){
+  const sel = document.getElementById('r_quarto');
+  if(!sel) return;
+  // Para reservas, mostra todos os quartos (inclusive ocupados) pois a reserva é futura
+  const lista = [...quartos]
+    .filter(q => q.statusManual !== 'manutencao')
+    .sort((a,b) => String(a.numero).localeCompare(String(b.numero), undefined, {numeric:true}));
+  sel.innerHTML = '<option value="">— Selecione um quarto —</option>'
+    + lista.map(q => {
+        const st = getQuartoStatus(q);
+        const stLabel = st === 'livre' ? '✅ Livre' : st === 'ocupado' ? '🛏 Ocupado' : st === 'mbrf' ? '🏢 BRF' : '';
+        const label = `Quarto ${q.numero}${q.andar?' · '+q.andar:''} — ${q.tipo||'Standard'} ${stLabel}`;
+        return `<option value="${q.numero}"${q.numero===currentQuarto?' selected':''}>${label}</option>`;
+      }).join('');
+}
+
 function openReservaModal(id=null){
   editingReservaId=id;
   document.getElementById('reservaModalOverlay').classList.add('open');
@@ -2992,7 +3082,7 @@ function openReservaModal(id=null){
     const r=reservas.find(x=>x.id===id);
     if(r){
       document.getElementById('r_nome').value=r.nome;
-      document.getElementById('r_quarto').value=r.quarto||'';
+      populateReservaQuartosSelect(r.quarto||'');
       document.getElementById('r_telefone').value=r.telefone||'';
       document.getElementById('r_origem').value=r.origem||'Direto';
       document.getElementById('r_checkin').value=r.checkin;
@@ -3000,19 +3090,23 @@ function openReservaModal(id=null){
       document.getElementById('r_diaria').value=r.diaria||'';
       document.getElementById('r_status').value=r.status||'confirmada';
       document.getElementById('r_obs').value=r.obs||'';
+      reservaTipoSel=r.tipo||'hotel'; selectReservaTipo(reservaTipoSel);
     }
   } else {
-    ['r_nome','r_quarto','r_telefone','r_checkin','r_checkout','r_diaria','r_obs'].forEach(fid=>{const el=document.getElementById(fid);if(el)el.value='';});
+    ['r_nome','r_telefone','r_checkin','r_checkout','r_diaria','r_obs'].forEach(fid=>{const el=document.getElementById(fid);if(el)el.value='';});;
+    populateReservaQuartosSelect('');
     document.getElementById('r_origem').value='Direto';
     document.getElementById('r_status').value='confirmada';
+    reservaTipoSel='hotel'; selectReservaTipo('hotel');
   }
 }
 function closeReservaModal(){ document.getElementById('reservaModalOverlay').classList.remove('open'); editingReservaId=null; }
 function salvarReserva(){
-  const nome=document.getElementById('r_nome').value.trim();
+  let nome=document.getElementById('r_nome').value.trim();
+  if(reservaTipoSel==='brf' && nome && !nome.startsWith('BRF-')) nome='BRF-'+nome;
   const checkin=document.getElementById('r_checkin').value;
-  if(!nome){ showNotif('Preencha o nome do hóspede!','warn'); return; }
-  const obj={ nome, quarto:document.getElementById('r_quarto').value.trim(), telefone:document.getElementById('r_telefone').value.trim(), origem:document.getElementById('r_origem').value, checkin, checkout:document.getElementById('r_checkout').value, diaria:parseFloat(document.getElementById('r_diaria').value)||0, status:document.getElementById('r_status').value, obs:document.getElementById('r_obs').value.trim() };
+  if(!nome || nome==='BRF-'){ showNotif('Preencha o nome!','warn'); return; }
+  const obj={ nome, quarto:document.getElementById('r_quarto').value, telefone:document.getElementById('r_telefone').value.trim(), origem:document.getElementById('r_origem').value, checkin, checkout:document.getElementById('r_checkout').value, diaria:parseFloat(document.getElementById('r_diaria').value)||0, status:document.getElementById('r_status').value, obs:document.getElementById('r_obs').value.trim(), tipo:reservaTipoSel };
   if(editingReservaId){ const r=reservas.find(x=>x.id===editingReservaId); if(r) Object.assign(r,obj); showNotif('Reserva atualizada!'); }
   else { reservas.push({id:(reservas.length?Math.max(...reservas.map(x=>x.id)):0)+1,...obj}); showNotif('Reserva cadastrada!'); }
   saveReservas(); closeReservaModal(); renderAll();
@@ -3022,11 +3116,16 @@ function confirmarReserva(id){ const r=reservas.find(x=>x.id===id); if(r){r.stat
 // Mostra modal para escolher a categoria da reserva
 let _reservaConvertendoId = null;
 function converterReserva(id){
-  _reservaConvertendoId = id;
   const r = reservas.find(x=>x.id===id);
   if(!r) return;
-  document.getElementById('convertReservaNome').textContent = r.nome;
-  document.getElementById('convertReservaOverlay').classList.add('open');
+  _reservaConvertendoId = id;
+  // Tipo definido na reserva → converte direto
+  if(r.tipo === 'brf'){
+    executarConversaoReserva('brf');
+    return;
+  }
+  // hotel ou sem tipo → converte como hotel direto
+  executarConversaoReserva('hotel');
 }
 function closeConvertReservaModal(){
   document.getElementById('convertReservaOverlay').classList.remove('open');
@@ -3045,9 +3144,9 @@ function executarConversaoReserva(cat){
     hospedes.push({id:(hospedes.length?Math.max(...hospedes.map(x=>x.id)):0)+1,nome:r.nome,quarto:r.quarto||'',checkin:r.checkin||today(),checkout:r.checkout||'',diaria:r.diaria||0,diasPagos:0,obs:r.obs||'',categoria:'hotel',codigoFicha:cod,telefone:r.telefone||''});
     saveHotel();
   } else {
-    // BRF — adiciona prefixo BRF- se não tiver
-    const nomeBrf = r.nome.startsWith('BRF-') ? r.nome : 'BRF-'+r.nome;
-    mbrfs.push({id:(mbrfs.length?Math.max(...mbrfs.map(x=>x.id)):0)+1,nome:nomeBrf,quarto:r.quarto||'',checkin:r.checkin||today(),checkout:'',diaria:r.diaria||0,diasPagos:0,obs:r.obs||'',categoria:'mbrf',codigoFicha:cod,matricula:'BRF-',setor:'',telefone:r.telefone||''});
+    // BRF — adiciona ao array de mbrfs sem forçar prefixo no nome
+    const matBrf = r.matricula && !r.matricula.startsWith('BRF-') ? 'BRF-'+r.matricula : (r.matricula||'BRF-');
+    mbrfs.push({id:(mbrfs.length?Math.max(...mbrfs.map(x=>x.id)):0)+1,nome:r.nome,quarto:r.quarto||'',checkin:r.checkin||today(),checkout:'',diaria:r.diaria||0,diasPagos:0,obs:r.obs||'',categoria:'mbrf',codigoFicha:cod,matricula:matBrf,setor:r.setor||'',telefone:r.telefone||''});
     saveMbrf();
   }
 
@@ -3184,7 +3283,7 @@ function openModal(cat,id=null){
   const icon=isMbrf?'🏢':'🏨';
   document.getElementById('modalTitle').textContent=isMbrf?(id?`${icon} Editar Funcionário BRF`:`${icon} Novo Funcionário BRF`):(id?`${icon} Editar Hóspede`:`${icon} Novo Hóspede`);
   document.getElementById('btnSalvar').textContent=id?'Salvar Alterações':(isMbrf?'Cadastrar Funcionário':'Cadastrar Hóspede');
-  document.getElementById('f_nome').placeholder = isMbrf ? 'BRF-João Silva' : 'João da Silva';
+  document.getElementById('f_nome').placeholder = isMbrf ? 'Nome do funcionário' : 'João da Silva';
   const sugestoes=document.getElementById('historico_sugestoes'); if(sugestoes) sugestoes.style.display='none';
   if(id){
     const arr=isMbrf?mbrfs:hospedes;
@@ -3205,7 +3304,7 @@ function openModal(cat,id=null){
     }
   } else {
     ['f_telefone','f_checkout','f_diaria','f_obs','f_setor','f_codigoFicha'].forEach(fid=>{const el=document.getElementById(fid);if(el)el.value='';});
-    document.getElementById('f_nome').value = isMbrf ? 'BRF-' : '';
+    document.getElementById('f_nome').value = '';
     document.getElementById('f_matricula').value = isMbrf ? 'BRF-' : '';
     document.getElementById('f_checkin').value=today();
     // Hora atual no campo de entrada
@@ -3214,7 +3313,7 @@ function openModal(cat,id=null){
     document.getElementById('f_diasPagos').value='0';
     populateQuartosSelect(cat, '');
     // Foco no nome após o prefixo
-    if(isMbrf){ setTimeout(()=>{ const el=document.getElementById('f_nome'); if(el){ el.focus(); el.setSelectionRange(4,4); }}, 100); }
+    if(isMbrf){ setTimeout(()=>{ const el=document.getElementById('f_nome'); if(el){ el.focus(); }}, 100); }
   }
 }
 function gerarCodigoFicha(){
@@ -3249,8 +3348,8 @@ async function salvarHospede() {
   const isMbrf  = modalCat === 'mbrf';
 
   if (!nome) { showNotif('Digite o nome!', 'warn'); return; }
-  // Garante prefixo BRF- no nome e matrícula
-  const nomeFormatado = isMbrf && !nome.startsWith('BRF-') ? 'BRF-' + nome : nome;
+  // Garante prefixo BRF- APENAS na matrícula
+  const nomeFormatado = nome;
   const matriculaRaw = isMbrf ? (document.getElementById('f_matricula').value.trim()) : '';
   const matriculaFormatada = isMbrf && matriculaRaw && !matriculaRaw.startsWith('BRF-') ? 'BRF-' + matriculaRaw : matriculaRaw;
 
