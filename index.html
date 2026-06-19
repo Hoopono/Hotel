@@ -73,6 +73,16 @@
   .header-date { font-size: 11.5px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.5; }
   .header-date span { display: block; color: var(--gold-light); font-weight: 600; font-size: 14px; letter-spacing: 0.5px; }
 
+  /* IDIOMA */
+  .lang-switch { display: flex; gap: 5px; }
+  .lang-btn {
+    border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.65); font-family: inherit; font-size: 11px; font-weight: 700;
+    padding: 5px 10px; border-radius: 16px; cursor: pointer; transition: all 0.15s;
+  }
+  .lang-btn:hover { background: rgba(255,255,255,0.1); }
+  .lang-btn.active { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #1A2340; border-color: transparent; }
+
   /* TABS */
   .tabs {
     background: linear-gradient(180deg, #1C2B4A 0%, var(--navy-mid) 100%);
@@ -108,6 +118,53 @@
   .badge-blue   { background: var(--reserva-blue); color: white; }
   .badge-brown  { background: var(--hist-brown); color: white; }
   .badge-estoque { background: var(--estoque-green); color: white; }
+  @keyframes pulsePedido { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.18); } }
+
+  /* PEDIDOS DE RESERVA (públicos, pendentes de aprovação) */
+  .pedidos-wrap { margin-bottom: 22px; }
+  .pedidos-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .pedidos-header h3 { font-family:'Playfair Display',serif; font-size: 16px; color: var(--navy); }
+  .pedidos-header .count-tag {
+    background: var(--amber-light); color: var(--amber); font-size: 11.5px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .pedido-card {
+    background: var(--white); border: 1.5px solid var(--amber); border-left: 5px solid var(--amber);
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(176,125,26,0.08);
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  }
+  .pedido-info { flex: 1; min-width: 220px; }
+  .pedido-nome { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .pedido-detail { font-size: 12.5px; color: var(--gray); line-height: 1.6; }
+  .pedido-detail b { color: var(--navy); font-weight: 600; }
+  .pedido-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .btn-aprovar, .btn-recusar {
+    border: none; padding: 9px 16px; border-radius: 9px; font-size: 12.5px; font-weight: 700;
+    cursor: pointer; transition: transform 0.12s; white-space: nowrap;
+  }
+  .btn-aprovar { background: linear-gradient(135deg, var(--green) 0%, #3FA06A 100%); color: white; }
+  .btn-recusar { background: var(--red-light); color: var(--red); }
+  .btn-aprovar:hover, .btn-recusar:hover { transform: translateY(-1px); }
+  .pedidos-empty {
+    background: var(--cream); border: 1px dashed var(--border); border-radius: 12px;
+    padding: 16px; text-align: center; font-size: 13px; color: var(--gray);
+  }
+  .pedidos-link-box {
+    background: var(--reserva-light); border: 1px solid var(--reserva-blue);
+    border-radius: 10px; padding: 10px 14px; font-size: 12.5px; color: var(--reserva-blue);
+    margin-bottom: 16px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  }
+  .pedidos-link-box input {
+    flex: 1; min-width: 180px; border: 1px solid var(--reserva-blue); border-radius: 6px;
+    padding: 5px 8px; font-size: 12px; color: var(--navy); background: white;
+  }
+  .pedidos-link-box button {
+    border: none; background: var(--reserva-blue); color: white; padding: 6px 12px;
+    border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer;
+  }
 
   /* ESTOQUE */
   .section-header.estoque { background: linear-gradient(135deg, var(--estoque-green) 0%, #0F4525 100%); }
@@ -353,6 +410,12 @@
   .pgto-forma-btn:hover   { border-color: var(--gold); background: #FEFAE8; }
   .pgto-forma-btn.selected { border-color: var(--gold); background: linear-gradient(135deg, #FEFAE8 0%, #FFF8D6 100%); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
   .pgto-forma-btn.selected .label { color: var(--amber); }
+
+  .quarto-pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 320px; overflow-y: auto; padding: 2px; }
+  .quarto-pick-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 6px; border-radius: 10px; border: 2px solid var(--border); background: white; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; color: var(--navy); }
+  .quarto-pick-btn .qp-num  { font-size: 13px; font-weight: 700; }
+  .quarto-pick-btn .qp-tipo { font-size: 10px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.4px; }
+  .quarto-pick-btn:hover { border-color: var(--green); background: var(--green-light); }
   .pgto-resumo { background: var(--cream); border-radius: 10px; padding: 14px 16px; border: 1px solid var(--border); margin-bottom: 16px; }
   .pgto-resumo-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; }
   .pgto-resumo-row .r-label { color: var(--gray); }
@@ -655,10 +718,17 @@
     <div class="logo-icon">DP</div>
     <div>
       <div class="logo-text">Don Pita Hotel</div>
-      <div class="logo-sub">Sistema de Gestão</div>
+      <div class="logo-sub" data-i18n="logoSub">Sistema de Gestão</div>
     </div>
   </div>
   <div class="header-right" id="headerRight">
+    <div class="header-item" id="hi-lang" data-hi="lang">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">🇧🇷 PT</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇺🇸 EN</button>
+        <button class="lang-btn" data-lang="es" onclick="setLang('es')">🇪🇸 ES</button>
+      </div>
+    </div>
     <div class="header-item" id="hi-warn" data-hi="warn">
       <div id="storageWarn" style="display:none;background:rgba(178,59,59,0.18);border:1px solid rgba(178,59,59,0.4);border-radius:8px;padding:6px 10px;font-size:11px;color:#ffaaaa;text-align:center;max-width:160px;line-height:1.3;">
         ⚠️ Banco offline<br>verifique a conexão
@@ -683,39 +753,40 @@
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('hotel')">
-    <span class="tab-icon">🏨</span> Hotel
+    <span class="tab-icon">🏨</span> <span data-i18n="tabHotel">Hotel</span>
     <span class="badge" id="hotelBadge">0</span>
   </div>
   <div class="tab" onclick="switchTab('mbrf')">
-    <span class="tab-icon">🏢</span> MBRF
+    <span class="tab-icon">🏢</span> <span data-i18n="tabMbrf">MBRF</span>
     <span class="badge badge-purple" id="mbrfBadge">0</span>
   </div>
   <div class="tab" onclick="switchTab('reservas')">
-    <span class="tab-icon">📋</span> Reservas
+    <span class="tab-icon">📋</span> <span data-i18n="tabReservas">Reservas</span>
     <span class="badge badge-blue" id="reservasBadge">0</span>
+    <span class="badge" id="pedidosPendentesBadge" style="display:none;background:var(--amber);color:white;animation:pulsePedido 1.6s infinite;">0</span>
   </div>
   <div class="tab" onclick="switchTab('refeicoes')">
-    <span class="tab-icon">🍽️</span> Refeições
+    <span class="tab-icon">🍽️</span> <span data-i18n="tabRefeicoes">Refeições</span>
     <span class="badge badge-teal" id="refeicoesBadge">0</span>
   </div>
   <div class="tab" onclick="switchTab('quartos')">
-    <span class="tab-icon">🚪</span> Quartos
+    <span class="tab-icon">🚪</span> <span data-i18n="tabQuartos">Quartos</span>
     <span class="badge badge-orange" id="quartosBadge">0</span>
   </div>
   <div class="tab" onclick="switchTab('estoque')">
-    <span class="tab-icon">📦</span> Estoque
+    <span class="tab-icon">📦</span> <span data-i18n="tabEstoque">Estoque</span>
     <span class="badge badge-estoque" id="estoqueBadge">0</span>
   </div>
   <div class="tab" onclick="switchTab('historico')">
-    <span class="tab-icon">📁</span> Histórico
+    <span class="tab-icon">📁</span> <span data-i18n="tabHistorico">Histórico</span>
     <span class="badge badge-brown" id="historicoBadge">0</span>
   </div>
   <div class="tab" onclick="switchTab('pessoas')">
-    <span class="tab-icon">👥</span> Cadastro
+    <span class="tab-icon">👥</span> <span data-i18n="tabCadastro">Cadastro</span>
     <span class="badge" id="pessoasBadge" style="background:var(--reserva-blue);color:white;">0</span>
   </div>
   <div class="tab" onclick="switchTab('relatorios')">
-    <span class="tab-icon">🖨️</span> Relatórios
+    <span class="tab-icon">🖨️</span> <span data-i18n="tabRelatorios">Relatórios</span>
   </div>
 </div>
 
@@ -725,25 +796,25 @@
   <div id="tab-hotel">
     <div class="stats" id="statsHotel"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Hóspedes Ativos</div>
+      <div class="toolbar-title" data-i18n="hotelToolbarTitle">Hóspedes Ativos</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar hóspede..." oninput="filterTable(this.value,'hotel')">
+        <input class="search-input" type="text" placeholder="Buscar hóspede..." data-i18n-ph="phBuscarHospede" oninput="filterTable(this.value,'hotel')">
       </div>
-      <button class="btn btn-primary" onclick="openModal('hotel')">+ Novo Hóspede</button>
+      <button class="btn btn-primary" onclick="openModal('hotel')">+ <span data-i18n="btnNovoHospede">Novo Hóspede</span></button>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Hóspede / Quarto</th>
-            <th>Check-in</th>
-            <th>Previsão Saída</th>
-            <th>Dias no Hotel</th>
-            <th>Dias Pagos</th>
-            <th>Valor Total</th>
-            <th>Status</th>
-            <th>Ações</th>
+            <th data-i18n="thHospedeQuarto">Hóspede / Quarto</th>
+            <th data-i18n="thCheckin">Check-in</th>
+            <th data-i18n="thPrevisaoSaida">Previsão Saída</th>
+            <th data-i18n="thDiasHotel">Dias no Hotel</th>
+            <th data-i18n="thDiasPagos">Dias Pagos</th>
+            <th data-i18n="thValorTotal">Valor Total</th>
+            <th data-i18n="thStatus">Status</th>
+            <th data-i18n="thAcoes">Ações</th>
           </tr>
         </thead>
         <tbody id="tableHotel"></tbody>
@@ -755,32 +826,32 @@
   <div id="tab-mbrf" style="display:none">
     <div class="section-header mbrf">
       <div class="section-header-text">
-        <h2>Categoria MBRF</h2>
-        <p>Funcionários BRF — dias acumulando automaticamente, sem data de saída fixa</p>
+        <h2 data-i18n="mbrfH2">Categoria MBRF</h2>
+        <p data-i18n="mbrfP">Funcionários BRF — dias acumulando automaticamente, sem data de saída fixa</p>
       </div>
       <div class="section-logo">🏢</div>
     </div>
     <div class="stats" id="statsMbrf"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Funcionários BRF</div>
+      <div class="toolbar-title" data-i18n="mbrfToolbarTitle">Funcionários BRF</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar funcionário..." oninput="filterTable(this.value,'mbrf')">
+        <input class="search-input" type="text" placeholder="Buscar funcionário..." data-i18n-ph="phBuscarFuncionario" oninput="filterTable(this.value,'mbrf')">
       </div>
-      <button class="btn btn-mbrf" onclick="openModal('mbrf')">+ Novo Funcionário BRF</button>
+      <button class="btn btn-mbrf" onclick="openModal('mbrf')">+ <span data-i18n="btnNovoFuncionario">Novo Funcionário BRF</span></button>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Funcionário / Quarto</th>
-            <th>Matrícula BRF</th>
-            <th>Data Entrada</th>
-            <th>Dias Hospedado</th>
-            <th>Dias Pagos</th>
-            <th>Valor Total</th>
-            <th>Saldo Devedor</th>
-            <th>Ações</th>
+            <th data-i18n="thFuncionarioQuarto">Funcionário / Quarto</th>
+            <th data-i18n="thMatricula">Matrícula BRF</th>
+            <th data-i18n="thDataEntrada">Data Entrada</th>
+            <th data-i18n="thDiasHospedado">Dias Hospedado</th>
+            <th data-i18n="thDiasPagos">Dias Pagos</th>
+            <th data-i18n="thValorTotal">Valor Total</th>
+            <th data-i18n="thSaldoDevedor">Saldo Devedor</th>
+            <th data-i18n="thAcoes">Ações</th>
           </tr>
         </thead>
         <tbody id="tableMbrf"></tbody>
@@ -792,19 +863,34 @@
   <div id="tab-reservas" style="display:none">
     <div class="section-header reserva">
       <div class="section-header-text">
-        <h2>Reservas Futuras</h2>
-        <p>Pré-reservas e check-ins agendados</p>
+        <h2 data-i18n="reservasH2">Reservas Futuras</h2>
+        <p data-i18n="reservasP">Pré-reservas e check-ins agendados</p>
       </div>
       <div class="section-logo">📋</div>
     </div>
+
+    <div class="pedidos-link-box">
+      🔗 <strong data-i18n="linkPublicoLabel">Link público para hóspedes reservarem:</strong>
+      <input type="text" id="linkPublicoReserva" readonly value="reservar.html">
+      <button onclick="copiarLinkPublico()">📋 <span data-i18n="btnCopiar">Copiar</span></button>
+    </div>
+
+    <div class="pedidos-wrap">
+      <div class="pedidos-header">
+        <h3>🔔 <span data-i18n="pedidosTitulo">Pedidos de Reserva (site público)</span></h3>
+        <span class="count-tag" id="pedidosCountTag">0 pendente(s)</span>
+      </div>
+      <div id="pedidosList"></div>
+    </div>
+
     <div class="stats" id="statsReservas"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Reservas</div>
+      <div class="toolbar-title" data-i18n="tabReservas">Reservas</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar reserva..." oninput="filterReservas(this.value)">
+        <input class="search-input" type="text" placeholder="Buscar reserva..." data-i18n-ph="phBuscarReserva" oninput="filterReservas(this.value)">
       </div>
-      <button class="btn btn-reserva" onclick="openReservaModal()">+ Nova Reserva</button>
+      <button class="btn btn-reserva" onclick="openReservaModal()">+ <span data-i18n="btnNovaReserva">Nova Reserva</span></button>
     </div>
     <div id="reservasList"></div>
   </div>
@@ -813,8 +899,8 @@
   <div id="tab-refeicoes" style="display:none">
     <div class="section-header food">
       <div class="section-header-text">
-        <h2>Refeições MBRF</h2>
-        <p>Controle de almoço e jantar dos funcionários BRF</p>
+        <h2 data-i18n="refeicoesH2">Refeições MBRF</h2>
+        <p data-i18n="refeicoesP">Controle de almoço e jantar dos funcionários BRF</p>
       </div>
       <div class="section-logo">🍽️</div>
     </div>
@@ -823,7 +909,7 @@
       <button class="date-nav-btn" onclick="navDay(-1)">‹</button>
       <div class="date-display" id="foodDateDisplay"></div>
       <button class="date-nav-btn" onclick="navDay(1)">›</button>
-      <button class="btn btn-food" style="margin-left:auto" onclick="openRefeicaoModal()">+ Adicionar Refeição</button>
+      <button class="btn btn-food" style="margin-left:auto" onclick="openRefeicaoModal()">+ <span data-i18n="btnAddRefeicao">Adicionar Refeição</span></button>
     </div>
     <div id="refeicoesList"></div>
   </div>
@@ -832,33 +918,33 @@
   <div id="tab-quartos" style="display:none">
     <div class="section-header quartos">
       <div class="section-header-text">
-        <h2>Mapa de Quartos</h2>
-        <p>Visualize a ocupação, tipo e descrição de cada quarto</p>
+        <h2 data-i18n="quartosH2">Mapa de Quartos</h2>
+        <p data-i18n="quartosP">Visualize a ocupação, tipo e descrição de cada quarto</p>
       </div>
       <div class="section-logo">🚪</div>
     </div>
     <div class="stats" id="statsQuartos"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Quartos</div>
+      <div class="toolbar-title" data-i18n="tabQuartos">Quartos</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar quarto..." oninput="filterQuartos(this.value)" id="quartosSearch">
+        <input class="search-input" type="text" placeholder="Buscar quarto..." data-i18n-ph="phBuscarQuarto" oninput="filterQuartos(this.value)" id="quartosSearch">
       </div>
-      <button class="btn btn-quarto" onclick="openQuartoModal()">+ Novo Quarto</button>
+      <button class="btn btn-quarto" onclick="openQuartoModal()">+ <span data-i18n="btnNovoQuarto">Novo Quarto</span></button>
     </div>
     <div class="quartos-legenda">
-      <span style="font-size:12px;color:var(--gray);font-weight:600;margin-right:4px;">Legenda:</span>
-      <div class="legenda-item"><div class="legenda-dot livre"></div> Livre</div>
-      <div class="legenda-item"><div class="legenda-dot ocupado"></div> Ocupado (Hotel)</div>
-      <div class="legenda-item"><div class="legenda-dot mbrf"></div> Ocupado (BRF)</div>
-      <div class="legenda-item"><div class="legenda-dot manutencao"></div> Manutenção</div>
+      <span style="font-size:12px;color:var(--gray);font-weight:600;margin-right:4px;" data-i18n="legendaLabel">Legenda:</span>
+      <div class="legenda-item"><div class="legenda-dot livre"></div> <span data-i18n="legLivre">Livre</span></div>
+      <div class="legenda-item"><div class="legenda-dot ocupado"></div> <span data-i18n="legOcupadoHotel">Ocupado (Hotel)</span></div>
+      <div class="legenda-item"><div class="legenda-dot mbrf"></div> <span data-i18n="legOcupadoBrf">Ocupado (BRF)</span></div>
+      <div class="legenda-item"><div class="legenda-dot manutencao"></div> <span data-i18n="legManutencao">Manutenção</span></div>
     </div>
     <div class="quarto-filters" id="quartoFilters">
-      <button class="quarto-filter-btn active" data-filter="todos" onclick="setQuartoFilter('todos',this)">🏨 Todos</button>
-      <button class="quarto-filter-btn livre"  data-filter="livre"  onclick="setQuartoFilter('livre',this)">✅ Livres</button>
-      <button class="quarto-filter-btn ocupado" data-filter="ocupado" onclick="setQuartoFilter('ocupado',this)">🛏 Ocupados</button>
-      <button class="quarto-filter-btn mbrf" data-filter="mbrf" onclick="setQuartoFilter('mbrf',this)">🏢 BRF</button>
-      <button class="quarto-filter-btn manutencao" data-filter="manutencao" onclick="setQuartoFilter('manutencao',this)">🔧 Manutenção</button>
+      <button class="quarto-filter-btn active" data-filter="todos" onclick="setQuartoFilter('todos',this)">🏨 <span data-i18n="filtroTodos">Todos</span></button>
+      <button class="quarto-filter-btn livre"  data-filter="livre"  onclick="setQuartoFilter('livre',this)">✅ <span data-i18n="filtroLivres">Livres</span></button>
+      <button class="quarto-filter-btn ocupado" data-filter="ocupado" onclick="setQuartoFilter('ocupado',this)">🛏 <span data-i18n="filtroOcupados">Ocupados</span></button>
+      <button class="quarto-filter-btn mbrf" data-filter="mbrf" onclick="setQuartoFilter('mbrf',this)">🏢 <span data-i18n="tabMbrf">MBRF</span></button>
+      <button class="quarto-filter-btn manutencao" data-filter="manutencao" onclick="setQuartoFilter('manutencao',this)">🔧 <span data-i18n="legManutencao">Manutenção</span></button>
     </div>
     <div class="quartos-grid" id="quartosGrid"></div>
   </div>
@@ -867,19 +953,19 @@
   <div id="tab-estoque" style="display:none">
     <div class="section-header estoque">
       <div class="section-header-text">
-        <h2>Estoque</h2>
-        <p>Controle de produtos — entradas, saídas por cliente e saldo atual</p>
+        <h2 data-i18n="tabEstoque">Estoque</h2>
+        <p data-i18n="estoqueP">Controle de produtos — entradas, saídas por cliente e saldo atual</p>
       </div>
       <div class="section-logo">📦</div>
     </div>
     <div class="stats" id="statsEstoque"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Produtos em Estoque</div>
+      <div class="toolbar-title" data-i18n="estoqueToolbarTitle">Produtos em Estoque</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar produto..." oninput="filterEstoque(this.value)">
+        <input class="search-input" type="text" placeholder="Buscar produto..." data-i18n-ph="phBuscarProduto" oninput="filterEstoque(this.value)">
       </div>
-      <button class="btn btn-estoque" onclick="openEstoqueModal()">+ Novo Produto</button>
+      <button class="btn btn-estoque" onclick="openEstoqueModal()">+ <span data-i18n="btnNovoProduto">Novo Produto</span></button>
     </div>
     <div class="estoque-grid" id="estoqueGrid"></div>
   </div>
@@ -888,19 +974,19 @@
   <div id="tab-historico" style="display:none">
     <div class="section-header hist">
       <div class="section-header-text">
-        <h2>Histórico de Saídas</h2>
-        <p>Todos os hóspedes que já deixaram o hotel — data e hora exatas</p>
+        <h2 data-i18n="historicoH2">Histórico de Saídas</h2>
+        <p data-i18n="historicoP">Todos os hóspedes que já deixaram o hotel — data e hora exatas</p>
       </div>
       <div class="section-logo">📁</div>
     </div>
     <div class="stats" id="statsHistorico"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Registros de Saída</div>
+      <div class="toolbar-title" data-i18n="historicoToolbarTitle">Registros de Saída</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar por nome, quarto ou código da ficha..." oninput="filterHistorico(this.value)">
+        <input class="search-input" type="text" placeholder="Buscar por nome, quarto ou código da ficha..." data-i18n-ph="phBuscarHistorico" oninput="filterHistorico(this.value)">
       </div>
-      <button id="btnLimparHistorico" class="btn btn-ghost" onclick="if(confirm('Limpar todo o histórico?')){historico=[];saveHistorico();renderAll();}">🗑️ Limpar Histórico</button>
+      <button id="btnLimparHistorico" class="btn btn-ghost" onclick="if(confirm('Limpar todo o histórico?')){historico=[];saveHistorico();renderAll();}">🗑️ <span data-i18n="btnLimparHistorico">Limpar Histórico</span></button>
     </div>
     <div id="historicoList"></div>
   </div>
@@ -910,8 +996,8 @@
   <div id="tab-relatorios" style="display:none">
     <div class="section-header" style="background:linear-gradient(135deg,#2E3D6B 0%,#1A2340 100%);margin-bottom:24px;">
       <div class="section-header-text">
-        <h2>Relatórios para Impressão</h2>
-        <p>Gere e imprima relatórios do hotel com um clique</p>
+        <h2 data-i18n="relatoriosH2">Relatórios para Impressão</h2>
+        <p data-i18n="relatoriosP">Gere e imprima relatórios do hotel com um clique</p>
       </div>
       <div class="section-logo">🖨️</div>
     </div>
@@ -1008,19 +1094,19 @@
   <div id="tab-pessoas" style="display:none">
     <div class="section-header" style="background:linear-gradient(135deg,#1A4A7A 0%,#0D2B4A 100%);margin-bottom:24px;">
       <div class="section-header-text">
-        <h2>👥 Cadastro de Pessoas</h2>
-        <p>Registro central — cada pessoa tem um código único permanente vinculado ao histórico</p>
+        <h2>👥 <span data-i18n="pessoasH2">Cadastro de Pessoas</span></h2>
+        <p data-i18n="pessoasP">Registro central — cada pessoa tem um código único permanente vinculado ao histórico</p>
       </div>
       <div class="section-logo">👤</div>
     </div>
     <div class="stats" id="statsPessoas"></div>
     <div class="toolbar">
-      <div class="toolbar-title">Pessoas Cadastradas</div>
+      <div class="toolbar-title" data-i18n="pessoasToolbarTitle">Pessoas Cadastradas</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Buscar por nome, código, CPF..." oninput="filterPessoas(this.value)" id="pessoasSearch">
+        <input class="search-input" type="text" placeholder="Buscar por nome, código, CPF..." data-i18n-ph="phBuscarPessoa" oninput="filterPessoas(this.value)" id="pessoasSearch">
       </div>
-      <button class="btn" style="background:linear-gradient(135deg,#1A4A7A,#2260A8);color:white;" onclick="openPessoaModal()">+ Nova Pessoa</button>
+      <button class="btn" style="background:linear-gradient(135deg,#1A4A7A,#2260A8);color:white;" onclick="openPessoaModal()">+ <span data-i18n="btnNovaPessoa">Nova Pessoa</span></button>
     </div>
     <div id="pessoasList"></div>
   </div>
@@ -1134,6 +1220,38 @@
   </div>
 </div>
 
+<!-- MODAL RECUSAR PEDIDO DE RESERVA -->
+<div class="modal-overlay" id="recusaModalOverlay">
+  <div class="modal" style="max-width:480px;">
+    <button class="modal-close" onclick="closeRecusaModal()">✕</button>
+    <div class="modal-title">✕ Recusar Pedido de Reserva</div>
+    <div class="form-group" style="margin-bottom:16px;">
+      <label class="form-label">Motivo da recusa *</label>
+      <textarea class="form-input" id="recusa_motivo" rows="3" style="resize:vertical;" placeholder="Ex: Não há disponibilidade para essas datas"></textarea>
+      <div style="font-size:12px;color:var(--gray);margin-top:4px;">Esse motivo será enviado ao hóspede por WhatsApp.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeRecusaModal()">Cancelar</button>
+      <button class="btn btn-danger" onclick="confirmarRecusa()">✕ Confirmar Recusa e Avisar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SELEÇÃO DE QUARTO PARA CHECK-IN -->
+<div class="modal-overlay" id="selecaoQuartoOverlay">
+  <div class="modal" style="max-width:520px;">
+    <button class="modal-close" onclick="closeSelecaoQuartoModal()">✕</button>
+    <div class="modal-title">🚪 Selecionar Quarto para Check-in</div>
+    <div style="font-size:12.5px;color:var(--gray);margin-bottom:14px;">Escolha o quarto onde o hóspede vai ficar. Apenas quartos livres aparecem aqui.</div>
+    <div class="quarto-pick-grid" id="selecaoQuartoLista"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeSelecaoQuartoModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
 <!-- MODAL PAGAMENTO -->
 <div class="modal-overlay" id="pgtoModalOverlay">
   <div class="modal pgto-modal">
@@ -1158,6 +1276,12 @@
         <label class="form-label">Observação (opcional)</label>
         <input class="form-input" id="pgto_obs" placeholder="Referência, nota...">
       </div>
+    </div>
+    <div id="pgtoConsumoWrap" style="display:none;margin-bottom:14px;">
+      <label style="display:flex;align-items:center;gap:8px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:13px;">
+        <input type="checkbox" id="pgto_incluirConsumo" checked onchange="updatePgtoResumo()">
+        <span>Incluir <strong id="pgtoConsumoLabel">produtos consumidos</strong> neste pagamento</span>
+      </label>
     </div>
     <div class="pgto-resumo" id="pgtoResumo"></div>
     <div class="modal-footer">
@@ -1775,7 +1899,7 @@
     <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid #E2DED4;background:#1A2340;border-radius:16px 16px 0 0;">
       <span style="font-family:'Playfair Display',serif;font-size:17px;color:#E8C97A;font-weight:700;">🖨️ Recibo</span>
       <div style="display:flex;gap:10px;align-items:center;">
-        <button onclick="window.frames['printFrame'].focus();window.frames['printFrame'].print();" style="background:linear-gradient(135deg,#C9A84C,#E8C97A);color:#1A2340;border:none;padding:9px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Imprimir</button>
+        <button onclick="imprimirViaNovaAba();" style="background:linear-gradient(135deg,#C9A84C,#E8C97A);color:#1A2340;border:none;padding:9px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🖨️ Imprimir</button>
         <button onclick="closePrintModal()" style="background:rgba(255,255,255,0.1);color:white;border:none;width:34px;height:34px;border-radius:8px;font-size:18px;cursor:pointer;line-height:1;">×</button>
       </div>
     </div>
@@ -1796,6 +1920,147 @@
 // ║  Altere os valores abaixo para personalizar o sistema   ║
 // ╚══════════════════════════════════════════════════════════╝
 
+// ────────────────────────────────────────────────────────────
+// I18N — Português / English / Español (chrome principal do painel)
+// ────────────────────────────────────────────────────────────
+const I18N_PAINEL = {
+  pt: {
+    logoSub: 'Sistema de Gestão',
+    tabHotel: 'Hotel', tabMbrf: 'MBRF', tabReservas: 'Reservas', tabRefeicoes: 'Refeições',
+    tabQuartos: 'Quartos', tabEstoque: 'Estoque', tabHistorico: 'Histórico',
+    tabCadastro: 'Cadastro', tabRelatorios: 'Relatórios',
+
+    hotelToolbarTitle: 'Hóspedes Ativos', phBuscarHospede: 'Buscar hóspede...', btnNovoHospede: 'Novo Hóspede',
+    thHospedeQuarto: 'Hóspede / Quarto', thCheckin: 'Check-in', thPrevisaoSaida: 'Previsão Saída',
+    thDiasHotel: 'Dias no Hotel', thDiasPagos: 'Dias Pagos', thValorTotal: 'Valor Total',
+    thStatus: 'Status', thAcoes: 'Ações',
+
+    mbrfH2: 'Categoria MBRF', mbrfP: 'Funcionários BRF — dias acumulando automaticamente, sem data de saída fixa',
+    mbrfToolbarTitle: 'Funcionários BRF', phBuscarFuncionario: 'Buscar funcionário...', btnNovoFuncionario: 'Novo Funcionário BRF',
+    thFuncionarioQuarto: 'Funcionário / Quarto', thMatricula: 'Matrícula BRF', thDataEntrada: 'Data Entrada',
+    thDiasHospedado: 'Dias Hospedado', thSaldoDevedor: 'Saldo Devedor',
+
+    reservasH2: 'Reservas Futuras', reservasP: 'Pré-reservas e check-ins agendados',
+    linkPublicoLabel: 'Link público para hóspedes reservarem:', btnCopiar: 'Copiar',
+    pedidosTitulo: 'Pedidos de Reserva (site público)', btnNovaReserva: 'Nova Reserva',
+    phBuscarReserva: 'Buscar reserva...',
+
+    refeicoesH2: 'Refeições MBRF', refeicoesP: 'Controle de almoço e jantar dos funcionários BRF',
+    btnAddRefeicao: 'Adicionar Refeição',
+
+    quartosH2: 'Mapa de Quartos', quartosP: 'Visualize a ocupação, tipo e descrição de cada quarto',
+    phBuscarQuarto: 'Buscar quarto...', btnNovoQuarto: 'Novo Quarto', legendaLabel: 'Legenda:',
+    legLivre: 'Livre', legOcupadoHotel: 'Ocupado (Hotel)', legOcupadoBrf: 'Ocupado (BRF)', legManutencao: 'Manutenção',
+    filtroTodos: 'Todos', filtroLivres: 'Livres', filtroOcupados: 'Ocupados',
+
+    estoqueP: 'Controle de produtos — entradas, saídas por cliente e saldo atual',
+    estoqueToolbarTitle: 'Produtos em Estoque', phBuscarProduto: 'Buscar produto...', btnNovoProduto: 'Novo Produto',
+
+    historicoH2: 'Histórico de Saídas', historicoP: 'Todos os hóspedes que já deixaram o hotel — data e hora exatas',
+    historicoToolbarTitle: 'Registros de Saída', phBuscarHistorico: 'Buscar por nome, quarto ou código da ficha...',
+    btnLimparHistorico: 'Limpar Histórico',
+
+    pessoasH2: 'Cadastro de Pessoas', pessoasP: 'Registro central — cada pessoa tem um código único permanente vinculado ao histórico',
+    pessoasToolbarTitle: 'Pessoas Cadastradas', phBuscarPessoa: 'Buscar por nome, código, CPF...', btnNovaPessoa: 'Nova Pessoa',
+
+    relatoriosH2: 'Relatórios para Impressão', relatoriosP: 'Gere e imprima relatórios do hotel com um clique',
+  },
+  en: {
+    logoSub: 'Management System',
+    tabHotel: 'Hotel', tabMbrf: 'MBRF', tabReservas: 'Reservations', tabRefeicoes: 'Meals',
+    tabQuartos: 'Rooms', tabEstoque: 'Inventory', tabHistorico: 'History',
+    tabCadastro: 'Guests', tabRelatorios: 'Reports',
+
+    hotelToolbarTitle: 'Active Guests', phBuscarHospede: 'Search guest...', btnNovoHospede: 'New Guest',
+    thHospedeQuarto: 'Guest / Room', thCheckin: 'Check-in', thPrevisaoSaida: 'Expected Check-out',
+    thDiasHotel: 'Days at Hotel', thDiasPagos: 'Days Paid', thValorTotal: 'Total Amount',
+    thStatus: 'Status', thAcoes: 'Actions',
+
+    mbrfH2: 'MBRF Category', mbrfP: 'BRF employees — days accumulating automatically, no fixed check-out date',
+    mbrfToolbarTitle: 'BRF Employees', phBuscarFuncionario: 'Search employee...', btnNovoFuncionario: 'New BRF Employee',
+    thFuncionarioQuarto: 'Employee / Room', thMatricula: 'BRF ID', thDataEntrada: 'Start Date',
+    thDiasHospedado: 'Days Stayed', thSaldoDevedor: 'Balance Due',
+
+    reservasH2: 'Upcoming Reservations', reservasP: 'Pre-bookings and scheduled check-ins',
+    linkPublicoLabel: 'Public link for guests to book:', btnCopiar: 'Copy',
+    pedidosTitulo: 'Reservation Requests (public site)', btnNovaReserva: 'New Reservation',
+    phBuscarReserva: 'Search reservation...',
+
+    refeicoesH2: 'BRF Meals', refeicoesP: 'Lunch and dinner control for BRF employees',
+    btnAddRefeicao: 'Add Meal',
+
+    quartosH2: 'Room Map', quartosP: 'View occupancy, type and description of each room',
+    phBuscarQuarto: 'Search room...', btnNovoQuarto: 'New Room', legendaLabel: 'Legend:',
+    legLivre: 'Free', legOcupadoHotel: 'Occupied (Hotel)', legOcupadoBrf: 'Occupied (BRF)', legManutencao: 'Maintenance',
+    filtroTodos: 'All', filtroLivres: 'Free', filtroOcupados: 'Occupied',
+
+    estoqueP: 'Product control — incoming, outgoing per customer and current balance',
+    estoqueToolbarTitle: 'Products in Stock', phBuscarProduto: 'Search product...', btnNovoProduto: 'New Product',
+
+    historicoH2: 'Check-out History', historicoP: 'All guests who have already left the hotel — exact date and time',
+    historicoToolbarTitle: 'Check-out Records', phBuscarHistorico: 'Search by name, room or ficha code...',
+    btnLimparHistorico: 'Clear History',
+
+    pessoasH2: 'Guest Registry', pessoasP: 'Central registry — each person has a unique permanent code linked to their history',
+    pessoasToolbarTitle: 'Registered People', phBuscarPessoa: 'Search by name, code, ID...', btnNovaPessoa: 'New Person',
+
+    relatoriosH2: 'Printable Reports', relatoriosP: 'Generate and print hotel reports with one click',
+  },
+  es: {
+    logoSub: 'Sistema de Gestión',
+    tabHotel: 'Hotel', tabMbrf: 'MBRF', tabReservas: 'Reservas', tabRefeicoes: 'Comidas',
+    tabQuartos: 'Habitaciones', tabEstoque: 'Inventario', tabHistorico: 'Historial',
+    tabCadastro: 'Huéspedes', tabRelatorios: 'Informes',
+
+    hotelToolbarTitle: 'Huéspedes Activos', phBuscarHospede: 'Buscar huésped...', btnNovoHospede: 'Nuevo Huésped',
+    thHospedeQuarto: 'Huésped / Habitación', thCheckin: 'Check-in', thPrevisaoSaida: 'Salida Prevista',
+    thDiasHotel: 'Días en el Hotel', thDiasPagos: 'Días Pagados', thValorTotal: 'Valor Total',
+    thStatus: 'Estado', thAcoes: 'Acciones',
+
+    mbrfH2: 'Categoría MBRF', mbrfP: 'Empleados BRF — días acumulando automáticamente, sin fecha de salida fija',
+    mbrfToolbarTitle: 'Empleados BRF', phBuscarFuncionario: 'Buscar empleado...', btnNovoFuncionario: 'Nuevo Empleado BRF',
+    thFuncionarioQuarto: 'Empleado / Habitación', thMatricula: 'Matrícula BRF', thDataEntrada: 'Fecha de Entrada',
+    thDiasHospedado: 'Días Alojado', thSaldoDevedor: 'Saldo Pendiente',
+
+    reservasH2: 'Próximas Reservas', reservasP: 'Pre-reservas y check-ins programados',
+    linkPublicoLabel: 'Enlace público para que los huéspedes reserven:', btnCopiar: 'Copiar',
+    pedidosTitulo: 'Solicitudes de Reserva (sitio público)', btnNovaReserva: 'Nueva Reserva',
+    phBuscarReserva: 'Buscar reserva...',
+
+    refeicoesH2: 'Comidas BRF', refeicoesP: 'Control de almuerzo y cena de los empleados BRF',
+    btnAddRefeicao: 'Agregar Comida',
+
+    quartosH2: 'Mapa de Habitaciones', quartosP: 'Visualiza la ocupación, tipo y descripción de cada habitación',
+    phBuscarQuarto: 'Buscar habitación...', btnNovoQuarto: 'Nueva Habitación', legendaLabel: 'Leyenda:',
+    legLivre: 'Libre', legOcupadoHotel: 'Ocupada (Hotel)', legOcupadoBrf: 'Ocupada (BRF)', legManutencao: 'Mantenimiento',
+    filtroTodos: 'Todas', filtroLivres: 'Libres', filtroOcupados: 'Ocupadas',
+
+    estoqueP: 'Control de productos — entradas, salidas por cliente y saldo actual',
+    estoqueToolbarTitle: 'Productos en Inventario', phBuscarProduto: 'Buscar producto...', btnNovoProduto: 'Nuevo Producto',
+
+    historicoH2: 'Historial de Salidas', historicoP: 'Todos los huéspedes que ya dejaron el hotel — fecha y hora exactas',
+    historicoToolbarTitle: 'Registros de Salida', phBuscarHistorico: 'Buscar por nombre, habitación o código de ficha...',
+    btnLimparHistorico: 'Limpiar Historial',
+
+    pessoasH2: 'Registro de Personas', pessoasP: 'Registro central — cada persona tiene un código único permanente vinculado al historial',
+    pessoasToolbarTitle: 'Personas Registradas', phBuscarPessoa: 'Buscar por nombre, código, DNI...', btnNovaPessoa: 'Nueva Persona',
+
+    relatoriosH2: 'Informes para Imprimir', relatoriosP: 'Genera e imprime informes del hotel con un clic',
+  }
+};
+
+let PAINEL_LANG = localStorage.getItem('donpita_lang') || 'pt';
+function tp(key){ return (I18N_PAINEL[PAINEL_LANG] && I18N_PAINEL[PAINEL_LANG][key]) || I18N_PAINEL.pt[key] || key; }
+
+function setLang(lang){
+  PAINEL_LANG = lang;
+  localStorage.setItem('donpita_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tp(el.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = tp(el.getAttribute('data-i18n-ph')); });
+}
+window.addEventListener('DOMContentLoaded', () => setLang(PAINEL_LANG));
+
 const CONFIG = {
   // 🗑️ CONFIRMAÇÃO AO DELETAR
   // true  → pede confirmação antes de excluir hóspedes/pessoas
@@ -1807,7 +2072,9 @@ const CONFIG = {
 window._trashConfirm = CONFIG.confirmarExclusao;
 
 // ── PRINT MODAL HELPERS ──
+let _lastPrintHTML = '';
 function openPrintModal(htmlContent) {
+  _lastPrintHTML = htmlContent;
   const overlay = document.getElementById('printModalOverlay');
   const frame = document.getElementById('printFrame');
   overlay.classList.add('open');
@@ -1819,6 +2086,28 @@ function openPrintModal(htmlContent) {
 }
 function closePrintModal() {
   document.getElementById('printModalOverlay').classList.remove('open');
+}
+// Em muitos navegadores móveis, chamar print() dentro de um iframe a partir
+// do documento pai não é tratado como "ação direta do usuário" e é ignorado
+// silenciosamente. Por isso, abrimos o recibo numa nova aba e imprimimos a
+// partir de dentro dela mesma — isso funciona de forma confiável em qualquer
+// navegador (celular, tablet ou desktop).
+function imprimirViaNovaAba() {
+  if (!_lastPrintHTML) return;
+  const printWin = window.open('', '_blank');
+  if (!printWin) {
+    showNotif('Permita pop-ups neste site para imprimir o recibo.', 'warn');
+    return;
+  }
+  printWin.document.open();
+  printWin.document.write(_lastPrintHTML);
+  printWin.document.close();
+  printWin.focus();
+  // Aguarda o documento (e fontes) carregarem antes de chamar print(),
+  // chamado a partir da própria janela — sempre permitido pelo navegador.
+  printWin.onload = function () {
+    setTimeout(function () { printWin.print(); }, 300);
+  };
 }
 
 // ── SUPABASE ENGINE ──
@@ -1865,6 +2154,7 @@ let historico = [];
 let quartos   = [];
 let estoque   = [];
 let pessoas   = [];
+let pedidosReserva = [];
 
 let currentTab      = 'hotel';
 let editingId       = null;
@@ -1899,6 +2189,7 @@ function saveHistorico(){ DB.set('donpita_historico', historico); }
 function saveQuartos()  { DB.set('donpita_quartos',   quartos); }
 function saveEstoque()  { DB.set('donpita_estoque',   estoque); }
 function savePessoas()  { DB.set('donpita_pessoas',   pessoas); }
+function savePedidosReserva() { DB.set('donpita_pre_reservas', pedidosReserva); }
 
 // ── SUPABASE INIT + REALTIME ──
 function applyData(){
@@ -1910,6 +2201,7 @@ function applyData(){
   quartos   = DB.get('donpita_quartos')    || [];
   estoque   = DB.get('donpita_estoque')    || [];
   pessoas   = DB.get('donpita_pessoas')    || [];
+  pedidosReserva = DB.get('donpita_pre_reservas') || [];
 }
 
 async function initSupabase(){
@@ -2116,6 +2408,7 @@ function renderAll(){
   renderHistorico();
   renderEstoque();
   renderPessoas();
+  renderPedidosReserva();
   renderZonaReset();
   document.getElementById('hotelBadge').textContent=hospedes.length;
   document.getElementById('mbrfBadge').textContent=mbrfs.length;
@@ -2125,6 +2418,9 @@ function renderAll(){
   document.getElementById('historicoBadge').textContent=historico.length;
   document.getElementById('estoqueBadge').textContent=estoque.length;
   const pb=document.getElementById('pessoasBadge'); if(pb) pb.textContent=pessoas.length;
+  const pendentes = pedidosReserva.filter(p=>p.status==='pendente').length;
+  const ppb = document.getElementById('pedidosPendentesBadge');
+  if(ppb){ ppb.textContent = pendentes; ppb.style.display = pendentes>0 ? '' : 'none'; }
 }
 
 // ── RENDER TABLE ──
@@ -2801,7 +3097,7 @@ function gerarReciboBRF(h, dias, valorTotal, valorPago, saldo, saidaISO){
     <div class="ass-item">Responsável Don Pita Hotel</div>
   </div>
 
-  <button class="btn-print" onclick="window.print()">🖨️ Imprimir Recibo</button>
+  <button class="btn-print" onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()">🖨️ Imprimir Recibo</button>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Recibo gerado automaticamente em ${emissao}</div>
   </body></html>`);
 }
@@ -2815,6 +3111,20 @@ function openPgtoModal(cat, id){
   document.querySelectorAll('.pgto-forma-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('pgto_dias').value = Math.max(0, diasNoHotel(h.checkin, h.checkinHora)-h.diasPagos);
   document.getElementById('pgto_obs').value  = '';
+
+  const consumoPendente = getConsumoHospede(cat, id, true);
+  const valorConsumoPendente = consumoPendente.reduce((a,c)=>a+c.total,0);
+  const consumoWrap  = document.getElementById('pgtoConsumoWrap');
+  const consumoCheck = document.getElementById('pgto_incluirConsumo');
+  const consumoLabel = document.getElementById('pgtoConsumoLabel');
+  if(valorConsumoPendente > 0){
+    consumoWrap.style.display = '';
+    consumoCheck.checked = true;
+    consumoLabel.textContent = `produtos consumidos (${fmt(valorConsumoPendente)})`;
+  } else {
+    consumoWrap.style.display = 'none';
+  }
+
   updatePgtoResumo();
   document.getElementById('pgtoModalOverlay').classList.add('open');
 }
@@ -2834,12 +3144,20 @@ function updatePgtoResumo(){
   const novoPago  = h.diasPagos+add;
   const valorAdd  = add*h.diaria;
   const novoSaldo = Math.max(0, h.diaria*dias - h.diaria*novoPago);
+
+  const consumoCheck = document.getElementById('pgto_incluirConsumo');
+  const incluirConsumo = consumoCheck && consumoCheck.checked;
+  const consumoPendente = incluirConsumo ? getConsumoHospede(cat, id, true) : [];
+  const valorConsumo = consumoPendente.reduce((a,c)=>a+c.total,0);
+  const valorTotalReceber = valorAdd + valorConsumo;
+
   document.getElementById('pgtoResumo').innerHTML=`
     <div class="pgto-resumo-row"><span class="r-label">Hóspede</span><span class="r-value">${h.nome} · Quarto ${h.quarto||'—'}</span></div>
     <div class="pgto-resumo-row"><span class="r-label">Dias a pagar</span><span class="r-value">${add} dias</span></div>
+    ${valorConsumo>0?`<div class="pgto-resumo-row"><span class="r-label">📦 Produtos consumidos</span><span class="r-value">${fmt(valorConsumo)}</span></div>`:''}
     <div class="pgto-resumo-row"><span class="r-label">Forma</span><span class="r-value">${pgtoForma?pgtoIcon(pgtoForma)+' '+pgtoForma:'<span style="color:#B07D1A;">⚠️ Selecione a forma</span>'}</span></div>
-    <div class="pgto-resumo-row total"><span class="r-label">Valor a receber</span><span class="r-value">${fmt(valorAdd)}</span></div>
-    <div class="pgto-resumo-row"><span class="r-label" style="font-size:11px;">Saldo após pagamento</span><span class="r-value" style="font-size:12px;color:${novoSaldo>0?'var(--red)':'var(--green)'};">${novoSaldo>0?fmt(novoSaldo):'Quitado ✓'}</span></div>`;
+    <div class="pgto-resumo-row total"><span class="r-label">Valor a receber</span><span class="r-value">${fmt(valorTotalReceber)}</span></div>
+    <div class="pgto-resumo-row"><span class="r-label" style="font-size:11px;">Saldo do quarto após pagamento</span><span class="r-value" style="font-size:12px;color:${novoSaldo>0?'var(--red)':'var(--green)'};">${novoSaldo>0?fmt(novoSaldo):'Quitado ✓'}</span></div>`;
 }
 function confirmarPagamento(){
   if(!pgtoForma){ showNotif('Selecione a forma de pagamento!','warn'); return; }
@@ -2848,21 +3166,32 @@ function confirmarPagamento(){
   const h=arr.find(x=>x.id===id);
   if(!h) return;
   const add=parseInt(document.getElementById('pgto_dias').value)||0;
-  if(add<=0){ showNotif('Informe quantos dias pagar!','warn'); return; }
-  h.diasPagos+=add; h.ultimaPgtoForma=pgtoForma;
+
+  const consumoCheck = document.getElementById('pgto_incluirConsumo');
+  const incluirConsumo = consumoCheck && consumoCheck.checked && consumoCheck.closest('div').style.display!=='none';
+  const consumoPendente = incluirConsumo ? getConsumoHospede(cat, id, true) : [];
+  const valorConsumo = consumoPendente.reduce((a,c)=>a+c.total,0);
+
+  if(add<=0 && valorConsumo<=0){ showNotif('Informe quantos dias pagar ou inclua os produtos consumidos!','warn'); return; }
+
+  if(add>0){ h.diasPagos+=add; }
+  h.ultimaPgtoForma=pgtoForma;
+  if(incluirConsumo && valorConsumo>0){ marcarConsumoComoPago(cat, id); saveEstoque(); }
+
   if(cat==='hotel') saveHotel(); else saveMbrf();
   closePgtoModal(); renderAll();
   const quitado=statusPgto(h)==='pago';
-  showNotif(`${pgtoIcon(pgtoForma)} ${add}d via ${pgtoForma} para ${h.nome}${quitado?' — Quitado! ✅':''}`);
+  const valorTotalRecebido = add*h.diaria + valorConsumo;
+  showNotif(`${pgtoIcon(pgtoForma)} ${fmt(valorTotalRecebido)} via ${pgtoForma} para ${h.nome}${quitado?' — Quarto Quitado! ✅':''}`);
   // Pergunta se deseja imprimir o recibo
-  openReciboConfirm(cat, h, add, pgtoForma);
+  openReciboConfirm(cat, h, add, pgtoForma, valorConsumo);
 }
 
 // ── MODAL CONFIRMAÇÃO DE RECIBO ──
 let _reciboArgs = null;
-function openReciboConfirm(cat, h, diasPagos, forma){
-  _reciboArgs = { cat, h, diasPagos, forma };
-  const valorRecibo = diasPagos * h.diaria;
+function openReciboConfirm(cat, h, diasPagos, forma, valorConsumo){
+  _reciboArgs = { cat, h, diasPagos, forma, valorConsumo: valorConsumo||0 };
+  const valorRecibo = diasPagos * h.diaria + (valorConsumo||0);
   document.getElementById('reciboConfirmMsg').innerHTML =
     `Pagamento de <strong>${fmt(valorRecibo)}</strong> via ${pgtoIcon(forma)} <strong>${forma}</strong> registrado para <strong>${h.nome}</strong>.<br><br>Deseja imprimir o recibo?`;
   document.getElementById('reciboConfirmOverlay').classList.add('open');
@@ -2870,17 +3199,18 @@ function openReciboConfirm(cat, h, diasPagos, forma){
 function closeReciboConfirm(){ document.getElementById('reciboConfirmOverlay').classList.remove('open'); _reciboArgs=null; }
 function confirmarImpressaoRecibo(){
   closeReciboConfirm();
-  if(_reciboArgs) gerarReciboPagamento(_reciboArgs.cat, _reciboArgs.h, _reciboArgs.diasPagos, _reciboArgs.forma);
+  if(_reciboArgs) gerarReciboPagamento(_reciboArgs.cat, _reciboArgs.h, _reciboArgs.diasPagos, _reciboArgs.forma, _reciboArgs.valorConsumo);
 }
 
-function gerarReciboPagamento(cat, h, diasPagos, forma){
+function gerarReciboPagamento(cat, h, diasPagos, forma, valorConsumo){
+  valorConsumo = valorConsumo||0;
   const emissao = new Date().toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
                 + ' às ' + new Date().toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
   const diasTotal = diasNoHotel(h.checkin, h.checkinHora);
   const valorPago = h.diaria * h.diasPagos; // já atualizado
   const valorTotal = h.diaria * diasTotal;
   const saldoRestante = Math.max(0, valorTotal - valorPago);
-  const valorRecibo = diasPagos * h.diaria;
+  const valorRecibo = diasPagos * h.diaria + valorConsumo;
   const quitado = saldoRestante <= 0;
   const isMbrf = cat === 'mbrf';
 
@@ -2950,6 +3280,7 @@ function gerarReciboPagamento(cat, h, diasPagos, forma){
       <div class="vb-label">Valor Recebido</div>
       <div class="vb-valor">${fmt(valorRecibo)}</div>
       <div class="vb-forma">${pgtoIcon(forma)} ${forma}</div>
+      ${valorConsumo>0?`<div class="vb-forma" style="opacity:0.85;">🛏 ${fmt(diasPagos*h.diaria)} quarto + 📦 ${fmt(valorConsumo)} produtos</div>`:''}
     </div>
     <div class="vb-right">
       <div class="vb-dias">${diasPagos}d</div>
@@ -3014,14 +3345,14 @@ function gerarReciboPagamento(cat, h, diasPagos, forma){
   </div>
 
   <div style="text-align:center;margin-top:28px;">
-    <button onclick="window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Recibo</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Recibo</button>
   </div>
   <div class="footer">Don Pita Hotel — Recibo gerado automaticamente em ${emissao}</div>
   </body></html>`);
 }
 
 // ── FICHA INFO ──
-function getConsumoHospede(cat, id){
+function getConsumoHospede(cat, id, apenasNaoPago){
   // Busca todas as movimentações de saída vinculadas a este hóspede (por ID, com fallback por nome para dados antigos)
   const arr = cat==='hotel' ? hospedes : mbrfs;
   const h   = arr.find(x=>x.id===id);
@@ -3029,16 +3360,32 @@ function getConsumoHospede(cat, id){
   estoque.forEach(p => {
     const movs = (p.movimentacoes||[]).filter(m => {
       if(m.tipo!=='saida') return false;
+      if(apenasNaoPago && m.movPaga) return false;
       if(m.clienteId!=null) return m.clienteCat===cat && m.clienteId===id;
       // fallback para movimentações antigas, sem clienteId, vinculadas só pelo nome
       return h && m.cliente && m.cliente===h.nome;
     });
     if(movs.length){
       const qtdTotal = movs.reduce((a,m)=>a+m.qtd,0);
-      itens.push({ nome: p.nome, codigo: p.codigo||'', qtd: qtdTotal, preco: p.preco, unidade: p.unidade||'un', total: qtdTotal*p.preco });
+      itens.push({ nome: p.nome, codigo: p.codigo||'', qtd: qtdTotal, preco: p.preco, unidade: p.unidade||'un', total: qtdTotal*p.preco, produtoId: p.id });
     }
   });
   return itens;
+}
+
+// Marca como pagas todas as movimentações de saída não-pagas de um hóspede
+function marcarConsumoComoPago(cat, id){
+  const arr = cat==='hotel' ? hospedes : mbrfs;
+  const h   = arr.find(x=>x.id===id);
+  estoque.forEach(p => {
+    (p.movimentacoes||[]).forEach(m => {
+      if(m.tipo!=='saida' || m.movPaga) return;
+      const pertence = m.clienteId!=null
+        ? (m.clienteCat===cat && m.clienteId===id)
+        : (h && m.cliente && m.cliente===h.nome);
+      if(pertence) m.movPaga = true;
+    });
+  });
 }
 
 function openInfoModal(cat, id){
@@ -3297,7 +3644,7 @@ function imprimirFichaHospede(cat, id){
   </div>
 
   <div style="text-align:center;margin-top:28px;">
-    <button onclick="window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Ficha</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Ficha</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Ficha gerada em ${emissao}</div>
   </body></html>`);
@@ -3777,30 +4124,202 @@ function salvarReserva(){
 }
 function confirmarReserva(id){ const r=reservas.find(x=>x.id===id); if(r){r.status='confirmada';saveReservas();renderAll();showNotif('Reserva confirmada!');} }
 
+// ── PEDIDOS DE RESERVA (recebidos da página pública reservar.html) ──
+function fmtDataBR(iso){
+  if(!iso) return '—';
+  const [y,m,d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function renderPedidosReserva(){
+  const list = document.getElementById('pedidosList');
+  const tag  = document.getElementById('pedidosCountTag');
+  if(!list) return;
+
+  const pendentes = pedidosReserva.filter(p=>p.status==='pendente').sort((a,b)=>(a.criadoEm||'').localeCompare(b.criadoEm||''));
+  if(tag) tag.textContent = `${pendentes.length} pendente(s)`;
+
+  if(!pendentes.length){
+    list.innerHTML = `<div class="pedidos-empty">Nenhum pedido de reserva pendente no momento.</div>`;
+    return;
+  }
+
+  list.innerHTML = pendentes.map(p => `
+    <div class="pedido-card">
+      <div class="pedido-info">
+        <div class="pedido-nome">👤 ${p.nome}</div>
+        <div class="pedido-detail">
+          📅 <b>${fmtDataBR(p.checkin)} → ${fmtDataBR(p.checkout)}</b> ·
+          🛏 ${p.tipoQuarto||'Sem preferência'} · 👥 ${p.pessoas||'—'} pessoa(s)
+        </div>
+        <div class="pedido-detail">
+          📱 ${p.telefone||'—'} ${p.documento?(' · 🪪 '+p.documento):''}
+        </div>
+        ${p.diariaEstimada!=null?`<div class="pedido-detail">💰 ${fmt(p.diariaEstimada)}/noite · ${p.noites||'?'} noite(s) · Total estimado: <b>${fmt(p.totalEstimado)}</b></div>`:''}
+        ${p.obs?`<div class="pedido-detail">💬 ${p.obs}</div>`:''}
+      </div>
+      <div class="pedido-actions">
+        <button class="btn-aprovar" onclick="aprovarPedido(${p.id})">✅ Aprovar</button>
+        <button class="btn-recusar" onclick="recusarPedido(${p.id})">✕ Recusar</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Formata telefone para o formato exigido pelo link wa.me (apenas dígitos, com DDI 55)
+function formatTelWhats(tel){
+  let digits = (tel||'').replace(/\D/g,'');
+  if(!digits) return '';
+  if(digits.length <= 11) digits = '55' + digits;
+  return digits;
+}
+
+function abrirWhatsApp(telefone, mensagem){
+  const tel = formatTelWhats(telefone);
+  if(!tel){ showNotif('Telefone do hóspede inválido — não foi possível abrir o WhatsApp.','warn'); return; }
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(mensagem)}`, '_blank');
+}
+
+function enviarWhatsAppAprovacao(p){
+  const precoTxt = p.diariaEstimada!=null
+    ? `💰 Diária: ${fmt(p.diariaEstimada)} (total estimado: ${fmt(p.totalEstimado)})`
+    : `💰 Valor a confirmar na recepção`;
+  const msg = `Olá ${p.nome}! 🏨 *Don Pita Hotel*\n\nSua reserva foi *CONFIRMADA* ✅\n\n📅 Check-in: ${fmtDataBR(p.checkin)}\n📅 Check-out: ${fmtDataBR(p.checkout)}\n🛏 Tipo de quarto: ${p.tipoQuarto||'A definir'}\n${precoTxt}\n\nAguardamos você! Qualquer dúvida, estamos à disposição por aqui.`;
+  abrirWhatsApp(p.telefone, msg);
+}
+
+function enviarWhatsAppRecusa(p, motivo){
+  const msg = `Olá ${p.nome}, 🏨 *Don Pita Hotel*\n\nInfelizmente não foi possível confirmar sua solicitação de reserva (${fmtDataBR(p.checkin)} → ${fmtDataBR(p.checkout)}).\n\n📝 Motivo: ${motivo}\n\nFicamos à disposição para ajudar a encontrar outra data ou opção. Qualquer dúvida, é só responder por aqui.`;
+  abrirWhatsApp(p.telefone, msg);
+}
+
+function aprovarPedido(id){
+  const p = pedidosReserva.find(x=>x.id===id);
+  if(!p) return;
+
+  // Cria a reserva confirmada na lista principal de Reservas
+  const novaReserva = {
+    id: (reservas.length ? Math.max(...reservas.map(x=>x.id)) : 0) + 1,
+    nome: p.nome,
+    quarto: '',
+    telefone: p.telefone||'',
+    origem: 'Site (pré-reserva)',
+    checkin: p.checkin,
+    checkout: p.checkout,
+    diaria: p.diariaEstimada||'',
+    status: 'confirmada',
+    documento: p.documento||'',
+    obs: (p.obs?p.obs+' · ':'') + `Tipo desejado: ${p.tipoQuarto||'—'} · ${p.pessoas||'—'} pessoa(s)`
+  };
+  reservas.push(novaReserva);
+  saveReservas();
+
+  p.status = 'aprovado';
+  savePedidosReserva();
+
+  renderAll();
+  showNotif(`✅ Pedido de ${p.nome} aprovado! Selecione o quarto para concluir o cadastro automaticamente.`);
+  enviarWhatsAppAprovacao(p);
+
+  // Cadastro automático: os dados do hóspede (nome, telefone, documento, datas, observações)
+  // já seguem prontos para o Hóspedes Ativos — falta apenas escolher o quarto disponível.
+  converterReserva(novaReserva.id);
+}
+
+// ── RECUSA DE PEDIDO (com motivo) ──
+let _recusaTargetId = null;
+
+function recusarPedido(id){
+  const p = pedidosReserva.find(x=>x.id===id);
+  if(!p) return;
+  _recusaTargetId = id;
+  document.getElementById('recusa_motivo').value = '';
+  document.getElementById('recusaModalOverlay').classList.add('open');
+  document.getElementById('recusa_motivo').focus();
+}
+
+function closeRecusaModal(){
+  document.getElementById('recusaModalOverlay').classList.remove('open');
+  _recusaTargetId = null;
+}
+
+function confirmarRecusa(){
+  const p = pedidosReserva.find(x=>x.id===_recusaTargetId);
+  if(!p) return;
+  const motivo = document.getElementById('recusa_motivo').value.trim();
+  if(!motivo){ showNotif('Informe o motivo da recusa.','warn'); return; }
+
+  p.status = 'recusado';
+  p.motivoRecusa = motivo;
+  savePedidosReserva();
+
+  closeRecusaModal();
+  renderAll();
+  showNotif('Pedido recusado.','warn');
+  enviarWhatsAppRecusa(p, motivo);
+}
+
+function copiarLinkPublico(){
+  const input = document.getElementById('linkPublicoReserva');
+  const url = new URL('reservar.html', window.location.href).href;
+  input.value = url;
+  input.select();
+  input.setSelectionRange(0, 99999);
+  try{
+    navigator.clipboard.writeText(url);
+    showNotif('🔗 Link copiado! Compartilhe com os hóspedes.');
+  } catch(e){
+    document.execCommand('copy');
+    showNotif('🔗 Link copiado!');
+  }
+}
+
 // Mostra modal para escolher a categoria da reserva
 let _reservaConvertendoId = null;
 function converterReserva(id){
   const r = reservas.find(x=>x.id===id);
   if(!r) return;
   _reservaConvertendoId = id;
-  // Tipo definido na reserva → converte direto
-  if(r.tipo === 'brf'){
-    executarConversaoReserva('brf');
-    return;
+  const cat = r.tipo === 'brf' ? 'brf' : 'hotel';
+  const quartosReserva = (r.quartos && r.quartos.length) ? r.quartos : (r.quarto ? [r.quarto] : []);
+  if(quartosReserva.length){
+    executarConversaoReserva(cat, quartosReserva);
+  } else {
+    abrirSelecaoQuartoCheckin(cat);
   }
-  // hotel ou sem tipo → converte como hotel direto
-  executarConversaoReserva('hotel');
 }
-function closeConvertReservaModal(){
-  document.getElementById('convertReservaOverlay').classList.remove('open');
+let _conversaoCatSel = null;
+function abrirSelecaoQuartoCheckin(cat){
+  _conversaoCatSel = cat;
+  const livres = quartos
+    .filter(q => getQuartoStatus(q) === 'livre')
+    .sort((a,b)=>(a.numero||'').localeCompare(b.numero||'', undefined, {numeric:true}));
+  const wrap = document.getElementById('selecaoQuartoLista');
+  wrap.innerHTML = livres.length ? livres.map(q=>`
+    <button class="quarto-pick-btn" onclick="confirmarQuartoCheckin('${q.numero}')">
+      <span class="qp-num">🚪 ${q.numero}</span>
+      <span class="qp-tipo">${q.tipo||'—'}</span>
+    </button>
+  `).join('') : `<div style="text-align:center;color:var(--gray);padding:24px 12px;font-size:13px;line-height:1.6;grid-column:1/-1;">Nenhum quarto livre no momento.<br>Libere um quarto ou cadastre um novo em <b>Quartos</b> antes de fazer o check-in.</div>`;
+  document.getElementById('selecaoQuartoOverlay').classList.add('open');
+}
+function closeSelecaoQuartoModal(){
+  document.getElementById('selecaoQuartoOverlay').classList.remove('open');
   _reservaConvertendoId = null;
+  _conversaoCatSel = null;
 }
-function executarConversaoReserva(cat){
+function confirmarQuartoCheckin(numero){
+  const cat = _conversaoCatSel;
+  document.getElementById('selecaoQuartoOverlay').classList.remove('open');
+  executarConversaoReserva(cat, [numero]);
+}
+function executarConversaoReserva(cat, quartosOverride){
   const id = _reservaConvertendoId;
   const r  = reservas.find(x=>x.id===id);
-  if(!r){ closeConvertReservaModal(); return; }
+  if(!r){ _reservaConvertendoId=null; _conversaoCatSel=null; return; }
 
-  const quartosReserva = (r.quartos && r.quartos.length) ? r.quartos : (r.quarto ? [r.quarto] : ['']);
+  const quartosReserva = (quartosOverride && quartosOverride.length) ? quartosOverride
+    : ((r.quartos && r.quartos.length) ? r.quartos : (r.quarto ? [r.quarto] : ['']));
   const grupoReserva = quartosReserva.length>1 ? 'RES-'+Date.now() : null;
 
   // Monta observação extra com documento/endereço, se preenchidos
@@ -3833,9 +4352,12 @@ function executarConversaoReserva(cat){
   if(cat === 'hotel') saveHotel(); else saveMbrf();
 
   reservas=reservas.filter(x=>x.id!==id);
-  saveReservas(); closeConvertReservaModal(); renderAll();
-  const msgQuartos = quartosReserva.length>1 ? ` (${quartosReserva.length} quartos: ${quartosReserva.join(', ')})` : '';
-  showNotif(`${r.nome} convertido para ${cat==='hotel'?'Hóspede Hotel':'Funcionário BRF'}${msgQuartos}!`);
+  saveReservas();
+  _reservaConvertendoId = null;
+  _conversaoCatSel = null;
+  renderAll();
+  const msgQuartos = quartosReserva.length>1 ? ` (${quartosReserva.length} quartos: ${quartosReserva.join(', ')})` : (quartosReserva[0] ? ` — Quarto ${quartosReserva[0]}` : '');
+  showNotif(`${r.nome} fez check-in${msgQuartos}!`);
 }
 function editReserva(id){ openReservaModal(id); }
 function removerReserva(id){ reservas=reservas.filter(r=>r.id!==id); saveReservas(); renderAll(); showNotif('Reserva removida.','warn'); }
@@ -4144,6 +4666,8 @@ const overlayMap = {
   'produtoHistOverlay':    ()=>document.getElementById('produtoHistOverlay').classList.remove('open'),
   'histEditOverlay':       ()=>closeHistEditModal(),
   'pessoaModalOverlay':    ()=>closePessoaModal(),
+  'recusaModalOverlay':    ()=>closeRecusaModal(),
+  'selecaoQuartoOverlay':  ()=>closeSelecaoQuartoModal(),
 };
 Object.entries(overlayMap).forEach(([oid, fn])=>{
   const el=document.getElementById(oid);
@@ -4602,7 +5126,7 @@ function imprimirRelatorioBRF(){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#5B3A8C;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#5B3A8C;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -4698,7 +5222,7 @@ function imprimirRelatorioEstoque(){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -4836,7 +5360,7 @@ function imprimirHospedes(periodo='diario'){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -5091,7 +5615,7 @@ function imprimirCaixa(periodo='diario'){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -5144,6 +5668,7 @@ async function executarResetSistema(){
   quartos   = [];
   estoque   = [];
   pessoas   = [];
+  pedidosReserva = [];
   await Promise.all([
     DB.set('donpita_hotel',     hospedes),
     DB.set('donpita_mbrf',      mbrfs),
@@ -5153,6 +5678,7 @@ async function executarResetSistema(){
     DB.set('donpita_quartos',   quartos),
     DB.set('donpita_estoque',   estoque),
     DB.set('donpita_pessoas',   pessoas),
+    DB.set('donpita_pre_reservas', pedidosReserva),
   ]);
   renderAll();
   showNotif('🗑️ Sistema reiniciado — todos os dados foram apagados.','warn');
@@ -5615,6 +6141,10 @@ function startApp(){
     initSupabase();
   } else {
     window.addEventListener('supaReady', () => initSupabase(), { once: true });
+  }
+  const linkInput = document.getElementById('linkPublicoReserva');
+  if(linkInput){
+    try{ linkInput.value = new URL('reservar.html', window.location.href).href; } catch(e){}
   }
 }
 startApp();
