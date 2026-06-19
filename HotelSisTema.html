@@ -52,9 +52,10 @@
   /* HEADER */
   header {
     background: linear-gradient(135deg, #111827 0%, var(--navy) 60%, var(--navy-mid) 100%);
-    padding: 0 36px;
+    padding: 14px 36px;
     display: flex; align-items: center; justify-content: space-between;
-    height: 76px; position: sticky; top: 0; z-index: 100;
+    flex-wrap: wrap; row-gap: 10px;
+    min-height: 76px; position: sticky; top: 0; z-index: 100;
     box-shadow: 0 4px 30px rgba(10,16,40,0.4);
     border-bottom: 1px solid rgba(201,168,76,0.15);
   }
@@ -615,7 +616,7 @@
   @media (max-width: 960px) {
     main { padding: 16px; }
     .stats { grid-template-columns: 1fr 1fr; }
-    header { padding: 0 16px; }
+    header { padding: 12px 16px; }
     .tabs { padding: 0 6px; }
     .tab  { padding: 0 12px; font-size: 11px; }
     th, td { padding: 10px 10px; }
@@ -632,6 +633,10 @@
     .pgto-formas  { grid-template-columns: repeat(3, 1fr); }
     .hist-card    { flex-wrap: wrap; }
     .quartos-grid { grid-template-columns: 1fr 1fr; }
+    .logo-text { font-size: 17px; white-space: nowrap; }
+    .logo-sub  { font-size: 8px; letter-spacing: 1.5px; }
+    .logo-icon { width: 40px; height: 40px; font-size: 15px; }
+    .header-right { gap: 10px; row-gap: 8px; }
   }
 
   /* ── RELATÓRIOS ── */
@@ -4609,6 +4614,7 @@ async function salvarHospede() {
     const h   = arr.find(x => x.id === editingId);
     if (h) Object.assign(h, obj);
     if (isMbrf) saveMbrf(); else saveHotel();
+    sincronizarPessoaDoCadastro(obj, isMbrf);
     showNotif(`${nome} atualizado com sucesso!`);
   } else {
     const arr = isMbrf ? mbrfs : hospedes;
@@ -4622,11 +4628,44 @@ async function salvarHospede() {
     const novo  = { id: newId, criadoEm: new Date().toISOString(), ...obj };
     arr.push(novo);
     if (isMbrf) saveMbrf(); else saveHotel();
+    sincronizarPessoaDoCadastro(obj, isMbrf);
     showNotif(`${isMbrf ? 'Funcionário' : 'Hóspede'} ${nome} cadastrado! Ficha: ${obj.codigoFicha}`);
   }
 
   closeModal();
   renderAll();
+}
+
+// Cria ou atualiza automaticamente o cadastro em "Pessoas" sempre que um
+// hóspede (Hotel) ou funcionário (MBRF) é salvo, usando o código da ficha
+// como chave de ligação entre os dois cadastros.
+function sincronizarPessoaDoCadastro(obj, isMbrf){
+  if(!obj.codigoFicha) return;
+  const existente = pessoas.find(p => p.codigo === obj.codigoFicha);
+  const dadosPessoa = {
+    nome:      isMbrf ? obj.nome.replace(/^BRF-/i,'').trim() : obj.nome,
+    codigo:    obj.codigoFicha,
+    telefone:  obj.telefone  || '',
+    documento: obj.documento || '',
+    email:     existente?.email || '',
+    tipo:      isMbrf ? 'mbrf' : 'hotel',
+    matricula: obj.matricula || '',
+    setor:     obj.setor     || '',
+    cep:       obj.cep       || '',
+    endereco:  obj.endereco  || '',
+    numero:    obj.numero    || '',
+    bairro:    obj.bairro    || '',
+    cidade:    obj.cidade    || '',
+    estado:    obj.estado    || '',
+    obs:       existente?.obs || '',
+  };
+  if(existente){
+    Object.assign(existente, dadosPessoa);
+  } else {
+    const newId = pessoas.length ? Math.max(...pessoas.map(x => x.id)) + 1 : 1;
+    pessoas.push({ id: newId, criadoEm: new Date().toISOString(), ...dadosPessoa });
+  }
+  savePessoas();
 }
 
 function removerHospede(cat,id){
