@@ -476,8 +476,10 @@ document.querySelectorAll('[data-cat]').forEach(link => {
   }
 });
 
-// Aba inicial visível por padrão ao carregar a página
-mostrarAba('inicial');
+// Aba visível ao carregar a página: respeita o link clicado (ex: index.html#contato)
+// vindo de outra página (como a Reserva). Se não houver # válido, abre o Início.
+const _hashInicial = window.location.hash.replace('#', '');
+mostrarAba(ABAS.includes(_hashInicial) ? _hashInicial : 'inicial');
 
 /* ===== MENU MOBILE (burger) ===== */
 const navBurger = document.getElementById('navBurger');
