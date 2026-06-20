@@ -736,15 +736,15 @@
     </div>
     <div class="header-item" id="hi-warn" data-hi="warn">
       <div id="storageWarn" style="display:none;background:rgba(178,59,59,0.18);border:1px solid rgba(178,59,59,0.4);border-radius:8px;padding:6px 10px;font-size:11px;color:#ffaaaa;text-align:center;max-width:160px;line-height:1.3;">
-        ⚠️ Banco offline<br>verifique a conexão
+        ⚠️ <span data-i18n="bancoOffline">Banco offline<br>verifique a conexão</span>
       </div>
     </div>
     <div class="header-item" id="hi-sync" data-hi="sync" style="display:none;">
       <div id="fbLoadingBar" style="display:none;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.35);border-radius:8px;padding:6px 12px;font-size:11px;color:var(--gold-light);align-items:center;gap:6px;">
-        <span style="animation:spin 1s linear infinite;display:inline-block;">🔄</span> Sincronizando...
+        <span style="animation:spin 1s linear infinite;display:inline-block;">🔄</span> <span data-i18n="sincronizando">Sincronizando...</span>
       </div>
       <div id="fbSyncOk" style="display:none;background:rgba(46,125,82,0.15);border:1px solid rgba(46,125,82,0.35);border-radius:8px;padding:6px 12px;font-size:11px;color:#7ddfaa;">
-        ☁️ Nuvem ativa
+        ☁️ <span data-i18n="nuvemAtiva">Nuvem ativa</span>
       </div>
     </div>
     <div class="header-item" id="hi-date" data-hi="date" title="Clique para mostrar/ocultar · Arraste para reposicionar" onclick="toggleDateDisplay(event)" style="cursor:pointer;">
@@ -1011,83 +1011,83 @@
       <!-- Relatório de Hóspedes -->
       <div class="rel-card">
         <div class="rel-icon">🛏️</div>
-        <div class="rel-title">Relatório de Hóspedes</div>
-        <div class="rel-desc">Lista completa dos hóspedes com quarto, código de ficha, check-in, previsão de saída e status de pagamento.</div>
+        <div class="rel-title" data-i18n="relHospTitle">Relatório de Hóspedes</div>
+        <div class="rel-desc" data-i18n="relHospDesc">Lista completa dos hóspedes com quarto, código de ficha, check-in, previsão de saída e status de pagamento.</div>
 
-        <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Período</div>
+        <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;" data-i18n="relPeriodo">Período</div>
         <div class="rel-periodo" id="relHospPeriodo">
           <button class="rel-periodo-btn selected" data-val="diario" onclick="selectRelPeriodo('hospedes','diario',this)">
-            <span class="p-icon">📅</span> Diário
+            <span class="p-icon">📅</span> <span data-i18n="relDiario">Diário</span>
           </button>
           <button class="rel-periodo-btn" data-val="mensal" onclick="selectRelPeriodo('hospedes','mensal',this)">
-            <span class="p-icon">📆</span> Mensal
+            <span class="p-icon">📆</span> <span data-i18n="relMensal">Mensal</span>
           </button>
         </div>
 
         <div class="rel-info">
-          <div class="rel-info-item">Nome e código de ficha</div>
-          <div class="rel-info-item">Número do quarto</div>
-          <div class="rel-info-item">Datas de entrada e saída</div>
-          <div class="rel-info-item">Status do pagamento</div>
-          <div class="rel-info-item">Inclui hóspedes Hotel + BRF</div>
+          <div class="rel-info-item" data-i18n="relHospInfo1">Nome e código de ficha</div>
+          <div class="rel-info-item" data-i18n="relHospInfo2">Número do quarto</div>
+          <div class="rel-info-item" data-i18n="relHospInfo3">Datas de entrada e saída</div>
+          <div class="rel-info-item" data-i18n="relHospInfo4">Status do pagamento</div>
+          <div class="rel-info-item" data-i18n="relHospInfo5">Inclui hóspedes Hotel + BRF</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirHospedesComPeriodo()">🖨️ Gerar e Imprimir</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirHospedesComPeriodo()">🖨️ <span data-i18n="btnGerarImprimir">Gerar e Imprimir</span></button>
       </div>
 
       <!-- Relatório de Caixa -->
       <div class="rel-card">
         <div class="rel-icon">💰</div>
-        <div class="rel-title">Relatório de Caixa</div>
-        <div class="rel-desc">Resumo financeiro completo com receita recebida, saldos pendentes, totais por categoria e balanço geral do período.</div>
+        <div class="rel-title" data-i18n="relCaixaTitle">Relatório de Caixa</div>
+        <div class="rel-desc" data-i18n="relCaixaDesc">Resumo financeiro completo com receita recebida, saldos pendentes, totais por categoria e balanço geral do período.</div>
 
-        <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Período</div>
+        <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;" data-i18n="relPeriodo">Período</div>
         <div class="rel-periodo" id="relCaixaPeriodo">
           <button class="rel-periodo-btn selected" data-val="diario" onclick="selectRelPeriodo('caixa','diario',this)">
-            <span class="p-icon">📅</span> Diário
+            <span class="p-icon">📅</span> <span data-i18n="relDiario">Diário</span>
           </button>
           <button class="rel-periodo-btn" data-val="mensal" onclick="selectRelPeriodo('caixa','mensal',this)">
-            <span class="p-icon">📆</span> Mensal
+            <span class="p-icon">📆</span> <span data-i18n="relMensal">Mensal</span>
           </button>
         </div>
 
         <div class="rel-info">
-          <div class="rel-info-item">Receita total recebida</div>
-          <div class="rel-info-item">Saldos pendentes por hóspede</div>
-          <div class="rel-info-item">Total Hotel vs BRF</div>
-          <div class="rel-info-item">Balanço geral</div>
-          <div class="rel-info-item">Formas de pagamento</div>
+          <div class="rel-info-item" data-i18n="relCaixaInfo1">Receita total recebida</div>
+          <div class="rel-info-item" data-i18n="relCaixaInfo2">Saldos pendentes por hóspede</div>
+          <div class="rel-info-item" data-i18n="relCaixaInfo3">Total Hotel vs BRF</div>
+          <div class="rel-info-item" data-i18n="relCaixaInfo4">Balanço geral</div>
+          <div class="rel-info-item" data-i18n="relCaixaInfo5">Formas de pagamento</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirCaixaComPeriodo()">🖨️ Gerar e Imprimir</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirCaixaComPeriodo()">🖨️ <span data-i18n="btnGerarImprimir">Gerar e Imprimir</span></button>
       </div>
 
       <!-- Relatório de Pessoas BRF -->
       <div class="rel-card">
         <div class="rel-icon">🏢</div>
-        <div class="rel-title">Relatório de Pessoas BRF</div>
-        <div class="rel-desc">Lista de todos os funcionários BRF ativos: quantas pessoas, matrícula/código, quarto, setor e tempo de estadia.</div>
+        <div class="rel-title" data-i18n="relBrfTitle">Relatório de Pessoas BRF</div>
+        <div class="rel-desc" data-i18n="relBrfDesc">Lista de todos os funcionários BRF ativos: quantas pessoas, matrícula/código, quarto, setor e tempo de estadia.</div>
 
         <div class="rel-info">
-          <div class="rel-info-item">Quantidade total de pessoas</div>
-          <div class="rel-info-item">Matrícula e código de cada um</div>
-          <div class="rel-info-item">Tempo de estadia (dias)</div>
-          <div class="rel-info-item">Valor total e saldo pendente</div>
+          <div class="rel-info-item" data-i18n="relBrfInfo1">Quantidade total de pessoas</div>
+          <div class="rel-info-item" data-i18n="relBrfInfo2">Matrícula e código de cada um</div>
+          <div class="rel-info-item" data-i18n="relBrfInfo3">Tempo de estadia (dias)</div>
+          <div class="rel-info-item" data-i18n="relBrfInfo4">Valor total e saldo pendente</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirRelatorioBRF()">🖨️ Gerar e Imprimir</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirRelatorioBRF()">🖨️ <span data-i18n="btnGerarImprimir">Gerar e Imprimir</span></button>
       </div>
 
       <!-- Relatório de Estoque -->
       <div class="rel-card">
         <div class="rel-icon">📦</div>
-        <div class="rel-title">Relatório de Estoque</div>
-        <div class="rel-desc">Lista completa de produtos com quantidade atual, preço, valor total em estoque e status (ok, baixo ou zerado).</div>
+        <div class="rel-title" data-i18n="relEstoqueTitle">Relatório de Estoque</div>
+        <div class="rel-desc" data-i18n="relEstoqueDesc">Lista completa de produtos com quantidade atual, preço, valor total em estoque e status (ok, baixo ou zerado).</div>
 
         <div class="rel-info">
-          <div class="rel-info-item">Quantidade atual por produto</div>
-          <div class="rel-info-item">Valor total em estoque</div>
-          <div class="rel-info-item">Produtos com estoque baixo</div>
-          <div class="rel-info-item">Produtos zerados</div>
+          <div class="rel-info-item" data-i18n="relEstoqueInfo1">Quantidade atual por produto</div>
+          <div class="rel-info-item" data-i18n="relEstoqueInfo2">Valor total em estoque</div>
+          <div class="rel-info-item" data-i18n="relEstoqueInfo3">Produtos com estoque baixo</div>
+          <div class="rel-info-item" data-i18n="relEstoqueInfo4">Produtos zerados</div>
         </div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirRelatorioEstoque()">🖨️ Gerar e Imprimir</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;" onclick="imprimirRelatorioEstoque()">🖨️ <span data-i18n="btnGerarImprimir">Gerar e Imprimir</span></button>
       </div>
 
     </div>
@@ -1122,91 +1122,91 @@
 <div class="modal-overlay" id="pessoaModalOverlay">
   <div class="modal" style="max-width:680px;">
     <button class="modal-close" onclick="closePessoaModal()">✕</button>
-    <div class="modal-title" id="pessoaModalTitle">👤 Nova Pessoa</div>
+    <div class="modal-title" id="pessoaModalTitle">👤 <span data-i18n="pessoaModalTitle">Nova Pessoa</span></div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Nome Completo <span style="color:var(--red)">*</span></label>
-        <input class="form-input" id="p_nome" placeholder="João da Silva">
+        <label class="form-label" data-i18n="lblNomeCompleto">Nome Completo <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="p_nome" data-i18n-ph="phNomeExemplo" placeholder="João da Silva">
       </div>
       <div class="form-group">
-        <label class="form-label">Código da Pessoa <span style="color:var(--gray);font-size:9px;">(automático)</span></label>
+        <label class="form-label" data-i18n="lblCodigoPessoa">Código da Pessoa <span style="color:var(--gray);font-size:9px;">(automático)</span></label>
         <div style="display:flex;gap:6px;">
-          <input class="form-input" id="p_codigo" placeholder="Ex: 1, 2, 3..." style="flex:1;" readonly>
+          <input class="form-input" id="p_codigo" data-i18n-ph="phCodigoExemplo" placeholder="Ex: 1, 2, 3..." style="flex:1;" readonly>
           <button type="button" class="btn btn-ghost" style="padding:9px 12px;font-size:12px;flex-shrink:0;" onclick="gerarCodigoPessoa()">🎲</button>
         </div>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Telefone</label>
+        <label class="form-label" data-i18n="lblTelefone">Telefone</label>
         <input class="form-input" id="p_telefone" placeholder="(49) 99999-9999" oninput="maskTelefone(this)" inputmode="numeric" maxlength="16">
       </div>
       <div class="form-group">
-        <label class="form-label">CPF / CNPJ</label>
+        <label class="form-label" data-i18n="lblDocumento">CPF / CNPJ</label>
         <input class="form-input" id="p_documento" placeholder="000.000.000-00" maxlength="18" inputmode="numeric" oninput="maskDocumento(this)">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">E-mail</label>
-        <input class="form-input" id="p_email" placeholder="joao@email.com" type="email">
+        <label class="form-label" data-i18n="lblEmail">E-mail</label>
+        <input class="form-input" id="p_email" data-i18n-ph="phEmailExemplo" placeholder="joao@email.com" type="email">
       </div>
       <div class="form-group">
-        <label class="form-label">Tipo Padrão</label>
+        <label class="form-label" data-i18n="lblTipoPadrao">Tipo Padrão</label>
         <select class="form-select" id="p_tipo" onchange="onPessoaTipoChange(this.value)">
-          <option value="hotel">🏨 Hóspede Hotel</option>
-          <option value="mbrf">🏢 Funcionário BRF</option>
-          <option value="ambos">🔄 Ambos</option>
+          <option value="hotel" data-i18n="optHospedeHotel">🏨 Hóspede Hotel</option>
+          <option value="mbrf" data-i18n="optFuncionarioBRF">🏢 Funcionário BRF</option>
+          <option value="ambos" data-i18n="optAmbos">🔄 Ambos</option>
         </select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Matrícula BRF <span style="color:var(--gray);font-size:9px;">(se BRF)</span></label>
+        <label class="form-label" data-i18n="lblMatriculaBRF">Matrícula BRF <span style="color:var(--gray);font-size:9px;">(se BRF)</span></label>
         <input class="form-input" id="p_matricula" placeholder="BRF-00000">
       </div>
       <div class="form-group">
-        <label class="form-label">Setor / Cargo</label>
-        <input class="form-input" id="p_setor" placeholder="Produção">
+        <label class="form-label" data-i18n="lblSetorCargo">Setor / Cargo</label>
+        <input class="form-input" id="p_setor" data-i18n-ph="phSetorExemplo" placeholder="Produção">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">CEP</label>
+        <label class="form-label" data-i18n="lblCEP">CEP</label>
         <input class="form-input" id="p_cep" placeholder="00000-000" maxlength="9" inputmode="numeric" oninput="maskCep(this)" onblur="buscarEnderecoPorCep('p')">
       </div>
       <div class="form-group">
-        <label class="form-label">Endereço</label>
-        <input class="form-input" id="p_endereco" placeholder="Rua / Avenida">
+        <label class="form-label" data-i18n="lblEndereco">Endereço</label>
+        <input class="form-input" id="p_endereco" data-i18n-ph="phEnderecoExemplo" placeholder="Rua / Avenida">
       </div>
       <div class="form-group">
-        <label class="form-label">Número</label>
+        <label class="form-label" data-i18n="lblNumero">Número</label>
         <input class="form-input" id="p_numero" placeholder="123">
       </div>
     </div>
     <div class="form-row three">
       <div class="form-group">
-        <label class="form-label">Bairro</label>
-        <input class="form-input" id="p_bairro" placeholder="Centro">
+        <label class="form-label" data-i18n="lblBairro">Bairro</label>
+        <input class="form-input" id="p_bairro" data-i18n-ph="phBairroExemplo" placeholder="Centro">
       </div>
       <div class="form-group">
-        <label class="form-label">Cidade</label>
-        <input class="form-input" id="p_cidade" placeholder="Cidade">
+        <label class="form-label" data-i18n="lblCidade">Cidade</label>
+        <input class="form-input" id="p_cidade" data-i18n-ph="phCidadeExemplo" placeholder="Cidade">
       </div>
       <div class="form-group">
-        <label class="form-label">UF</label>
+        <label class="form-label" data-i18n="lblUF">UF</label>
         <input class="form-input" id="p_estado" placeholder="UF" maxlength="2" style="text-transform:uppercase;">
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observações</label>
-        <input class="form-input" id="p_obs" placeholder="Notas sobre a pessoa...">
+        <label class="form-label" data-i18n="lblObs">Observações</label>
+        <input class="form-input" id="p_obs" data-i18n-ph="phNotasPessoa" placeholder="Notas sobre a pessoa...">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closePessoaModal()">Cancelar</button>
-      <button class="btn" style="background:linear-gradient(135deg,#1A4A7A,#2260A8);color:white;" id="btnSalvarPessoa" onclick="salvarPessoa()">Cadastrar Pessoa</button>
+      <button class="btn btn-outline" onclick="closePessoaModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn" style="background:linear-gradient(135deg,#1A4A7A,#2260A8);color:white;" id="btnSalvarPessoa" onclick="salvarPessoa()"><span data-i18n="btnCadastrarPessoa">Cadastrar Pessoa</span></button>
     </div>
   </div>
 </div>
@@ -1215,8 +1215,8 @@
 <div class="modal-overlay" id="confirmSaidaOverlay">
   <div class="modal confirm-modal">
     <div class="confirm-icon" id="confirmIcon">🚪</div>
-    <div class="confirm-title" id="confirmTitle">Confirmar Saída</div>
-    <div class="confirm-msg" id="confirmMsg">Esta ação não pode ser desfeita.</div>
+    <div class="confirm-title" id="confirmTitle" data-i18n="confirmSaidaTitle">Confirmar Saída</div>
+    <div class="confirm-msg" id="confirmMsg" data-i18n="confirmSaidaMsg">Esta ação não pode ser desfeita.</div>
     <div class="confirm-detail" id="confirmDetail"></div>
     <div class="confirm-btns">
       <button class="btn btn-outline" onclick="closeConfirmSaida()">Cancelar</button>
@@ -1229,15 +1229,15 @@
 <div class="modal-overlay" id="recusaModalOverlay">
   <div class="modal" style="max-width:480px;">
     <button class="modal-close" onclick="closeRecusaModal()">✕</button>
-    <div class="modal-title">✕ Recusar Pedido de Reserva</div>
+    <div class="modal-title">✕ <span data-i18n="recusaTitle">Recusar Pedido de Reserva</span></div>
     <div class="form-group" style="margin-bottom:16px;">
-      <label class="form-label">Motivo da recusa *</label>
-      <textarea class="form-input" id="recusa_motivo" rows="3" style="resize:vertical;" placeholder="Ex: Não há disponibilidade para essas datas"></textarea>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">Esse motivo será enviado ao hóspede por WhatsApp.</div>
+      <label class="form-label" data-i18n="recusaMotivoLabel">Motivo da recusa *</label>
+      <textarea class="form-input" id="recusa_motivo" rows="3" style="resize:vertical;" data-i18n-ph="phMotivoRecusa" placeholder="Ex: Não há disponibilidade para essas datas"></textarea>
+      <div style="font-size:12px;color:var(--gray);margin-top:4px;" data-i18n="recusaMotivoHint">Esse motivo será enviado ao hóspede por WhatsApp.</div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeRecusaModal()">Cancelar</button>
-      <button class="btn btn-danger" onclick="confirmarRecusa()">✕ Confirmar Recusa e Avisar</button>
+      <button class="btn btn-outline" onclick="closeRecusaModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-danger" onclick="confirmarRecusa()">✕ <span data-i18n="btnConfirmarRecusa">Confirmar Recusa e Avisar</span></button>
     </div>
   </div>
 </div>
@@ -1246,8 +1246,8 @@
 <div class="modal-overlay" id="selecaoQuartoOverlay">
   <div class="modal" style="max-width:520px;">
     <button class="modal-close" onclick="closeSelecaoQuartoModal()">✕</button>
-    <div class="modal-title">🚪 Selecionar Quarto para Check-in</div>
-    <div style="font-size:12.5px;color:var(--gray);margin-bottom:14px;">Escolha o quarto onde o hóspede vai ficar. Apenas quartos livres aparecem aqui.</div>
+    <div class="modal-title">🚪 <span data-i18n="selecaoQuartoTitle">Selecionar Quarto para Check-in</span></div>
+    <div style="font-size:12.5px;color:var(--gray);margin-bottom:14px;" data-i18n="selecaoQuartoHint">Escolha o quarto onde o hóspede vai ficar. Apenas quartos livres aparecem aqui.</div>
     <div class="quarto-pick-grid" id="selecaoQuartoLista"></div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeSelecaoQuartoModal()">Cancelar</button>
@@ -1261,25 +1261,25 @@
 <div class="modal-overlay" id="pgtoModalOverlay">
   <div class="modal pgto-modal">
     <button class="modal-close" onclick="closePgtoModal()">✕</button>
-    <div class="modal-title">💰 Registrar Pagamento</div>
+    <div class="modal-title">💰 <span data-i18n="pgtoTitle">Registrar Pagamento</span></div>
     <div style="margin-bottom:14px;">
-      <div class="form-label" style="margin-bottom:8px;">Forma de Pagamento</div>
+      <div class="form-label" style="margin-bottom:8px;" data-i18n="pgtoFormaLabel">Forma de Pagamento</div>
       <div class="pgto-formas">
-        <button class="pgto-forma-btn" data-forma="Dinheiro" onclick="selectForma(this)"><span class="icon">💵</span><span class="label">Dinheiro</span></button>
+        <button class="pgto-forma-btn" data-forma="Dinheiro" onclick="selectForma(this)"><span class="icon">💵</span><span class="label" data-i18n="formaDinheiro">Dinheiro</span></button>
         <button class="pgto-forma-btn" data-forma="Pix"      onclick="selectForma(this)"><span class="icon">📱</span><span class="label">Pix</span></button>
-        <button class="pgto-forma-btn" data-forma="Débito"   onclick="selectForma(this)"><span class="icon">💳</span><span class="label">Débito</span></button>
-        <button class="pgto-forma-btn" data-forma="Crédito"  onclick="selectForma(this)"><span class="icon">🏦</span><span class="label">Crédito</span></button>
-        <button class="pgto-forma-btn" data-forma="Faturado" onclick="selectForma(this)"><span class="icon">📄</span><span class="label">Faturado</span></button>
+        <button class="pgto-forma-btn" data-forma="Débito"   onclick="selectForma(this)"><span class="icon">💳</span><span class="label" data-i18n="formaDebito">Débito</span></button>
+        <button class="pgto-forma-btn" data-forma="Crédito"  onclick="selectForma(this)"><span class="icon">🏦</span><span class="label" data-i18n="formaCredito">Crédito</span></button>
+        <button class="pgto-forma-btn" data-forma="Faturado" onclick="selectForma(this)"><span class="icon">📄</span><span class="label" data-i18n="formaFaturado">Faturado</span></button>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Dias a Adicionar</label>
+        <label class="form-label" data-i18n="pgtoDiasLabel">Dias a Adicionar</label>
         <input class="form-input" type="number" id="pgto_dias" min="0" placeholder="0" oninput="updatePgtoResumo()">
       </div>
       <div class="form-group">
-        <label class="form-label">Observação (opcional)</label>
-        <input class="form-input" id="pgto_obs" placeholder="Referência, nota...">
+        <label class="form-label" data-i18n="pgtoObsLabel">Observação (opcional)</label>
+        <input class="form-input" id="pgto_obs" data-i18n-ph="phReferenciaNota" placeholder="Referência, nota...">
       </div>
     </div>
     <div id="pgtoConsumoWrap" style="display:none;margin-bottom:14px;">
@@ -1321,72 +1321,72 @@
     <div class="modal-title" id="modalTitle">🏨 Novo Hóspede</div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Nome <span style="color:var(--red)">*</span></label>
-        <input class="form-input" id="f_nome" placeholder="João da Silva" oninput="sugerirPessoas(this.value)" autocomplete="off">
+        <label class="form-label" data-i18n="lblNome">Nome <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="f_nome" data-i18n-ph="phNomeExemplo" placeholder="João da Silva" oninput="sugerirPessoas(this.value)" autocomplete="off">
         <div id="historico_sugestoes" style="display:none;position:absolute;z-index:999;background:white;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.12);max-height:200px;overflow-y:auto;min-width:260px;"></div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Telefone <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblTelefone">Telefone <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_telefone" placeholder="(49) 99999-9999" oninput="maskTelefone(this)" inputmode="numeric" maxlength="16">
       </div>
 
       <div class="form-group">
-        <label class="form-label">Quarto <span style="color:var(--gray);font-weight:400;font-size:9px;">(disponíveis)</span></label>
+        <label class="form-label" data-i18n="lblQuarto">Quarto <span style="color:var(--gray);font-weight:400;font-size:9px;">(disponíveis)</span></label>
         <select class="form-select" id="f_quarto">
-          <option value="">— Selecione um quarto —</option>
+          <option value="" data-i18n="optSelecioneQuarto">— Selecione um quarto —</option>
         </select>
       </div>
     </div>
     <div class="form-row" id="f_matricula_row" style="display:none">
       <div class="form-group">
-        <label class="form-label">Matrícula BRF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblMatriculaBRF">Matrícula BRF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_matricula" placeholder="BRF-00000">
       </div>
       <div class="form-group">
-        <label class="form-label">Setor / Cargo <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="f_setor" placeholder="Produção">
+        <label class="form-label" data-i18n="lblSetorCargo">Setor / Cargo <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="f_setor" data-i18n-ph="phSetorExemplo" placeholder="Produção">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">CPF / CNPJ <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblDocumento">CPF / CNPJ <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_documento" placeholder="000.000.000-00" maxlength="18" inputmode="numeric" oninput="maskDocumento(this)">
       </div>
       <div class="form-group">
-        <label class="form-label">CEP <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblCEP">CEP <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_cep" placeholder="00000-000" maxlength="9" inputmode="numeric" oninput="maskCep(this)" onblur="buscarEnderecoPorCep('f')">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Endereço <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="f_endereco" placeholder="Rua / Avenida">
+        <label class="form-label" data-i18n="lblEndereco">Endereço <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="f_endereco" data-i18n-ph="phEnderecoExemplo" placeholder="Rua / Avenida">
       </div>
       <div class="form-group">
-        <label class="form-label">Número <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblNumero">Número <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_numero" placeholder="123">
       </div>
     </div>
     <div class="form-row three">
       <div class="form-group">
-        <label class="form-label">Bairro <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="f_bairro" placeholder="Centro">
+        <label class="form-label" data-i18n="lblBairro">Bairro <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="f_bairro" data-i18n-ph="phBairroExemplo" placeholder="Centro">
       </div>
       <div class="form-group">
-        <label class="form-label">Cidade <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="f_cidade" placeholder="Cidade">
+        <label class="form-label" data-i18n="lblCidade">Cidade <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="f_cidade" data-i18n-ph="phCidadeExemplo" placeholder="Cidade">
       </div>
       <div class="form-group">
-        <label class="form-label">UF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblUF">UF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_estado" placeholder="UF" maxlength="2" style="text-transform:uppercase;">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group" style="position:relative;">
-        <label class="form-label">🔍 Código da Pessoa <span style="color:var(--gray);font-weight:400;font-size:9px;">(digite para buscar e preencher)</span></label>
+        <label class="form-label" data-i18n="lblCodigoBusca">🔍 Código da Pessoa <span style="color:var(--gray);font-weight:400;font-size:9px;">(digite para buscar e preencher)</span></label>
         <div style="display:flex;gap:6px;align-items:center;">
-          <input class="form-input" id="f_codigoFicha" placeholder="Ex: 1, 2, 3..." style="flex:1;"
+          <input class="form-input" id="f_codigoFicha" data-i18n-ph="phCodigoExemplo" placeholder="Ex: 1, 2, 3..." style="flex:1;"
             oninput="buscarPessoaPorCodigo(this.value)"
             onkeydown="if(event.key==='Escape'){document.getElementById('codigo_sugestoes').style.display='none'}"
             autocomplete="off">
@@ -1398,48 +1398,48 @@
     </div>
     <div class="form-row three">
       <div class="form-group">
-        <label class="form-label">Data Check-in <span style="color:var(--gray);font-weight:400;font-size:9px;">(padrão: hoje)</span></label>
+        <label class="form-label" data-i18n="lblDataCheckin">Data Check-in <span style="color:var(--gray);font-weight:400;font-size:9px;">(padrão: hoje)</span></label>
         <input class="form-input" type="date" id="f_checkin">
       </div>
       <div class="form-group">
-        <label class="form-label">Hora Entrada <span style="color:var(--gold);font-weight:700;font-size:9px;">⏰ Regra 11h</span></label>
+        <label class="form-label" data-i18n="lblHoraEntrada">Hora Entrada <span style="color:var(--gold);font-weight:700;font-size:9px;">⏰ Regra 11h</span></label>
         <input class="form-input" type="time" id="f_checkin_hora" placeholder="HH:MM">
-        <div style="font-size:9px;color:var(--gray);margin-top:3px;">Antes 11h = +1 diária · Depois 11h = normal</div>
+        <div style="font-size:9px;color:var(--gray);margin-top:3px;" data-i18n="lblRegra11h">Antes 11h = +1 diária · Depois 11h = normal</div>
       </div>
       <div class="form-group" id="f_checkout_group">
-        <label class="form-label">Data Check-out <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblDataCheckout">Data Check-out <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" type="date" id="f_checkout">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Valor por Diária (R$) <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblDiaria">Valor por Diária (R$) <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" type="number" id="f_diaria" placeholder="0">
       </div>
       <div class="form-group">
-        <label class="form-label">Dias Pagos <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblDiasPagos">Dias Pagos <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" type="number" id="f_diasPagos" placeholder="0">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">🚗 Carro / Veículo <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="f_carro" placeholder="Civic, Uno, Kwid...">
+        <label class="form-label" data-i18n="lblCarro">🚗 Carro / Veículo <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="f_carro" data-i18n-ph="phCarroExemplo" placeholder="Civic, Uno, Kwid...">
       </div>
       <div class="form-group">
-        <label class="form-label">🔖 Placa <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblPlaca">🔖 Placa <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="f_placa" placeholder="ABC-1234 ou BRA2E25" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()">
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observações <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="f_obs" placeholder="Café da manhã incluído...">
+        <label class="form-label" data-i18n="lblObs">Observações <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="f_obs" data-i18n-ph="phCafeIncluido" placeholder="Café da manhã incluído...">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-primary" id="btnSalvar" onclick="salvarHospede()">Cadastrar Hóspede</button>
+      <button class="btn btn-outline" onclick="closeModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-primary" id="btnSalvar" onclick="salvarHospede()"><span data-i18n="btnCadastrarHospede">Cadastrar Hóspede</span></button>
     </div>
   </div>
 </div>
@@ -1448,17 +1448,17 @@
 <div class="modal-overlay" id="reservaModalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeReservaModal()">✕</button>
-    <div class="modal-title" id="reservaModalTitle">📋 Nova Reserva</div>
+    <div class="modal-title" id="reservaModalTitle">📋 <span data-i18n="reservaModalTitle">Nova Reserva</span></div>
 
     <!-- TIPO: Hotel ou BRF -->
     <div style="margin-bottom:18px;">
-      <div class="form-label" style="margin-bottom:8px;">Tipo de Hóspede</div>
+      <div class="form-label" style="margin-bottom:8px;" data-i18n="lblTipoHospede">Tipo de Hóspede</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
         <button type="button" id="r_tipo_hotel" class="mov-tipo-btn entrada selected" onclick="selectReservaTipo('hotel')" style="border-color:var(--reserva-blue);background:var(--reserva-light);">
-          <span class="icon">🏨</span><span class="label" style="color:var(--reserva-blue);">Hóspede Hotel</span>
+          <span class="icon">🏨</span><span class="label" style="color:var(--reserva-blue);" data-i18n="optHospedeHotel">Hóspede Hotel</span>
         </button>
         <button type="button" id="r_tipo_brf" class="mov-tipo-btn saida" onclick="selectReservaTipo('brf')">
-          <span class="icon">🏢</span><span class="label">Funcionário BRF</span>
+          <span class="icon">🏢</span><span class="label" data-i18n="optFuncionarioBRF">Funcionário BRF</span>
         </button>
       </div>
     </div>
@@ -1466,7 +1466,7 @@
     <div class="form-row full">
       <div class="form-group">
         <label class="form-label" id="r_nome_label">Nome do Hóspede *</label>
-        <input class="form-input" id="r_nome" placeholder="João da Silva">
+        <input class="form-input" id="r_nome" data-i18n-ph="phNomeExemplo" placeholder="João da Silva">
       </div>
     </div>
 
@@ -1478,88 +1478,88 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Telefone / Contato</label>
+        <label class="form-label" data-i18n="lblTelefone">Telefone / Contato</label>
         <input class="form-input" id="r_telefone" placeholder="(xx) 9xxxx-xxxx">
       </div>
       <div class="form-group">
-        <label class="form-label">Origem</label>
+        <label class="form-label" data-i18n="lblOrigem">Origem</label>
         <select class="form-select" id="r_origem">
-          <option value="Direto">Direto</option>
+          <option value="Direto" data-i18n="optDireto">Direto</option>
           <option value="Booking">Booking.com</option>
           <option value="Airbnb">Airbnb</option>
-          <option value="Indicação">Indicação</option>
-          <option value="Outro">Outro</option>
+          <option value="Indicação" data-i18n="optIndicacao">Indicação</option>
+          <option value="Outro" data-i18n="optOutro">Outro</option>
         </select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Data de Entrada</label>
+        <label class="form-label" data-i18n="lblDataEntrada">Data de Entrada</label>
         <input class="form-input" type="date" id="r_checkin">
       </div>
       <div class="form-group">
-        <label class="form-label">Data de Saída</label>
+        <label class="form-label" data-i18n="lblDataSaida">Data de Saída</label>
         <input class="form-input" type="date" id="r_checkout">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Valor por Diária (R$) <span style="color:var(--gray);font-weight:400;font-size:9px;">(por quarto)</span></label>
+        <label class="form-label" data-i18n="lblDiariaQuarto">Valor por Diária (R$) <span style="color:var(--gray);font-weight:400;font-size:9px;">(por quarto)</span></label>
         <input class="form-input" type="number" id="r_diaria" placeholder="150.00">
       </div>
       <div class="form-group">
-        <label class="form-label">Status</label>
+        <label class="form-label" data-i18n="lblStatus">Status</label>
         <select class="form-select" id="r_status">
-          <option value="confirmada">Confirmada</option>
-          <option value="pendente">Pendente</option>
+          <option value="confirmada" data-i18n="optConfirmada">Confirmada</option>
+          <option value="pendente" data-i18n="optPendente">Pendente</option>
         </select>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">CPF / CNPJ <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblDocumentoOpcional">CPF / CNPJ <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="r_documento" placeholder="000.000.000-00" maxlength="18" inputmode="numeric" oninput="maskDocumento(this)">
       </div>
       <div class="form-group">
-        <label class="form-label">CEP <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblCEPOpcional">CEP <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="r_cep" placeholder="00000-000" maxlength="9" inputmode="numeric" oninput="maskCep(this)" onblur="buscarEnderecoPorCep()">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Endereço <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="r_endereco" placeholder="Rua / Avenida">
+        <label class="form-label" data-i18n="lblEnderecoOpcional">Endereço <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="r_endereco" data-i18n-ph="phEnderecoExemplo" placeholder="Rua / Avenida">
       </div>
       <div class="form-group">
-        <label class="form-label">Número <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblNumeroOpcional">Número <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="r_numero" placeholder="123">
       </div>
     </div>
     <div class="form-row three">
       <div class="form-group">
-        <label class="form-label">Bairro <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="r_bairro" placeholder="Centro">
+        <label class="form-label" data-i18n="lblBairroOpcional">Bairro <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="r_bairro" data-i18n-ph="phBairroExemplo" placeholder="Centro">
       </div>
       <div class="form-group">
-        <label class="form-label">Cidade <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
-        <input class="form-input" id="r_cidade" placeholder="Cidade">
+        <label class="form-label" data-i18n="lblCidadeOpcional">Cidade <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <input class="form-input" id="r_cidade" data-i18n-ph="phCidadeExemplo" placeholder="Cidade">
       </div>
       <div class="form-group">
-        <label class="form-label">UF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
+        <label class="form-label" data-i18n="lblUFOpcional">UF <span style="color:var(--gray);font-weight:400;font-size:9px;">(opcional)</span></label>
         <input class="form-input" id="r_estado" placeholder="UF" maxlength="2" style="text-transform:uppercase;">
       </div>
     </div>
 
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observações</label>
-        <input class="form-input" id="r_obs" placeholder="Pedido especial, nº de pessoas...">
+        <label class="form-label" data-i18n="lblObs">Observações</label>
+        <input class="form-input" id="r_obs" data-i18n-ph="phPedidoEspecial" placeholder="Pedido especial, nº de pessoas...">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeReservaModal()">Cancelar</button>
-      <button class="btn btn-reserva" id="btnSalvarReserva" onclick="salvarReserva()">Salvar Reserva</button>
+      <button class="btn btn-outline" onclick="closeReservaModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-reserva" id="btnSalvarReserva" onclick="salvarReserva()"><span data-i18n="btnSalvarReserva">Salvar Reserva</span></button>
     </div>
   </div>
 </div>
@@ -1568,35 +1568,35 @@
 <div class="modal-overlay" id="refeicaoModalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeRefeicaoModal()">✕</button>
-    <div class="modal-title">🍽️ Adicionar Refeição</div>
+    <div class="modal-title">🍽️ <span data-i18n="refeicaoModalTitle">Adicionar Refeição</span></div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Funcionário MBRF</label>
+        <label class="form-label" data-i18n="lblFuncionarioMBRF">Funcionário MBRF</label>
         <select class="form-select" id="ref_funcionario"></select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Data</label>
+        <label class="form-label" data-i18n="lblData">Data</label>
         <input class="form-input" type="date" id="ref_data">
       </div>
       <div class="form-group">
-        <label class="form-label">Tipo</label>
+        <label class="form-label" data-i18n="lblTipo">Tipo</label>
         <select class="form-select" id="ref_tipo">
-          <option value="almoco">🌞 Almoço</option>
-          <option value="jantar">🌙 Jantar</option>
+          <option value="almoco" data-i18n="optAlmoco">🌞 Almoço</option>
+          <option value="jantar" data-i18n="optJantar">🌙 Jantar</option>
         </select>
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observação</label>
-        <input class="form-input" id="ref_obs" placeholder="Restrição alimentar...">
+        <label class="form-label" data-i18n="lblObservacao">Observação</label>
+        <input class="form-input" id="ref_obs" data-i18n-ph="phRestricaoAlimentar" placeholder="Restrição alimentar...">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeRefeicaoModal()">Cancelar</button>
-      <button class="btn btn-food" onclick="salvarRefeicao()">Registrar Refeição</button>
+      <button class="btn btn-outline" onclick="closeRefeicaoModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-food" onclick="salvarRefeicao()"><span data-i18n="btnRegistrarRefeicao">Registrar Refeição</span></button>
     </div>
   </div>
 </div>
@@ -1605,50 +1605,50 @@
 <div class="modal-overlay" id="quartoModalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeQuartoModal()">✕</button>
-    <div class="modal-title" id="quartoModalTitle">🚪 Novo Quarto</div>
+    <div class="modal-title" id="quartoModalTitle">🚪 <span data-i18n="quartoModalTitle">Novo Quarto</span></div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Número do Quarto *</label>
+        <label class="form-label" data-i18n="lblNumeroQuarto">Número do Quarto *</label>
         <input class="form-input" id="q_numero" placeholder="101">
       </div>
       <div class="form-group">
-        <label class="form-label">Andar</label>
-        <input class="form-input" id="q_andar" placeholder="1º Andar">
+        <label class="form-label" data-i18n="lblAndar">Andar</label>
+        <input class="form-input" id="q_andar" data-i18n-ph="phAndarExemplo" placeholder="1º Andar">
       </div>
     </div>
     <div class="form-group" style="margin-bottom:14px;">
-      <label class="form-label" style="margin-bottom:8px;">Tipo do Quarto</label>
+      <label class="form-label" style="margin-bottom:8px;" data-i18n="lblTipoQuarto">Tipo do Quarto</label>
       <div class="tipo-grid">
         <button class="tipo-opt selected" data-tipo="Standard" onclick="selectTipo(this)"><span class="tipo-icon">🛏</span>Standard</button>
-        <button class="tipo-opt" data-tipo="Duplo" onclick="selectTipo(this)"><span class="tipo-icon">🛏🛏</span>Duplo</button>
-        <button class="tipo-opt" data-tipo="Suíte" onclick="selectTipo(this)"><span class="tipo-icon">👑</span>Suíte</button>
-        <button class="tipo-opt" data-tipo="Família" onclick="selectTipo(this)"><span class="tipo-icon">👨‍👩‍👧</span>Família</button>
-        <button class="tipo-opt" data-tipo="Executivo" onclick="selectTipo(this)"><span class="tipo-icon">💼</span>Executivo</button>
+        <button class="tipo-opt" data-tipo="Duplo" onclick="selectTipo(this)"><span class="tipo-icon">🛏🛏</span><span data-i18n="tipoQuartoDuplo">Duplo</span></button>
+        <button class="tipo-opt" data-tipo="Suíte" onclick="selectTipo(this)"><span class="tipo-icon">👑</span><span data-i18n="tipoQuartoSuite">Suíte</span></button>
+        <button class="tipo-opt" data-tipo="Família" onclick="selectTipo(this)"><span class="tipo-icon">👨‍👩‍👧</span><span data-i18n="tipoQuartoFamilia">Família</span></button>
+        <button class="tipo-opt" data-tipo="Executivo" onclick="selectTipo(this)"><span class="tipo-icon">💼</span><span data-i18n="tipoQuartoExecutivo">Executivo</span></button>
         <button class="tipo-opt" data-tipo="BRF" onclick="selectTipo(this)"><span class="tipo-icon">🏢</span>BRF</button>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Capacidade (pessoas)</label>
+        <label class="form-label" data-i18n="lblCapacidade">Capacidade (pessoas)</label>
         <input class="form-input" type="number" id="q_capacidade" placeholder="2" min="1">
       </div>
       <div class="form-group" id="q_status_group">
-        <label class="form-label">Status Manual</label>
+        <label class="form-label" data-i18n="lblStatusManual">Status Manual</label>
         <select class="form-select" id="q_statusManual">
-          <option value="">Automático (via hóspedes)</option>
-          <option value="manutencao">🔧 Em Manutenção</option>
+          <option value="" data-i18n="optAutomatico">Automático (via hóspedes)</option>
+          <option value="manutencao" data-i18n="optManutencao">🔧 Em Manutenção</option>
         </select>
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Descrição do Quarto</label>
-        <input class="form-input" id="q_descricao" placeholder="Ar condicionado, TV a cabo, frigobar, vista para o jardim...">
+        <label class="form-label" data-i18n="lblDescricaoQuarto">Descrição do Quarto</label>
+        <input class="form-input" id="q_descricao" data-i18n-ph="phDescQuarto" placeholder="Ar condicionado, TV a cabo, frigobar, vista para o jardim...">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeQuartoModal()">Cancelar</button>
-      <button class="btn btn-quarto" id="btnSalvarQuarto" onclick="salvarQuarto()">Cadastrar Quarto</button>
+      <button class="btn btn-outline" onclick="closeQuartoModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-quarto" id="btnSalvarQuarto" onclick="salvarQuarto()"><span data-i18n="btnCadastrarQuarto">Cadastrar Quarto</span></button>
     </div>
   </div>
 </div>
@@ -1676,59 +1676,59 @@
 <div class="modal-overlay" id="estoqueModalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeEstoqueModal()">✕</button>
-    <div class="modal-title" id="estoqueModalTitle">📦 Novo Produto</div>
+    <div class="modal-title" id="estoqueModalTitle">📦 <span data-i18n="estoqueModalTitle">Novo Produto</span></div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Código do Produto *</label>
+        <label class="form-label" data-i18n="lblCodigoProduto">Código do Produto *</label>
         <input class="form-input" id="ep_codigo" placeholder="PRD-001">
       </div>
       <div class="form-group">
-        <label class="form-label">Categoria</label>
-        <input class="form-input" id="ep_categoria" placeholder="Bebidas, Higiene...">
+        <label class="form-label" data-i18n="lblCategoria">Categoria</label>
+        <input class="form-input" id="ep_categoria" data-i18n-ph="phCategoriaExemplo" placeholder="Bebidas, Higiene...">
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Nome do Produto *</label>
-        <input class="form-input" id="ep_nome" placeholder="Água Mineral 500ml">
+        <label class="form-label" data-i18n="lblNomeProduto">Nome do Produto *</label>
+        <input class="form-input" id="ep_nome" data-i18n-ph="phProdutoExemplo" placeholder="Água Mineral 500ml">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Preço Unitário (R$)</label>
+        <label class="form-label" data-i18n="lblPrecoUnitario">Preço Unitário (R$)</label>
         <input class="form-input" type="number" id="ep_preco" placeholder="0,00" min="0" step="0.01">
       </div>
       <div class="form-group">
-        <label class="form-label">Qtd. Inicial em Estoque</label>
+        <label class="form-label" data-i18n="lblQtdInicial">Qtd. Inicial em Estoque</label>
         <input class="form-input" type="number" id="ep_qtd" placeholder="0" min="0">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Estoque Mínimo (alerta)</label>
+        <label class="form-label" data-i18n="lblEstoqueMinimo">Estoque Mínimo (alerta)</label>
         <input class="form-input" type="number" id="ep_minimo" placeholder="5" min="0">
       </div>
       <div class="form-group">
-        <label class="form-label">Unidade</label>
+        <label class="form-label" data-i18n="lblUnidade">Unidade</label>
         <select class="form-select" id="ep_unidade">
-          <option value="un">Unidade (un)</option>
-          <option value="cx">Caixa (cx)</option>
-          <option value="kg">Quilograma (kg)</option>
-          <option value="L">Litro (L)</option>
-          <option value="pct">Pacote (pct)</option>
-          <option value="par">Par (par)</option>
+          <option value="un" data-i18n="optUnidade">Unidade (un)</option>
+          <option value="cx" data-i18n="optCaixa">Caixa (cx)</option>
+          <option value="kg" data-i18n="optKg">Quilograma (kg)</option>
+          <option value="L" data-i18n="optLitro">Litro (L)</option>
+          <option value="pct" data-i18n="optPacote">Pacote (pct)</option>
+          <option value="par" data-i18n="optPar">Par (par)</option>
         </select>
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observação</label>
-        <input class="form-input" id="ep_obs" placeholder="Fornecedor, validade...">
+        <label class="form-label" data-i18n="lblObservacao">Observação</label>
+        <input class="form-input" id="ep_obs" data-i18n-ph="phFornecedorValidade" placeholder="Fornecedor, validade...">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeEstoqueModal()">Cancelar</button>
-      <button class="btn btn-estoque" id="btnSalvarEstoque" onclick="salvarProduto()">Cadastrar Produto</button>
+      <button class="btn btn-outline" onclick="closeEstoqueModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-estoque" id="btnSalvarEstoque" onclick="salvarProduto()"><span data-i18n="btnCadastrarProduto">Cadastrar Produto</span></button>
     </div>
   </div>
 </div>
@@ -1737,37 +1737,37 @@
 <div class="modal-overlay" id="movModalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeMovModal()">✕</button>
-    <div class="modal-title" id="movModalTitle">📦 Movimentar Estoque</div>
+    <div class="modal-title" id="movModalTitle">📦 <span data-i18n="movTitle">Movimentar Estoque</span></div>
     <div class="mov-tipo-grid">
       <button class="mov-tipo-btn entrada" id="movBtnEntrada" onclick="selectMovTipo('entrada')">
-        <span class="icon">📥</span><span class="label">Entrada</span>
+        <span class="icon">📥</span><span class="label" data-i18n="movEntrada">Entrada</span>
       </button>
       <button class="mov-tipo-btn saida" id="movBtnSaida" onclick="selectMovTipo('saida')">
-        <span class="icon">📤</span><span class="label">Saída / Consumo</span>
+        <span class="icon">📤</span><span class="label" data-i18n="movSaida">Saída / Consumo</span>
       </button>
     </div>
     <div class="form-row full" id="mov_produto_row" style="display:none">
       <div class="form-group">
-        <label class="form-label">Produto *</label>
+        <label class="form-label" data-i18n="movProdutoLabel">Produto *</label>
         <select class="form-select" id="mov_produto_select" onchange="movTarget=parseInt(this.value);updateMovResumo()"></select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Quantidade *</label>
+        <label class="form-label" data-i18n="movQtdLabel">Quantidade *</label>
         <input class="form-input" type="number" id="mov_qtd" min="1" placeholder="1" oninput="updateMovResumo()">
       </div>
       <div class="form-group" id="mov_cliente_group">
-        <label class="form-label">Cliente / Hóspede <span style="color:var(--gray);font-size:9px;">(saída)</span></label>
+        <label class="form-label" data-i18n="movClienteLabel">Cliente / Hóspede <span style="color:var(--gray);font-size:9px;">(saída)</span></label>
         <select class="form-select" id="mov_cliente">
-          <option value="">— Sem vínculo —</option>
+          <option value="" data-i18n="optSemVinculo">— Sem vínculo —</option>
         </select>
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observação</label>
-        <input class="form-input" id="mov_obs" placeholder="Motivo, nota fiscal...">
+        <label class="form-label" data-i18n="lblObservacao">Observação</label>
+        <input class="form-input" id="mov_obs" data-i18n-ph="phMotivoNotaFiscal" placeholder="Motivo, nota fiscal...">
       </div>
     </div>
     <div class="mov-resumo" id="movResumo"></div>
@@ -1782,7 +1782,7 @@
 <div class="modal-overlay" id="produtoHistOverlay">
   <div class="modal" style="width:560px;">
     <button class="modal-close" onclick="document.getElementById('produtoHistOverlay').classList.remove('open')">✕</button>
-    <div class="modal-title" id="produtoHistTitle">📋 Histórico do Produto</div>
+    <div class="modal-title" id="produtoHistTitle">📋 <span data-i18n="histProdutoTitle">Histórico do Produto</span></div>
     <div id="produtoHistBody"></div>
   </div>
 </div>
@@ -1791,56 +1791,56 @@
 <div class="modal-overlay" id="histEditOverlay">
   <div class="modal" style="width:520px;">
     <button class="modal-close" onclick="closeHistEditModal()">✕</button>
-    <div class="modal-title">📁 Editar Registro do Histórico</div>
+    <div class="modal-title"><span data-i18n="histEditTitle">📁 Editar Registro do Histórico</span></div>
     <div class="form-row">
       <div class="form-group" style="flex:2;">
-        <label class="form-label">Nome</label>
+        <label class="form-label" data-i18n="lblNome">Nome</label>
         <input class="form-input" id="he_nome">
       </div>
       <div class="form-group">
-        <label class="form-label">Quarto</label>
+        <label class="form-label" data-i18n="lblQuartoSingular">Quarto</label>
         <input class="form-input" id="he_quarto">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Check-in</label>
+        <label class="form-label" data-i18n="lblCheckin">Check-in</label>
         <input class="form-input" type="date" id="he_checkin">
       </div>
       <div class="form-group">
-        <label class="form-label">Dias Hospedado</label>
+        <label class="form-label" data-i18n="lblDiasHospedado">Dias Hospedado</label>
         <input class="form-input" type="number" min="0" id="he_dias">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Valor Pago</label>
+        <label class="form-label" data-i18n="lblValorPago">Valor Pago</label>
         <input class="form-input" type="number" min="0" step="0.01" id="he_pago">
       </div>
       <div class="form-group">
-        <label class="form-label">Saldo Devedor</label>
+        <label class="form-label" data-i18n="lblSaldoDevedor">Saldo Devedor</label>
         <input class="form-input" type="number" min="0" step="0.01" id="he_saldo">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Forma de Pagamento</label>
-        <input class="form-input" id="he_forma" placeholder="Dinheiro, Pix, Débito...">
+        <label class="form-label" data-i18n="pgtoFormaLabel">Forma de Pagamento</label>
+        <input class="form-input" id="he_forma" data-i18n-ph="phFormaPagamentoExemplo" placeholder="Dinheiro, Pix, Débito...">
       </div>
       <div class="form-group">
-        <label class="form-label">Matrícula (BRF, opcional)</label>
+        <label class="form-label" data-i18n="lblMatriculaOpcionalBRF">Matrícula (BRF, opcional)</label>
         <input class="form-input" id="he_matricula">
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observação</label>
+        <label class="form-label" data-i18n="lblObservacao">Observação</label>
         <input class="form-input" id="he_obs">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeHistEditModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="salvarHistEdit()">✅ Salvar Alterações</button>
+      <button class="btn btn-outline" onclick="closeHistEditModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarHistEdit()">✅ <span data-i18n="btnSalvarAlteracoes">Salvar Alterações</span></button>
     </div>
   </div>
 </div>
@@ -1849,38 +1849,38 @@
 <div class="modal-overlay" id="vendaModalOverlay">
   <div class="modal" style="width:480px;">
     <button class="modal-close" onclick="closeVendaModal()">✕</button>
-    <div class="modal-title">🛒 Venda de Produto</div>
+    <div class="modal-title">🛒 <span data-i18n="vendaTitle">Venda de Produto</span></div>
     <div id="vendaModalProdInfo" style="background:var(--cream);border-radius:10px;padding:12px 16px;border:1px solid var(--border);margin-bottom:18px;font-size:13px;"></div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Quantidade *</label>
+        <label class="form-label" data-i18n="movQtdLabel">Quantidade *</label>
         <input class="form-input" type="number" id="venda_qtd" min="1" placeholder="1" oninput="updateVendaResumo()">
       </div>
       <div class="form-group">
-        <label class="form-label">Quarto (opcional)</label>
-        <input class="form-input" id="venda_quarto" placeholder="101, 205...">
+        <label class="form-label" data-i18n="lblQuartoOpcional">Quarto (opcional)</label>
+        <input class="form-input" id="venda_quarto" data-i18n-ph="phQuartoExemplo" placeholder="101, 205...">
       </div>
     </div>
     <div style="margin-bottom:16px;">
-      <div class="form-label" style="margin-bottom:8px;">Forma de Pagamento</div>
+      <div class="form-label" style="margin-bottom:8px;" data-i18n="pgtoFormaLabel">Forma de Pagamento</div>
       <div class="pgto-formas">
-        <button class="pgto-forma-btn" data-forma="Dinheiro" onclick="selectVendaForma(this)"><span class="icon">💵</span><span class="label">Dinheiro</span></button>
+        <button class="pgto-forma-btn" data-forma="Dinheiro" onclick="selectVendaForma(this)"><span class="icon">💵</span><span class="label" data-i18n="formaDinheiro">Dinheiro</span></button>
         <button class="pgto-forma-btn" data-forma="Pix"      onclick="selectVendaForma(this)"><span class="icon">📱</span><span class="label">Pix</span></button>
-        <button class="pgto-forma-btn" data-forma="Débito"   onclick="selectVendaForma(this)"><span class="icon">💳</span><span class="label">Débito</span></button>
-        <button class="pgto-forma-btn" data-forma="Crédito"  onclick="selectVendaForma(this)"><span class="icon">🏦</span><span class="label">Crédito</span></button>
-        <button class="pgto-forma-btn" data-forma="Fiado"    onclick="selectVendaForma(this)"><span class="icon">📄</span><span class="label">Fiado</span></button>
+        <button class="pgto-forma-btn" data-forma="Débito"   onclick="selectVendaForma(this)"><span class="icon">💳</span><span class="label" data-i18n="formaDebito">Débito</span></button>
+        <button class="pgto-forma-btn" data-forma="Crédito"  onclick="selectVendaForma(this)"><span class="icon">🏦</span><span class="label" data-i18n="formaCredito">Crédito</span></button>
+        <button class="pgto-forma-btn" data-forma="Fiado"    onclick="selectVendaForma(this)"><span class="icon">📄</span><span class="label" data-i18n="formaFiado">Fiado</span></button>
       </div>
     </div>
     <div class="form-row full">
       <div class="form-group">
-        <label class="form-label">Observação (opcional)</label>
-        <input class="form-input" id="venda_obs" placeholder="Nota, detalhe...">
+        <label class="form-label" data-i18n="pgtoObsLabel">Observação (opcional)</label>
+        <input class="form-input" id="venda_obs" data-i18n-ph="phNotaDetalhe" placeholder="Nota, detalhe...">
       </div>
     </div>
     <div class="mov-resumo" id="vendaResumo" style="margin-bottom:14px;"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeVendaModal()">Cancelar</button>
-      <button class="btn btn-estoque" onclick="confirmarVenda()">✅ Confirmar Venda</button>
+      <button class="btn btn-outline" onclick="closeVendaModal()" data-i18n="btnCancelar">Cancelar</button>
+      <button class="btn btn-estoque" onclick="confirmarVenda()">✅ <span data-i18n="btnConfirmarVenda">Confirmar Venda</span></button>
     </div>
   </div>
 </div>
@@ -1889,11 +1889,11 @@
 <div class="modal-overlay" id="reciboConfirmOverlay">
   <div class="modal confirm-modal" style="width:400px;">
     <div class="confirm-icon">🖨️</div>
-    <div class="confirm-title">Imprimir Recibo?</div>
+    <div class="confirm-title" data-i18n="reciboConfirmTitle">Imprimir Recibo?</div>
     <div class="confirm-msg" id="reciboConfirmMsg"></div>
     <div class="confirm-btns">
-      <button class="btn btn-outline" onclick="closeReciboConfirm()">❌ Não</button>
-      <button class="btn btn-primary" onclick="confirmarImpressaoRecibo()">✅ Sim, Imprimir</button>
+      <button class="btn btn-outline" onclick="closeReciboConfirm()">❌ <span data-i18n="btnNao">Não</span></button>
+      <button class="btn btn-primary" onclick="confirmarImpressaoRecibo()">✅ <span data-i18n="btnSimImprimir">Sim, Imprimir</span></button>
     </div>
   </div>
 </div>
@@ -1969,6 +1969,169 @@ const I18N_PAINEL = {
     pessoasToolbarTitle: 'Pessoas Cadastradas', phBuscarPessoa: 'Buscar por nome, código, CPF...', btnNovaPessoa: 'Nova Pessoa',
 
     relatoriosH2: 'Relatórios para Impressão', relatoriosP: 'Gere e imprima relatórios do hotel com um clique',
+
+    // Relatórios - cards
+    relPeriodo: 'Período', relDiario: 'Diário', relMensal: 'Mensal', btnGerarImprimir: 'Gerar e Imprimir',
+    relHospTitle: 'Relatório de Hóspedes', relHospDesc: 'Lista completa dos hóspedes com quarto, código de ficha, check-in, previsão de saída e status de pagamento.',
+    relHospInfo1: 'Nome e código de ficha', relHospInfo2: 'Número do quarto', relHospInfo3: 'Datas de entrada e saída', relHospInfo4: 'Status do pagamento', relHospInfo5: 'Inclui hóspedes Hotel + BRF',
+    relCaixaTitle: 'Relatório de Caixa', relCaixaDesc: 'Resumo financeiro completo com receita recebida, saldos pendentes, totais por categoria e balanço geral do período.',
+    relCaixaInfo1: 'Receita total recebida', relCaixaInfo2: 'Saldos pendentes por hóspede', relCaixaInfo3: 'Total Hotel vs BRF', relCaixaInfo4: 'Balanço geral', relCaixaInfo5: 'Formas de pagamento',
+    relBrfTitle: 'Relatório de Pessoas BRF', relBrfDesc: 'Lista de todos os funcionários BRF ativos: quantas pessoas, matrícula/código, quarto, setor e tempo de estadia.',
+    relBrfInfo1: 'Quantidade total de pessoas', relBrfInfo2: 'Matrícula e código de cada um', relBrfInfo3: 'Tempo de estadia (dias)', relBrfInfo4: 'Valor total e saldo pendente',
+    relEstoqueTitle: 'Relatório de Estoque', relEstoqueDesc: 'Lista completa de produtos com quantidade atual, preço, valor total em estoque e status (ok, baixo ou zerado).',
+    relEstoqueInfo1: 'Quantidade atual por produto', relEstoqueInfo2: 'Valor total em estoque', relEstoqueInfo3: 'Produtos com estoque baixo', relEstoqueInfo4: 'Produtos zerados',
+
+    // Modais
+    confirmSaidaTitle: 'Confirmar Saída', confirmSaidaMsg: 'Esta ação não pode ser desfeita.',
+    recusaTitle: 'Recusar Pedido de Reserva', recusaMotivoLabel: 'Motivo da recusa *', recusaMotivoHint: 'Esse motivo será enviado ao hóspede por WhatsApp.', btnConfirmarRecusa: 'Confirmar Recusa e Avisar',
+    selecaoQuartoTitle: 'Selecionar Quarto para Check-in', selecaoQuartoHint: 'Escolha o quarto onde o hóspede vai ficar. Apenas quartos livres aparecem aqui.',
+    pgtoTitle: 'Registrar Pagamento', pgtoFormaLabel: 'Forma de Pagamento', pgtoDiasLabel: 'Dias a Adicionar', pgtoObsLabel: 'Observação (opcional)',
+    movTitle: 'Movimentar Estoque', movEntrada: 'Entrada', movSaida: 'Saída / Consumo', movProdutoLabel: 'Produto *', movQtdLabel: 'Quantidade *', movClienteLabel: 'Cliente / Hóspede',
+    vendaTitle: 'Venda de Produto',
+    reciboConfirmTitle: 'Imprimir Recibo?', btnNao: 'Não', btnSimImprimir: 'Sim, Imprimir',
+    btnCancelar: 'Cancelar',
+
+    // Header
+    bancoOffline: 'Banco offline — verifique a conexão', sincronizando: 'Sincronizando...', nuvemAtiva: 'Nuvem ativa',
+
+    // Labels de formulário comuns
+    lblNome: 'Nome', lblNomeCompleto: 'Nome Completo', lblTelefone: 'Telefone',
+    lblDocumento: 'CPF / CNPJ', lblCEP: 'CEP', lblEndereco: 'Endereço', lblNumero: 'Número',
+    lblBairro: 'Bairro', lblCidade: 'Cidade', lblUF: 'UF', lblObs: 'Observações', lblObservacao: 'Observação',
+    lblData: 'Data', lblTipo: 'Tipo', lblStatus: 'Status',
+    lblMatriculaBRF: 'Matrícula BRF', lblSetorCargo: 'Setor / Cargo',
+    lblCodigoPessoa: 'Código da Pessoa', lblCodigoBusca: '🔍 Código da Pessoa',
+    lblTipoPadrao: 'Tipo Padrão',
+    optHospedeHotel: '🏨 Hóspede Hotel', optFuncionarioBRF: '🏢 Funcionário BRF', optAmbos: '🔄 Ambos',
+    btnCadastrarPessoa: 'Cadastrar Pessoa',
+
+    // Modal Hóspede
+    lblQuarto: 'Quarto', optSelecioneQuarto: '— Selecione um quarto —',
+    lblDataCheckin: 'Data Check-in', lblHoraEntrada: 'Hora Entrada', lblRegra11h: 'Antes 11h = +1 diária · Depois 11h = normal',
+    lblDataCheckout: 'Data Check-out', lblDiaria: 'Valor por Diária (R$)', lblDiasPagos: 'Dias Pagos',
+    lblCarro: '🚗 Carro / Veículo', lblPlaca: '🔖 Placa',
+    btnCadastrarHospede: 'Cadastrar Hóspede',
+
+    // Modal Reserva
+    reservaModalTitle: 'Nova Reserva', lblTipoHospede: 'Tipo de Hóspede',
+    lblOrigem: 'Origem', optDireto: 'Direto', optIndicacao: 'Indicação', optOutro: 'Outro',
+    lblDataEntrada: 'Data de Entrada', lblDataSaida: 'Data de Saída',
+    lblDiariaQuarto: 'Valor por Diária (R$)', optConfirmada: 'Confirmada', optPendente: 'Pendente',
+    btnSalvarReserva: 'Salvar Reserva',
+
+    // Modal Refeição
+    refeicaoModalTitle: 'Adicionar Refeição', lblFuncionarioMBRF: 'Funcionário MBRF',
+    optAlmoco: '🌞 Almoço', optJantar: '🌙 Jantar', btnRegistrarRefeicao: 'Registrar Refeição',
+
+    // Modal Quarto
+    quartoModalTitle: 'Novo Quarto', lblNumeroQuarto: 'Número do Quarto *', lblAndar: 'Andar',
+    lblTipoQuarto: 'Tipo do Quarto', tipoQuartoDuplo: 'Duplo', tipoQuartoSuite: 'Suíte',
+    tipoQuartoFamilia: 'Família', tipoQuartoExecutivo: 'Executivo',
+    lblCapacidade: 'Capacidade (pessoas)', lblStatusManual: 'Status Manual',
+    optAutomatico: 'Automático (via hóspedes)', optManutencao: '🔧 Em Manutenção',
+    lblDescricaoQuarto: 'Descrição do Quarto', btnCadastrarQuarto: 'Cadastrar Quarto',
+
+    // Modal Produto
+    estoqueModalTitle: 'Novo Produto', lblCodigoProduto: 'Código do Produto *',
+    lblCategoria: 'Categoria', lblNomeProduto: 'Nome do Produto *',
+    lblPrecoUnitario: 'Preço Unitário (R$)', lblQtdInicial: 'Qtd. Inicial em Estoque',
+    lblEstoqueMinimo: 'Estoque Mínimo (alerta)', lblUnidade: 'Unidade',
+    optUnidade: 'Unidade (un)', optCaixa: 'Caixa (cx)', optKg: 'Quilograma (kg)',
+    optLitro: 'Litro (L)', optPacote: 'Pacote (pct)', optPar: 'Par (par)',
+    btnCadastrarProduto: 'Cadastrar Produto',
+
+    // Modal Obs pessoa
+    pessoaModalTitle: 'Nova Pessoa',
+    // Placeholders de exemplo
+    phNomeExemplo: 'João da Silva',
+    phCodigoExemplo: 'Ex: 1, 2, 3...',
+    phEmailExemplo: 'joao@email.com',
+    phSetorExemplo: 'Produção',
+    phEnderecoExemplo: 'Rua / Avenida',
+    phBairroExemplo: 'Centro',
+    phCidadeExemplo: 'Cidade',
+    phNotasPessoa: 'Notas sobre a pessoa...',
+    phMotivoRecusa: 'Ex: Não há disponibilidade para essas datas',
+    phReferenciaNota: 'Referência, nota...',
+    phCarroExemplo: 'Civic, Uno, Kwid...',
+    phCafeIncluido: 'Café da manhã incluído...',
+    phPedidoEspecial: 'Pedido especial, nº de pessoas...',
+    phRestricaoAlimentar: 'Restrição alimentar...',
+    phAndarExemplo: '1º Andar',
+    phDescQuarto: 'Ar condicionado, TV a cabo, frigobar, vista para o jardim...',
+    phCategoriaExemplo: 'Bebidas, Higiene...',
+    phProdutoExemplo: 'Água Mineral 500ml',
+    phFornecedorValidade: 'Fornecedor, validade...',
+    phMotivoNotaFiscal: 'Motivo, nota fiscal...',
+    phFormaPagamentoExemplo: 'Dinheiro, Pix, Débito...',
+    phQuartoExemplo: '101, 205...',
+    phNotaDetalhe: 'Nota, detalhe...',
+    // Labels e mensagens adicionais (telas vazias, confirmações)
+    btnConfirmarVenda: 'Confirmar Venda',
+    btnFechar: 'Fechar',
+    btnMovimentar: 'Movimentar',
+    btnSalvarAlteracoes: 'Salvar Alterações',
+    confirmSaidaHotelMsg: 'O hóspede será removido do sistema ativo e registrado no Histórico com data e hora exatas.',
+    confirmSaidaMbrfMsg: 'O funcionário será removido do sistema ativo e registrado no Histórico com data e hora exatas.',
+    diasLabel: 'dias',
+    emptyConsumo: 'Nenhum produto lançado para este hóspede.',
+    emptyHistoricoSub: 'Os hóspedes que receberem checkout aparecerão aqui com data e hora exatas',
+    emptyHistoricoTitle: 'Nenhum registro de saída ainda',
+    emptyHospedeSub: 'Cadastre um novo hóspede para começar',
+    emptyHospedeTitle: 'Nenhum hóspede encontrado',
+    emptyMbrfSub: 'Cadastre funcionários na aba MBRF primeiro',
+    emptyMbrfTitle: 'Nenhum funcionário BRF',
+    emptyMovimentacao: 'Nenhuma movimentação ainda.',
+    emptyPedidosReserva: 'Nenhum pedido de reserva pendente no momento.',
+    emptyPessoaFiltradaSub: 'Tente outro termo de busca',
+    emptyPessoaFiltradaTitle: 'Nenhuma pessoa encontrada',
+    emptyPessoaSub: 'Clique em "Nova Pessoa" para começar o cadastro central',
+    emptyPessoaTitle: 'Nenhuma pessoa cadastrada ainda',
+    emptyProdutoSub: 'Clique em "Novo Produto" para começar o controle de estoque',
+    emptyProdutoTitle: 'Nenhum produto encontrado',
+    emptyQuartoCadastrado: 'Nenhum quarto cadastrado. Cadastre quartos na aba Quartos.',
+    emptyQuartoLivre: 'Nenhum quarto livre no momento.<br>Libere um quarto ou cadastre um novo em <b>Quartos</b> antes de fazer o check-in.',
+    emptyQuartoSub: 'Cadastre quartos ou ajuste os filtros',
+    emptyQuartoTitle: 'Nenhum quarto encontrado',
+    emptyReservaSub: 'Adicione novas reservas para controlar check-ins futuros',
+    emptyReservaTitle: 'Nenhuma reserva encontrada',
+    estoqueAtualLabel: 'Estoque Atual',
+    formaCredito: 'Crédito',
+    formaDebito: 'Débito',
+    formaDinheiro: 'Dinheiro',
+    formaFaturado: 'Faturado',
+    formaFiado: 'Fiado',
+    histEditTitle: '📁 Editar Registro do Histórico',
+    histProdutoTitle: 'Histórico do Produto',
+    lblBairroOpcional: 'Bairro',
+    lblCEPOpcional: 'CEP',
+    lblCheckin: 'Check-in',
+    lblCidadeOpcional: 'Cidade',
+    lblDiasHospedado: 'Dias Hospedado',
+    lblDiasHospedadoMin: 'Dias hospedado',
+    lblDocumentoOpcional: 'CPF / CNPJ',
+    lblEmail: 'E-mail',
+    lblEnderecoOpcional: 'Endereço',
+    lblHospede: 'Hóspede',
+    lblMatriculaOpcionalBRF: 'Matrícula (BRF, opcional)',
+    lblNumeroOpcional: 'Número',
+    lblQuartoOpcional: 'Quarto (opcional)',
+    lblQuartoSingular: 'Quarto',
+    lblSaidaEm: 'Saída em',
+    lblSaldoDevedor: 'Saldo Devedor',
+    lblSaldoDevedorMin: 'Saldo devedor',
+    lblUFOpcional: 'UF',
+    lblValorPago: 'Valor Pago',
+    lblValorPagoMin: 'Valor pago',
+    movLancarProduto: 'Lançar Produto',
+    movSaidaCurto: 'Saída',
+    movimentacoesLabel: 'Movimentações',
+    notifSemEstoque: 'Nenhum produto no estoque!',
+    optSelecione: 'Selecione...',
+    optSemVinculo: '— Sem vínculo —',
+    quitadoLabel: 'Quitado ✓',
+    saidaDeLabel: 'Saída de',
+    valorEmEstoqueLabel: 'Valor em Estoque',
   },
   en: {
     logoSub: 'Management System',
@@ -2010,6 +2173,169 @@ const I18N_PAINEL = {
     pessoasToolbarTitle: 'Registered People', phBuscarPessoa: 'Search by name, code, ID...', btnNovaPessoa: 'New Person',
 
     relatoriosH2: 'Printable Reports', relatoriosP: 'Generate and print hotel reports with one click',
+
+    // Reports - cards
+    relPeriodo: 'Period', relDiario: 'Daily', relMensal: 'Monthly', btnGerarImprimir: 'Generate & Print',
+    relHospTitle: 'Guest Report', relHospDesc: 'Full guest list with room, file code, check-in, expected check-out and payment status.',
+    relHospInfo1: 'Name and file code', relHospInfo2: 'Room number', relHospInfo3: 'Check-in and check-out dates', relHospInfo4: 'Payment status', relHospInfo5: 'Includes Hotel + BRF guests',
+    relCaixaTitle: 'Cash Report', relCaixaDesc: 'Complete financial summary with revenue received, pending balances, totals by category and general balance for the period.',
+    relCaixaInfo1: 'Total revenue received', relCaixaInfo2: 'Pending balances per guest', relCaixaInfo3: 'Hotel vs BRF total', relCaixaInfo4: 'General balance', relCaixaInfo5: 'Payment methods',
+    relBrfTitle: 'BRF People Report', relBrfDesc: 'List of all active BRF employees: total count, ID/code, room, department and length of stay.',
+    relBrfInfo1: 'Total number of people', relBrfInfo2: 'ID and code of each person', relBrfInfo3: 'Length of stay (days)', relBrfInfo4: 'Total amount and pending balance',
+    relEstoqueTitle: 'Inventory Report', relEstoqueDesc: 'Full product list with current quantity, price, total inventory value and status (ok, low or empty).',
+    relEstoqueInfo1: 'Current quantity per product', relEstoqueInfo2: 'Total inventory value', relEstoqueInfo3: 'Low stock products', relEstoqueInfo4: 'Out-of-stock products',
+
+    // Modals
+    confirmSaidaTitle: 'Confirm Check-out', confirmSaidaMsg: 'This action cannot be undone.',
+    recusaTitle: 'Reject Reservation Request', recusaMotivoLabel: 'Reason for rejection *', recusaMotivoHint: 'This reason will be sent to the guest via WhatsApp.', btnConfirmarRecusa: 'Confirm Rejection & Notify',
+    selecaoQuartoTitle: 'Select Room for Check-in', selecaoQuartoHint: 'Choose the room where the guest will stay. Only available rooms appear here.',
+    pgtoTitle: 'Register Payment', pgtoFormaLabel: 'Payment Method', pgtoDiasLabel: 'Days to Add', pgtoObsLabel: 'Note (optional)',
+    movTitle: 'Move Inventory', movEntrada: 'Entry', movSaida: 'Exit / Consumption', movProdutoLabel: 'Product *', movQtdLabel: 'Quantity *', movClienteLabel: 'Client / Guest',
+    vendaTitle: 'Product Sale',
+    reciboConfirmTitle: 'Print Receipt?', btnNao: 'No', btnSimImprimir: 'Yes, Print',
+    btnCancelar: 'Cancel',
+
+    // Header
+    bancoOffline: 'Database offline — check connection', sincronizando: 'Syncing...', nuvemAtiva: 'Cloud active',
+
+    // Common form labels
+    lblNome: 'Name', lblNomeCompleto: 'Full Name', lblTelefone: 'Phone',
+    lblDocumento: 'ID / Tax Number', lblCEP: 'ZIP Code', lblEndereco: 'Address', lblNumero: 'Number',
+    lblBairro: 'Neighborhood', lblCidade: 'City', lblUF: 'State', lblObs: 'Notes', lblObservacao: 'Note',
+    lblData: 'Date', lblTipo: 'Type', lblStatus: 'Status',
+    lblMatriculaBRF: 'BRF Employee ID', lblSetorCargo: 'Department / Role',
+    lblCodigoPessoa: 'Person Code', lblCodigoBusca: '🔍 Person Code',
+    lblTipoPadrao: 'Default Type',
+    optHospedeHotel: '🏨 Hotel Guest', optFuncionarioBRF: '🏢 BRF Employee', optAmbos: '🔄 Both',
+    btnCadastrarPessoa: 'Register Person',
+
+    // Guest Modal
+    lblQuarto: 'Room', optSelecioneQuarto: '— Select a room —',
+    lblDataCheckin: 'Check-in Date', lblHoraEntrada: 'Check-in Time', lblRegra11h: 'Before 11am = +1 night · After 11am = normal',
+    lblDataCheckout: 'Check-out Date', lblDiaria: 'Daily Rate (R$)', lblDiasPagos: 'Days Paid',
+    lblCarro: '🚗 Car / Vehicle', lblPlaca: '🔖 Plate',
+    btnCadastrarHospede: 'Register Guest',
+
+    // Reservation Modal
+    reservaModalTitle: 'New Reservation', lblTipoHospede: 'Guest Type',
+    lblOrigem: 'Source', optDireto: 'Direct', optIndicacao: 'Referral', optOutro: 'Other',
+    lblDataEntrada: 'Check-in Date', lblDataSaida: 'Check-out Date',
+    lblDiariaQuarto: 'Daily Rate (R$)', optConfirmada: 'Confirmed', optPendente: 'Pending',
+    btnSalvarReserva: 'Save Reservation',
+
+    // Meal Modal
+    refeicaoModalTitle: 'Add Meal', lblFuncionarioMBRF: 'BRF Employee',
+    optAlmoco: '🌞 Lunch', optJantar: '🌙 Dinner', btnRegistrarRefeicao: 'Register Meal',
+
+    // Room Modal
+    quartoModalTitle: 'New Room', lblNumeroQuarto: 'Room Number *', lblAndar: 'Floor',
+    lblTipoQuarto: 'Room Type', tipoQuartoDuplo: 'Double', tipoQuartoSuite: 'Suite',
+    tipoQuartoFamilia: 'Family', tipoQuartoExecutivo: 'Executive',
+    lblCapacidade: 'Capacity (people)', lblStatusManual: 'Manual Status',
+    optAutomatico: 'Automatic (via guests)', optManutencao: '🔧 Under Maintenance',
+    lblDescricaoQuarto: 'Room Description', btnCadastrarQuarto: 'Register Room',
+
+    // Product Modal
+    estoqueModalTitle: 'New Product', lblCodigoProduto: 'Product Code *',
+    lblCategoria: 'Category', lblNomeProduto: 'Product Name *',
+    lblPrecoUnitario: 'Unit Price (R$)', lblQtdInicial: 'Initial Stock Qty',
+    lblEstoqueMinimo: 'Minimum Stock (alert)', lblUnidade: 'Unit',
+    optUnidade: 'Unit (un)', optCaixa: 'Box (bx)', optKg: 'Kilogram (kg)',
+    optLitro: 'Liter (L)', optPacote: 'Package (pkg)', optPar: 'Pair',
+    btnCadastrarProduto: 'Register Product',
+
+    // Pessoa modal title
+    pessoaModalTitle: 'New Person',
+    // Example placeholders
+    phNomeExemplo: 'John Smith',
+    phCodigoExemplo: 'E.g: 1, 2, 3...',
+    phEmailExemplo: 'john@email.com',
+    phSetorExemplo: 'Production',
+    phEnderecoExemplo: 'Street / Avenue',
+    phBairroExemplo: 'Downtown',
+    phCidadeExemplo: 'City',
+    phNotasPessoa: 'Notes about the person...',
+    phMotivoRecusa: 'E.g: No availability for these dates',
+    phReferenciaNota: 'Reference, note...',
+    phCarroExemplo: 'Civic, Uno, Kwid...',
+    phCafeIncluido: 'Breakfast included...',
+    phPedidoEspecial: 'Special request, number of people...',
+    phRestricaoAlimentar: 'Dietary restriction...',
+    phAndarExemplo: '1st Floor',
+    phDescQuarto: 'Air conditioning, cable TV, mini-bar, garden view...',
+    phCategoriaExemplo: 'Beverages, Hygiene...',
+    phProdutoExemplo: 'Mineral Water 500ml',
+    phFornecedorValidade: 'Supplier, expiry date...',
+    phMotivoNotaFiscal: 'Reason, invoice number...',
+    phFormaPagamentoExemplo: 'Cash, Pix, Debit...',
+    phQuartoExemplo: '101, 205...',
+    phNotaDetalhe: 'Note, detail...',
+    // Additional labels and messages (empty states, confirmations)
+    btnConfirmarVenda: 'Confirm Sale',
+    btnFechar: 'Close',
+    btnMovimentar: 'Move Stock',
+    btnSalvarAlteracoes: 'Save Changes',
+    confirmSaidaHotelMsg: 'The guest will be removed from the active system and recorded in History with the exact date and time.',
+    confirmSaidaMbrfMsg: 'The employee will be removed from the active system and recorded in History with the exact date and time.',
+    diasLabel: 'days',
+    emptyConsumo: 'No products charged to this guest yet.',
+    emptyHistoricoSub: 'Guests who check out will appear here with the exact date and time',
+    emptyHistoricoTitle: 'No check-out records yet',
+    emptyHospedeSub: 'Register a new guest to get started',
+    emptyHospedeTitle: 'No guests found',
+    emptyMbrfSub: 'Register employees in the MBRF tab first',
+    emptyMbrfTitle: 'No BRF employees',
+    emptyMovimentacao: 'No movements yet.',
+    emptyPedidosReserva: 'No pending reservation requests at the moment.',
+    emptyPessoaFiltradaSub: 'Try a different search term',
+    emptyPessoaFiltradaTitle: 'No person found',
+    emptyPessoaSub: 'Click "New Person" to start the central registry',
+    emptyPessoaTitle: 'No one registered yet',
+    emptyProdutoSub: 'Click "New Product" to start inventory control',
+    emptyProdutoTitle: 'No products found',
+    emptyQuartoCadastrado: 'No rooms registered. Register rooms in the Rooms tab.',
+    emptyQuartoLivre: 'No available rooms at the moment.<br>Free up a room or register a new one in <b>Rooms</b> before checking in.',
+    emptyQuartoSub: 'Register rooms or adjust the filters',
+    emptyQuartoTitle: 'No rooms found',
+    emptyReservaSub: 'Add new reservations to manage future check-ins',
+    emptyReservaTitle: 'No reservations found',
+    estoqueAtualLabel: 'Current Stock',
+    formaCredito: 'Credit',
+    formaDebito: 'Debit',
+    formaDinheiro: 'Cash',
+    formaFaturado: 'Invoiced',
+    formaFiado: 'On Credit',
+    histEditTitle: '📁 Edit History Record',
+    histProdutoTitle: 'Product History',
+    lblBairroOpcional: 'Neighborhood',
+    lblCEPOpcional: 'ZIP Code',
+    lblCheckin: 'Check-in',
+    lblCidadeOpcional: 'City',
+    lblDiasHospedado: 'Nights Stayed',
+    lblDiasHospedadoMin: 'Nights stayed',
+    lblDocumentoOpcional: 'ID / Tax Number',
+    lblEmail: 'Email',
+    lblEnderecoOpcional: 'Address',
+    lblHospede: 'Guest',
+    lblMatriculaOpcionalBRF: 'Employee ID (BRF, optional)',
+    lblNumeroOpcional: 'Number',
+    lblQuartoOpcional: 'Room (optional)',
+    lblQuartoSingular: 'Room',
+    lblSaidaEm: 'Checked out at',
+    lblSaldoDevedor: 'Outstanding Balance',
+    lblSaldoDevedorMin: 'Outstanding balance',
+    lblUFOpcional: 'State',
+    lblValorPago: 'Amount Paid',
+    lblValorPagoMin: 'Amount paid',
+    movLancarProduto: 'Add Product',
+    movSaidaCurto: 'Exit',
+    movimentacoesLabel: 'Movements',
+    notifSemEstoque: 'No products in stock!',
+    optSelecione: 'Select...',
+    optSemVinculo: '— No link —',
+    quitadoLabel: 'Paid off ✓',
+    saidaDeLabel: 'Check-out of',
+    valorEmEstoqueLabel: 'Stock Value',
   },
   es: {
     logoSub: 'Sistema de Gestión',
@@ -2051,11 +2377,181 @@ const I18N_PAINEL = {
     pessoasToolbarTitle: 'Personas Registradas', phBuscarPessoa: 'Buscar por nombre, código, DNI...', btnNovaPessoa: 'Nueva Persona',
 
     relatoriosH2: 'Informes para Imprimir', relatoriosP: 'Genera e imprime informes del hotel con un clic',
+
+    // Informes - cards
+    relPeriodo: 'Período', relDiario: 'Diario', relMensal: 'Mensual', btnGerarImprimir: 'Generar e Imprimir',
+    relHospTitle: 'Informe de Huéspedes', relHospDesc: 'Lista completa de huéspedes con habitación, código de ficha, check-in, salida prevista y estado de pago.',
+    relHospInfo1: 'Nombre y código de ficha', relHospInfo2: 'Número de habitación', relHospInfo3: 'Fechas de entrada y salida', relHospInfo4: 'Estado del pago', relHospInfo5: 'Incluye huéspedes Hotel + BRF',
+    relCaixaTitle: 'Informe de Caja', relCaixaDesc: 'Resumen financiero completo con ingresos recibidos, saldos pendientes, totales por categoría y balance general del período.',
+    relCaixaInfo1: 'Ingresos totales recibidos', relCaixaInfo2: 'Saldos pendientes por huésped', relCaixaInfo3: 'Total Hotel vs BRF', relCaixaInfo4: 'Balance general', relCaixaInfo5: 'Métodos de pago',
+    relBrfTitle: 'Informe de Personas BRF', relBrfDesc: 'Lista de todos los empleados BRF activos: cantidad de personas, matrícula/código, habitación, sector y tiempo de estancia.',
+    relBrfInfo1: 'Cantidad total de personas', relBrfInfo2: 'Matrícula y código de cada uno', relBrfInfo3: 'Tiempo de estancia (días)', relBrfInfo4: 'Valor total y saldo pendiente',
+    relEstoqueTitle: 'Informe de Inventario', relEstoqueDesc: 'Lista completa de productos con cantidad actual, precio, valor total en inventario y estado (ok, bajo o vacío).',
+    relEstoqueInfo1: 'Cantidad actual por producto', relEstoqueInfo2: 'Valor total en inventario', relEstoqueInfo3: 'Productos con stock bajo', relEstoqueInfo4: 'Productos sin stock',
+
+    // Modales
+    confirmSaidaTitle: 'Confirmar Salida', confirmSaidaMsg: 'Esta acción no se puede deshacer.',
+    recusaTitle: 'Rechazar Solicitud de Reserva', recusaMotivoLabel: 'Motivo del rechazo *', recusaMotivoHint: 'Este motivo se enviará al huésped por WhatsApp.', btnConfirmarRecusa: 'Confirmar Rechazo y Avisar',
+    selecaoQuartoTitle: 'Seleccionar Habitación para Check-in', selecaoQuartoHint: 'Elige la habitación donde se alojará el huésped. Solo aparecen habitaciones disponibles.',
+    pgtoTitle: 'Registrar Pago', pgtoFormaLabel: 'Método de Pago', pgtoDiasLabel: 'Días a Agregar', pgtoObsLabel: 'Observación (opcional)',
+    movTitle: 'Mover Inventario', movEntrada: 'Entrada', movSaida: 'Salida / Consumo', movProdutoLabel: 'Producto *', movQtdLabel: 'Cantidad *', movClienteLabel: 'Cliente / Huésped',
+    vendaTitle: 'Venta de Producto',
+    reciboConfirmTitle: '¿Imprimir Recibo?', btnNao: 'No', btnSimImprimir: 'Sí, Imprimir',
+    btnCancelar: 'Cancelar',
+
+    // Encabezado
+    bancoOffline: 'Base de datos offline — verifique la conexión', sincronizando: 'Sincronizando...', nuvemAtiva: 'Nube activa',
+
+    // Etiquetas de formulario comunes
+    lblNome: 'Nombre', lblNomeCompleto: 'Nombre Completo', lblTelefone: 'Teléfono',
+    lblDocumento: 'CPF / CNPJ', lblCEP: 'Código Postal', lblEndereco: 'Dirección', lblNumero: 'Número',
+    lblBairro: 'Barrio', lblCidade: 'Ciudad', lblUF: 'Provincia', lblObs: 'Observaciones', lblObservacao: 'Observación',
+    lblData: 'Fecha', lblTipo: 'Tipo', lblStatus: 'Estado',
+    lblMatriculaBRF: 'Matrícula BRF', lblSetorCargo: 'Sector / Cargo',
+    lblCodigoPessoa: 'Código de la Persona', lblCodigoBusca: '🔍 Código de la Persona',
+    lblTipoPadrao: 'Tipo Predeterminado',
+    optHospedeHotel: '🏨 Huésped Hotel', optFuncionarioBRF: '🏢 Empleado BRF', optAmbos: '🔄 Ambos',
+    btnCadastrarPessoa: 'Registrar Persona',
+
+    // Modal Huésped
+    lblQuarto: 'Habitación', optSelecioneQuarto: '— Selecciona una habitación —',
+    lblDataCheckin: 'Fecha de Check-in', lblHoraEntrada: 'Hora de Entrada', lblRegra11h: 'Antes de las 11h = +1 noche · Después de las 11h = normal',
+    lblDataCheckout: 'Fecha de Check-out', lblDiaria: 'Valor por Noche (R$)', lblDiasPagos: 'Días Pagados',
+    lblCarro: '🚗 Auto / Vehículo', lblPlaca: '🔖 Matrícula',
+    btnCadastrarHospede: 'Registrar Huésped',
+
+    // Modal Reserva
+    reservaModalTitle: 'Nueva Reserva', lblTipoHospede: 'Tipo de Huésped',
+    lblOrigem: 'Origen', optDireto: 'Directo', optIndicacao: 'Referencia', optOutro: 'Otro',
+    lblDataEntrada: 'Fecha de Entrada', lblDataSaida: 'Fecha de Salida',
+    lblDiariaQuarto: 'Valor por Noche (R$)', optConfirmada: 'Confirmada', optPendente: 'Pendiente',
+    btnSalvarReserva: 'Guardar Reserva',
+
+    // Modal Comida
+    refeicaoModalTitle: 'Agregar Comida', lblFuncionarioMBRF: 'Empleado MBRF',
+    optAlmoco: '🌞 Almuerzo', optJantar: '🌙 Cena', btnRegistrarRefeicao: 'Registrar Comida',
+
+    // Modal Habitación
+    quartoModalTitle: 'Nueva Habitación', lblNumeroQuarto: 'Número de Habitación *', lblAndar: 'Piso',
+    lblTipoQuarto: 'Tipo de Habitación', tipoQuartoDuplo: 'Doble', tipoQuartoSuite: 'Suite',
+    tipoQuartoFamilia: 'Familiar', tipoQuartoExecutivo: 'Ejecutiva',
+    lblCapacidade: 'Capacidad (personas)', lblStatusManual: 'Estado Manual',
+    optAutomatico: 'Automático (vía huéspedes)', optManutencao: '🔧 En Mantenimiento',
+    lblDescricaoQuarto: 'Descripción de la Habitación', btnCadastrarQuarto: 'Registrar Habitación',
+
+    // Modal Producto
+    estoqueModalTitle: 'Nuevo Producto', lblCodigoProduto: 'Código del Producto *',
+    lblCategoria: 'Categoría', lblNomeProduto: 'Nombre del Producto *',
+    lblPrecoUnitario: 'Precio Unitario (R$)', lblQtdInicial: 'Cant. Inicial en Inventario',
+    lblEstoqueMinimo: 'Inventario Mínimo (alerta)', lblUnidade: 'Unidad',
+    optUnidade: 'Unidad (un)', optCaixa: 'Caja (cj)', optKg: 'Kilogramo (kg)',
+    optLitro: 'Litro (L)', optPacote: 'Paquete (paq)', optPar: 'Par',
+    btnCadastrarProduto: 'Registrar Producto',
+
+    // Modal Persona
+    pessoaModalTitle: 'Nueva Persona',
+    // Placeholders de ejemplo
+    phNomeExemplo: 'Juan Pérez',
+    phCodigoExemplo: 'Ej: 1, 2, 3...',
+    phEmailExemplo: 'juan@email.com',
+    phSetorExemplo: 'Producción',
+    phEnderecoExemplo: 'Calle / Avenida',
+    phBairroExemplo: 'Centro',
+    phCidadeExemplo: 'Ciudad',
+    phNotasPessoa: 'Notas sobre la persona...',
+    phMotivoRecusa: 'Ej: No hay disponibilidad para esas fechas',
+    phReferenciaNota: 'Referencia, nota...',
+    phCarroExemplo: 'Civic, Uno, Kwid...',
+    phCafeIncluido: 'Desayuno incluido...',
+    phPedidoEspecial: 'Pedido especial, n.º de personas...',
+    phRestricaoAlimentar: 'Restricción alimentaria...',
+    phAndarExemplo: '1.º Piso',
+    phDescQuarto: 'Aire acondicionado, TV por cable, mini bar, vista al jardín...',
+    phCategoriaExemplo: 'Bebidas, Higiene...',
+    phProdutoExemplo: 'Agua Mineral 500ml',
+    phFornecedorValidade: 'Proveedor, vencimiento...',
+    phMotivoNotaFiscal: 'Motivo, factura...',
+    phFormaPagamentoExemplo: 'Efectivo, Pix, Débito...',
+    phQuartoExemplo: '101, 205...',
+    phNotaDetalhe: 'Nota, detalle...',
+    // Etiquetas y mensajes adicionales (estados vacíos, confirmaciones)
+    btnConfirmarVenda: 'Confirmar Venta',
+    btnFechar: 'Cerrar',
+    btnMovimentar: 'Mover',
+    btnSalvarAlteracoes: 'Guardar Cambios',
+    confirmSaidaHotelMsg: 'El huésped será eliminado del sistema activo y registrado en el Historial con fecha y hora exactas.',
+    confirmSaidaMbrfMsg: 'El empleado será eliminado del sistema activo y registrado en el Historial con fecha y hora exactas.',
+    diasLabel: 'días',
+    emptyConsumo: 'Ningún producto registrado para este huésped.',
+    emptyHistoricoSub: 'Los huéspedes que hagan check-out aparecerán aquí con fecha y hora exactas',
+    emptyHistoricoTitle: 'Aún no hay registros de salida',
+    emptyHospedeSub: 'Registra un nuevo huésped para comenzar',
+    emptyHospedeTitle: 'No se encontraron huéspedes',
+    emptyMbrfSub: 'Registra empleados en la pestaña MBRF primero',
+    emptyMbrfTitle: 'Ningún empleado BRF',
+    emptyMovimentacao: 'Aún no hay movimientos.',
+    emptyPedidosReserva: 'No hay solicitudes de reserva pendientes en este momento.',
+    emptyPessoaFiltradaSub: 'Prueba con otro término de búsqueda',
+    emptyPessoaFiltradaTitle: 'No se encontró ninguna persona',
+    emptyPessoaSub: 'Haz clic en "Nueva Persona" para comenzar el registro central',
+    emptyPessoaTitle: 'Aún no hay personas registradas',
+    emptyProdutoSub: 'Haz clic en "Nuevo Producto" para comenzar el control de inventario',
+    emptyProdutoTitle: 'No se encontraron productos',
+    emptyQuartoCadastrado: 'Ninguna habitación registrada. Registra habitaciones en la pestaña Habitaciones.',
+    emptyQuartoLivre: 'Ninguna habitación disponible en este momento.<br>Libera una habitación o registra una nueva en <b>Habitaciones</b> antes de hacer el check-in.',
+    emptyQuartoSub: 'Registra habitaciones o ajusta los filtros',
+    emptyQuartoTitle: 'No se encontraron habitaciones',
+    emptyReservaSub: 'Agrega nuevas reservas para controlar futuros check-ins',
+    emptyReservaTitle: 'No se encontraron reservas',
+    estoqueAtualLabel: 'Inventario Actual',
+    formaCredito: 'Crédito',
+    formaDebito: 'Débito',
+    formaDinheiro: 'Efectivo',
+    formaFaturado: 'Facturado',
+    formaFiado: 'Fiado',
+    histEditTitle: '📁 Editar Registro del Historial',
+    histProdutoTitle: 'Historial del Producto',
+    lblBairroOpcional: 'Barrio',
+    lblCEPOpcional: 'Código Postal',
+    lblCheckin: 'Check-in',
+    lblCidadeOpcional: 'Ciudad',
+    lblDiasHospedado: 'Días Hospedado',
+    lblDiasHospedadoMin: 'Días hospedado',
+    lblDocumentoOpcional: 'CPF / CNPJ',
+    lblEmail: 'Correo electrónico',
+    lblEnderecoOpcional: 'Dirección',
+    lblHospede: 'Huésped',
+    lblMatriculaOpcionalBRF: 'Matrícula (BRF, opcional)',
+    lblNumeroOpcional: 'Número',
+    lblQuartoOpcional: 'Habitación (opcional)',
+    lblQuartoSingular: 'Habitación',
+    lblSaidaEm: 'Salida en',
+    lblSaldoDevedor: 'Saldo Pendiente',
+    lblSaldoDevedorMin: 'Saldo pendiente',
+    lblUFOpcional: 'Provincia',
+    lblValorPago: 'Monto Pagado',
+    lblValorPagoMin: 'Monto pagado',
+    movLancarProduto: 'Registrar Producto',
+    movSaidaCurto: 'Salida',
+    movimentacoesLabel: 'Movimientos',
+    notifSemEstoque: '¡Ningún producto en inventario!',
+    optSelecione: 'Selecciona...',
+    optSemVinculo: '— Sin vínculo —',
+    quitadoLabel: 'Saldado ✓',
+    saidaDeLabel: 'Salida de',
+    valorEmEstoqueLabel: 'Valor en Inventario',
   }
 };
 
 let PAINEL_LANG = localStorage.getItem('donpita_lang') || 'pt';
 function tp(key){ return (I18N_PAINEL[PAINEL_LANG] && I18N_PAINEL[PAINEL_LANG][key]) || I18N_PAINEL.pt[key] || key; }
+
+// Mapeia o idioma do painel para o código de locale usado em toLocaleDateString/toLocaleTimeString
+const LOCALE_MAP = { pt: 'pt-BR', en: 'en-US', es: 'es-ES' };
+function locale(){ return LOCALE_MAP[PAINEL_LANG] || 'pt-BR'; }
+// Palavra conectora "às" / "at" / "a las" usada em "12/06/2026 às 14:30"
+const AT_WORD_MAP = { pt: 'às', en: 'at', es: 'a las' };
+function atWord(){ return AT_WORD_MAP[PAINEL_LANG] || 'às'; }
 
 function setLang(lang){
   PAINEL_LANG = lang;
@@ -2063,6 +2559,8 @@ function setLang(lang){
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tp(el.getAttribute('data-i18n')); });
   document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = tp(el.getAttribute('data-i18n-ph')); });
+  if (typeof updateClock === 'function') updateClock();
+  if (typeof renderAll === 'function') renderAll();
 }
 window.addEventListener('DOMContentLoaded', () => setLang(PAINEL_LANG));
 
@@ -2333,12 +2831,12 @@ function diasNoHotel(checkin, checkinHora){
   const dias = Math.max(0, Math.round((nowBR() - new Date(checkin+'T12:00:00')) / 86400000));
   return Math.max(1, dias + bonus);
 }
-function fmt(v){ return 'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2}); }
+function fmt(v){ return 'R$ '+Number(v).toLocaleString(locale(),{minimumFractionDigits:2}); }
 function fmtDate(d){ if(!d) return '—'; const [y,m,dd]=d.split('-'); return `${dd}/${m}/${y}`; }
-function fmtDateFull(d){ if(!d) return ''; return new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{timeZone:TZ,weekday:'long',day:'2-digit',month:'long',year:'numeric'}); }
-function fmtDateTime(iso){ if(!iso) return '—'; const dt=new Date(iso); return dt.toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})+' às '+dt.toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'}); }
-function fmtDateTimeShort(iso){ if(!iso) return '—'; return new Date(iso).toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}); }
-function fmtTime(iso){ if(!iso) return ''; return new Date(iso).toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'}); }
+function fmtDateFull(d){ if(!d) return ''; return new Date(d+'T12:00:00').toLocaleDateString(locale(),{timeZone:TZ,weekday:'long',day:'2-digit',month:'long',year:'numeric'}); }
+function fmtDateTime(iso){ if(!iso) return '—'; const dt=new Date(iso); return dt.toLocaleDateString(locale(),{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})+(' '+atWord()+' ')+dt.toLocaleTimeString(locale(),{timeZone:TZ,hour:'2-digit',minute:'2-digit'}); }
+function fmtDateTimeShort(iso){ if(!iso) return '—'; return new Date(iso).toLocaleDateString(locale(),{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}); }
+function fmtTime(iso){ if(!iso) return ''; return new Date(iso).toLocaleTimeString(locale(),{timeZone:TZ,hour:'2-digit',minute:'2-digit'}); }
 function initials(nome){ return nome.split(' ').slice(0,2).map(p=>p[0]).join('').toUpperCase(); }
 function statusPgto(h){
   const dias=diasNoHotel(h.checkin, h.checkinHora), pago=h.diasPagos;
@@ -2387,8 +2885,8 @@ function tipoIcon(tipo){
 // ── CLOCK ──
 function updateClock(){
   const now=new Date();
-  document.getElementById('clock').textContent=now.toLocaleTimeString('pt-BR',{timeZone:TZ});
-  document.getElementById('dateDisplay').textContent=now.toLocaleDateString('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'long'});
+  document.getElementById('clock').textContent=now.toLocaleTimeString(locale(),{timeZone:TZ});
+  document.getElementById('dateDisplay').textContent=now.toLocaleDateString(locale(),{timeZone:TZ,weekday:'short',day:'2-digit',month:'long'});
 }
 setInterval(updateClock,1000); updateClock();
 
@@ -2440,8 +2938,8 @@ function renderTable(cat, filter=''){
   if(!rows.length){
     tbody.innerHTML=`<tr><td colspan="9" style="text-align:center;padding:48px 20px;color:#8A8F9E;">
       <div style="font-size:36px;margin-bottom:10px;">🛏️</div>
-      <div style="font-weight:600;color:#1A2340;">Nenhum hóspede encontrado</div>
-      <div style="font-size:12px;margin-top:4px;">Cadastre um novo hóspede para começar</div>
+      <div style="font-weight:600;color:#1A2340;">${tp('emptyHospedeTitle')}</div>
+      <div style="font-size:12px;margin-top:4px;">${tp('emptyHospedeSub')}</div>
     </td></tr>`;
     return;
   }
@@ -2621,7 +3119,7 @@ function renderQuartos(){
   list.sort((a,b)=> String(a.numero).localeCompare(String(b.numero), undefined, {numeric:true}));
 
   if(!list.length){
-    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">🚪</div><h3>Nenhum quarto encontrado</h3><p>Cadastre quartos ou ajuste os filtros</p></div>`;
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">🚪</div><h3>${tp('emptyQuartoTitle')}</h3><p>${tp('emptyQuartoSub')}</p></div>`;
     return;
   }
 
@@ -2824,19 +3322,19 @@ function openConfirmSaida(cat, id){
   const saldo = Math.max(0, h.diaria*dias - h.diaria*h.diasPagos);
   const valorPago = h.diaria*h.diasPagos;
 
-  document.getElementById('confirmTitle').textContent = `Saída de ${h.nome}`;
+  document.getElementById('confirmTitle').textContent = `${tp('saidaDeLabel')} ${h.nome}`;
   document.getElementById('confirmMsg').textContent   = cat==='mbrf'
-    ? 'O funcionário será removido do sistema ativo e registrado no Histórico com data e hora exatas.'
-    : 'O hóspede será removido do sistema ativo e registrado no Histórico com data e hora exatas.';
+    ? tp('confirmSaidaMbrfMsg')
+    : tp('confirmSaidaHotelMsg');
 
   document.getElementById('confirmDetail').innerHTML=`
-    <div class="confirm-detail-row"><span class="label">Hóspede</span><span class="value">${h.nome}</span></div>
-    <div class="confirm-detail-row"><span class="label">Quarto</span><span class="value">${h.quarto||'—'}</span></div>
-    <div class="confirm-detail-row"><span class="label">Check-in</span><span class="value">${fmtDate(h.checkin)}</span></div>
-    <div class="confirm-detail-row"><span class="label">Dias hospedado</span><span class="value">${dias} dias</span></div>
-    <div class="confirm-detail-row"><span class="label">Valor pago</span><span class="value green">${fmt(valorPago)}</span></div>
-    <div class="confirm-detail-row"><span class="label">Saldo devedor</span><span class="value ${saldo>0?'red':'green'}">${saldo>0?fmt(saldo):'Quitado ✓'}</span></div>
-    <div class="confirm-detail-row"><span class="label">Saída em</span><span class="value">${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} — ${new Date().toLocaleDateString('pt-BR')}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblHospede')}</span><span class="value">${h.nome}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblQuartoSingular')}</span><span class="value">${h.quarto||'—'}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblCheckin')}</span><span class="value">${fmtDate(h.checkin)}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblDiasHospedadoMin')}</span><span class="value">${dias} ${tp('diasLabel')}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblValorPagoMin')}</span><span class="value green">${fmt(valorPago)}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblSaldoDevedorMin')}</span><span class="value ${saldo>0?'red':'green'}">${saldo>0?fmt(saldo):tp('quitadoLabel')}</span></div>
+    <div class="confirm-detail-row"><span class="label">${tp('lblSaidaEm')}</span><span class="value">${new Date().toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'})} — ${new Date().toLocaleDateString(locale())}</span></div>
   `;
   document.getElementById('confirmSaidaOverlay').classList.add('open');
 }
@@ -2932,11 +3430,11 @@ function executarSaida(){
 
 function gerarReciboBRF(h, dias, valorTotal, valorPago, saldo, saidaISO){
   const saidaDT  = new Date(saidaISO);
-  const saidaData = saidaDT.toLocaleDateString('pt-BR', { timeZone: TZ, weekday:'long', day:'2-digit', month:'long', year:'numeric' });
-  const saidaHora = saidaDT.toLocaleTimeString('pt-BR', { timeZone: TZ, hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  const saidaData = saidaDT.toLocaleDateString(locale(), { timeZone: TZ, weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+  const saidaHora = saidaDT.toLocaleTimeString(locale(), { timeZone: TZ, hour:'2-digit', minute:'2-digit', second:'2-digit' });
   const checkinFmt = fmtDate(h.checkin);
-  const emissao   = new Date().toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
-                  + ' às ' + new Date().toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
+  const emissao   = new Date().toLocaleDateString(locale(),{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
+                  + (' '+atWord()+' ') + new Date().toLocaleTimeString(locale(),{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
 
   // Consumo de produtos do hóspede (vinculado pelo ID, com fallback por nome)
   const consumo = getConsumoHospede('mbrf', h.id);
@@ -3211,8 +3709,8 @@ function confirmarImpressaoRecibo(){
 
 function gerarReciboPagamento(cat, h, diasPagos, forma, valorConsumo){
   valorConsumo = valorConsumo||0;
-  const emissao = new Date().toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
-                + ' às ' + new Date().toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
+  const emissao = new Date().toLocaleDateString(locale(),{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
+                + (' '+atWord()+' ') + new Date().toLocaleTimeString(locale(),{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
   const diasTotal = diasNoHotel(h.checkin, h.checkinHora);
   const valorPago = h.diaria * h.diasPagos; // já atualizado
   const valorTotal = h.diaria * diasTotal;
@@ -3459,7 +3957,7 @@ function openInfoModal(cat, id){
             </div>
             <div class="consumo-item-val">${fmt(c.total)}</div>
           </div>`).join('')
-        : `<div class="consumo-empty">Nenhum produto lançado para este hóspede.</div>`
+        : `<div class="consumo-empty">${tp('emptyConsumo')}</div>`
       }
     </div>
     <div class="total-geral-box">
@@ -3496,8 +3994,8 @@ function imprimirFichaHospede(cat, id){
   const valorConsumo = consumo.reduce((a,c)=>a+c.total, 0);
   const totalGeral   = valorQuarto + valorConsumo;
   const totalDevido  = Math.max(0, totalGeral - valorPago);
-  const emissao      = new Date().toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
-                     + ' às ' + new Date().toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
+  const emissao      = new Date().toLocaleDateString(locale(),{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'})
+                     + (' '+atWord()+' ') + new Date().toLocaleTimeString(locale(),{timeZone:TZ,hour:'2-digit',minute:'2-digit'});
   const statusTxt    = saldo<=0 ? 'QUITADO ✅' : `SALDO: ${fmt(totalDevido)} ⚠️`;
   const isMbrf       = cat==='mbrf';
 
@@ -3662,7 +4160,7 @@ function imprimirFichaHospede(cat, id){
 function openMovModalCliente(cat, id){
   const arr = cat==='hotel' ? hospedes : mbrfs;
   const h   = arr.find(x=>x.id===id);
-  if(!h || !estoque.length){ showNotif('Nenhum produto no estoque!','warn'); return; }
+  if(!h || !estoque.length){ showNotif(tp('notifSemEstoque'),'warn'); return; }
   // Abre modal de movimentação do primeiro produto mas já seleciona o cliente
   // Usamos um produto fictício de entrada — o usuário escolhe o produto via select
   openMovModalComCliente(cat, id);
@@ -3688,13 +4186,13 @@ function openMovModalComCliente(cat, hId){
     document.getElementById('mov_produto_row').style.display='';
   }
 
-  document.getElementById('movModalTitle').textContent = `📦 Lançar Produto — ${h.nome}`;
+  document.getElementById('movModalTitle').textContent = `📦 ${tp('movLancarProduto')} — ${h.nome}`;
   document.getElementById('mov_qtd').value = 1;
   document.getElementById('mov_obs').value = '';
 
   // Popula e pré-seleciona o cliente
   const sel = document.getElementById('mov_cliente');
-  sel.innerHTML = '<option value="">— Sem vínculo —</option>'
+  sel.innerHTML = `<option value="">${tp('optSemVinculo')}</option>`
     + hospedes.map(x=>`<option value="hotel:${x.id}"${x.id===hId&&cat==='hotel'?' selected':''}>🏨 ${x.nome} (Q.${x.quarto||'—'})</option>`).join('')
     + mbrfs.map(x=>`<option value="mbrf:${x.id}"${x.id===hId&&cat==='mbrf'?' selected':''}>🏢 ${x.nome} (BRF)</option>`).join('');
 
@@ -3717,7 +4215,7 @@ function renderHistorico(filter=''){
     || (x.telefone||'').includes(f)
   );
   if(!data.length){
-    list.innerHTML=`<div class="empty-state"><div class="empty-icon">📁</div><h3>Nenhum registro de saída ainda</h3><p>Os hóspedes que receberem checkout aparecerão aqui com data e hora exatas</p></div>`;
+    list.innerHTML=`<div class="empty-state"><div class="empty-icon">📁</div><h3>${tp('emptyHistoricoTitle')}</h3><p>${tp('emptyHistoricoSub')}</p></div>`;
     return;
   }
   list.innerHTML=data.map(x=>{
@@ -3891,11 +4389,11 @@ function salvarHistEdit(){
 function renderReservas(filter=''){
   const list=document.getElementById('reservasList');
   const sorted=[...reservas].filter(r=>!filter||r.nome.toLowerCase().includes(filter.toLowerCase())||(r.quarto||'').includes(filter)).sort((a,b)=>a.checkin.localeCompare(b.checkin));
-  if(!sorted.length){ list.innerHTML=`<div class="empty-state"><div class="empty-icon">📋</div><h3>Nenhuma reserva encontrada</h3><p>Adicione novas reservas para controlar check-ins futuros</p></div>`; return; }
+  if(!sorted.length){ list.innerHTML=`<div class="empty-state"><div class="empty-icon">📋</div><h3>${tp('emptyReservaTitle')}</h3><p>${tp('emptyReservaSub')}</p></div>`; return; }
   list.innerHTML=sorted.map(r=>{
     const dt=new Date(r.checkin+'T12:00:00');
     const day=String(dt.getDate()).padStart(2,'0');
-    const mon=dt.toLocaleDateString('pt-BR',{month:'short'}).replace('.','');
+    const mon=dt.toLocaleDateString(locale(),{month:'short'}).replace('.','');
     const nights=r.checkout?diffDays(r.checkin,r.checkout):0;
     const qtdQuartos=(r.quartos&&r.quartos.length)?r.quartos.length:(r.quarto?1:0);
     const total=nights>0?fmt(r.diaria*nights*(qtdQuartos||1)):'—';
@@ -3983,7 +4481,7 @@ function renderReservaQuartosGrid(selecionados=[]){
     .filter(q => q.statusManual !== 'manutencao')
     .sort((a,b) => String(a.numero).localeCompare(String(b.numero), undefined, {numeric:true}));
   if(!lista.length){
-    wrap.innerHTML = '<div class="reserva-quartos-empty">Nenhum quarto cadastrado. Cadastre quartos na aba Quartos.</div>';
+    wrap.innerHTML = `<div class="reserva-quartos-empty">${tp('emptyQuartoCadastrado')}</div>`;
     atualizaContadorReservaQuartos();
     return;
   }
@@ -4147,7 +4645,7 @@ function renderPedidosReserva(){
   if(tag) tag.textContent = `${pendentes.length} pendente(s)`;
 
   if(!pendentes.length){
-    list.innerHTML = `<div class="pedidos-empty">Nenhum pedido de reserva pendente no momento.</div>`;
+    list.innerHTML = `<div class="pedidos-empty">${tp('emptyPedidosReserva')}</div>`;
     return;
   }
 
@@ -4307,7 +4805,7 @@ function abrirSelecaoQuartoCheckin(cat){
       <span class="qp-num">🚪 ${q.numero}</span>
       <span class="qp-tipo">${q.tipo||'—'}</span>
     </button>
-  `).join('') : `<div style="text-align:center;color:var(--gray);padding:24px 12px;font-size:13px;line-height:1.6;grid-column:1/-1;">Nenhum quarto livre no momento.<br>Libere um quarto ou cadastre um novo em <b>Quartos</b> antes de fazer o check-in.</div>`;
+  `).join('') : `<div style="text-align:center;color:var(--gray);padding:24px 12px;font-size:13px;line-height:1.6;grid-column:1/-1;">${tp('emptyQuartoLivre')}</div>`;
   document.getElementById('selecaoQuartoOverlay').classList.add('open');
 }
 function closeSelecaoQuartoModal(){
@@ -4376,7 +4874,7 @@ function renderRefeicoes(){
   if(display) display.textContent=fmtDateFull(foodDate);
   const list=document.getElementById('refeicoesList');
   if(!list) return;
-  if(!mbrfs.length){ list.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h3>Nenhum funcionário BRF</h3><p>Cadastre funcionários na aba MBRF primeiro</p></div>`; return; }
+  if(!mbrfs.length){ list.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h3>${tp('emptyMbrfTitle')}</h3><p>${tp('emptyMbrfSub')}</p></div>`; return; }
   const refDia=refeicoes.filter(r=>r.data===foodDate);
   const almocos=refDia.filter(r=>r.tipo==='almoco');
   const jantares=refDia.filter(r=>r.tipo==='jantar');
@@ -4400,7 +4898,7 @@ function toggleRefeicao(mbrfId,tipo,data){
 }
 function openRefeicaoModal(){
   const sel=document.getElementById('ref_funcionario');
-  sel.innerHTML='<option value="">Selecione...</option>'+mbrfs.map(f=>`<option value="${f.id}">${f.nome} (Q.${f.quarto||'—'})</option>`).join('');
+  sel.innerHTML=`<option value="">${tp('optSelecione')}</option>`+mbrfs.map(f=>`<option value="${f.id}">${f.nome} (Q.${f.quarto||'—'})</option>`).join('');
   document.getElementById('ref_data').value=foodDate;
   document.getElementById('ref_obs').value='';
   document.getElementById('refeicaoModalOverlay').classList.add('open');
@@ -4438,12 +4936,12 @@ function populateQuartosSelect(cat, currentQuarto=''){
       return true;
     })
     .sort((a,b) => String(a.numero).localeCompare(String(b.numero), undefined, {numeric:true}));
-  sel.innerHTML = '<option value="">— Selecione um quarto —</option>'
+  sel.innerHTML = `<option value="">${tp('optSelecioneQuarto')}</option>`
     + disponíveis.map(q => {
         const ocupados = getQuartoOcupacao(q);
         const cap = q.capacidade || 0;
         const vagaStr = cap ? ` · ${ocupados}/${cap}p` : (ocupados ? ` · ${ocupados}p` : '');
-        const label = `Quarto ${q.numero}${q.andar?' · '+q.andar:''} — ${q.tipo||'Standard'}${vagaStr}`;
+        const label = `${tp('lblQuartoSingular')} ${q.numero}${q.andar?' · '+q.andar:''} — ${q.tipo||'Standard'}${vagaStr}`;
         return `<option value="${q.numero}"${q.numero===currentQuarto?' selected':''}>${label}</option>`;
       }).join('');
 }
@@ -4753,7 +5251,7 @@ function renderEstoque(){
   list.sort((a,b)=>a.nome.localeCompare(b.nome));
 
   if(!list.length){
-    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📦</div><h3>Nenhum produto encontrado</h3><p>Clique em "Novo Produto" para começar o controle de estoque</p></div>`;
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📦</div><h3>${tp('emptyProdutoTitle')}</h3><p>${tp('emptyProdutoSub')}</p></div>`;
     return;
   }
 
@@ -4882,7 +5380,7 @@ function openMovModal(id){
   document.getElementById('mov_produto_row').style.display = 'none';
   // Popula clientes
   const sel = document.getElementById('mov_cliente');
-  sel.innerHTML = '<option value="">— Sem vínculo —</option>'
+  sel.innerHTML = `<option value="">${tp('optSemVinculo')}</option>`
     + hospedes.map(h=>`<option value="hotel:${h.id}">🏨 ${h.nome} (Q.${h.quarto||'—'})</option>`).join('')
     + mbrfs.map(m=>`<option value="mbrf:${m.id}">🏢 ${m.nome} (BRF)</option>`).join('');
   selectMovTipo('entrada');
@@ -4956,16 +5454,16 @@ function openProdutoHist(id){
   const p = estoque.find(x=>x.id===id);
   if(!p) return;
   const movs = [...(p.movimentacoes||[])].reverse();
-  document.getElementById('produtoHistTitle').textContent = `📋 ${p.nome} — Movimentações`;
+  document.getElementById('produtoHistTitle').innerHTML = `📋 ${p.nome} — ${tp('movimentacoesLabel')}`;
   const qtdAt = qtdAtual(p);
   document.getElementById('produtoHistBody').innerHTML = `
     <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
       <div style="background:var(--estoque-light);border-radius:10px;padding:10px 16px;flex:1;min-width:120px;">
-        <div style="font-size:10px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Estoque Atual</div>
+        <div style="font-size:10px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${tp('estoqueAtualLabel')}</div>
         <div style="font-size:20px;font-weight:700;color:var(--estoque-green);">${qtdAt} <span style="font-size:12px;">${p.unidade||'un'}</span></div>
       </div>
       <div style="background:var(--cream);border-radius:10px;padding:10px 16px;flex:1;min-width:120px;">
-        <div style="font-size:10px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Valor em Estoque</div>
+        <div style="font-size:10px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${tp('valorEmEstoqueLabel')}</div>
         <div style="font-size:18px;font-weight:700;color:var(--navy);">${fmt(qtdAt*p.preco)}</div>
       </div>
     </div>
@@ -4975,13 +5473,13 @@ function openProdutoHist(id){
         <div class="mov-hist-item">
           <div class="${m.tipo==='entrada'?'mov-dot-e':'mov-dot-s'}"></div>
           <span class="mov-hist-qtd ${m.tipo}">${m.tipo==='entrada'?'+':'-'}${m.qtd}</span>
-          <span style="flex:1;color:var(--navy);">${m.tipo==='entrada'?'Entrada':'Saída'}${m.cliente?' → '+m.cliente:''}${m.obs?' · '+m.obs:''}</span>
+          <span style="flex:1;color:var(--navy);">${m.tipo==='entrada'?tp('movEntrada'):tp('movSaidaCurto')}${m.cliente?' → '+m.cliente:''}${m.obs?' · '+m.obs:''}</span>
           <span style="color:var(--gray);white-space:nowrap;">${fmtDateTime(m.data)}</span>
         </div>`).join('')}
-    </div>` : '<div style="text-align:center;padding:30px;color:var(--gray);">Nenhuma movimentação ainda.</div>'}
+    </div>` : `<div style="text-align:center;padding:30px;color:var(--gray);">${tp('emptyMovimentacao')}</div>`}
     <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;">
-      <button class="btn btn-outline" onclick="document.getElementById('produtoHistOverlay').classList.remove('open')">Fechar</button>
-      <button class="btn btn-estoque" onclick="document.getElementById('produtoHistOverlay').classList.remove('open');openMovModal(${p.id})">📤 Movimentar</button>
+      <button class="btn btn-outline" onclick="document.getElementById('produtoHistOverlay').classList.remove('open')">${tp('btnFechar')}</button>
+      <button class="btn btn-estoque" onclick="document.getElementById('produtoHistOverlay').classList.remove('open');openMovModal(${p.id})">📤 ${tp('btnMovimentar')}</button>
     </div>`;
   document.getElementById('produtoHistOverlay').classList.add('open');
 }
@@ -5067,8 +5565,8 @@ function imprimirCaixaComPeriodo()   { imprimirCaixa(relPeriodo.caixa); }
 // ── RELATÓRIO DE PESSOAS BRF ──
 function imprimirRelatorioBRF(){
   const n = nowBR();
-  const dataHoje = n.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-  const horaHoje = n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const dataHoje = n.toLocaleDateString(locale(),{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const horaHoje = n.toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'});
 
   const lista = [...mbrfs].sort((a,b)=>String(a.quarto||'').localeCompare(String(b.quarto||''),undefined,{numeric:true}));
 
@@ -5084,7 +5582,7 @@ function imprimirRelatorioBRF(){
       <td style="text-align:center;">${h.matricula||'—'}</td>
       <td style="text-align:center;">${h.quarto||'—'}</td>
       <td>${h.setor||'—'}</td>
-      <td>${fmtDate(h.checkin)}${h.checkinHora?' às '+h.checkinHora:''}</td>
+      <td>${fmtDate(h.checkin)}${h.checkinHora?(' '+atWord()+' ')+h.checkinHora:''}</td>
       <td style="text-align:center;">${dias}d</td>
       <td style="text-align:right;">${fmt(totalGeral)}${consumo>0?'<br><span style="font-size:9px;color:#1A6B3A;">+'+fmt(consumo)+' estoque</span>':''}</td>
       <td style="text-align:right;color:${saldo>0?'#B23B3B':'#2E7D52'};">${saldo>0?fmt(saldo):'Quitado'}</td>
@@ -5176,8 +5674,8 @@ function imprimirRelatorioBRF(){
 // ── RELATÓRIO DE ESTOQUE ──
 function imprimirRelatorioEstoque(){
   const n = nowBR();
-  const dataHoje = n.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-  const horaHoje = n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const dataHoje = n.toLocaleDateString(locale(),{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const horaHoje = n.toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'});
 
   const lista = [...estoque].sort((a,b)=>a.nome.localeCompare(b.nome));
 
@@ -5272,10 +5770,10 @@ function imprimirRelatorioEstoque(){
 // ── RELATÓRIOS / IMPRESSÃO ──
 function imprimirHospedes(periodo='diario'){
   const n = nowBR();
-  const dataHoje = n.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-  const horaHoje = n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const dataHoje = n.toLocaleDateString(locale(),{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const horaHoje = n.toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'});
   const mesAtual = today().slice(0,7); // "2026-06"
-  const mesLabel = n.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const mesLabel = n.toLocaleDateString(locale(),{month:'long',year:'numeric'});
 
   // Para mensal, inclui ativos + histórico do mês
   let todos = [];
@@ -5409,10 +5907,10 @@ function imprimirHospedes(periodo='diario'){
 
 function imprimirCaixa(periodo='diario'){
   const n = nowBR();
-  const dataHoje = n.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
-  const horaHoje = n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const dataHoje = n.toLocaleDateString(locale(),{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const horaHoje = n.toLocaleTimeString(locale(),{hour:'2-digit',minute:'2-digit'});
   const mesAtual = today().slice(0,7);
-  const mesLabel = n.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const mesLabel = n.toLocaleDateString(locale(),{month:'long',year:'numeric'});
 
   // Calcular totais Hotel
   const recHotel  = hospedes.reduce((a,h)=>a+h.diaria*h.diasPagos,0);
@@ -5630,7 +6128,7 @@ function imprimirCaixa(periodo='diario'){
         <td style="text-align:right;font-weight:700;color:#1A6B3A;">${fmt(v.total)}</td>
         <td style="text-align:center;">${v.quarto||'—'}</td>
         <td style="text-align:center;">${v.forma||'—'}</td>
-        <td style="font-size:10px;">${v.data?new Date(v.data).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—'}</td>
+        <td style="font-size:10px;">${v.data?new Date(v.data).toLocaleDateString(locale(),{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—'}</td>
       </tr>`).join('')}
       <tr style="background:#E6F4EC;">
         <td colspan="3" style="font-weight:700;color:#1A6B3A;">Total Vendas</td>
@@ -5670,7 +6168,7 @@ const lixoState = {
   mbrf:      false,   // 🗑️ botão deletar funcionários BRF
   estoque:  true,   // 🗑️ botão deletar produtos do Estoque
   quartos:   true,   // 🗑️ botão deletar Quartos
-  historico: true,   // 🗑️ botão Limpar Histórico
+  historico: false,   // 🗑️ botão Limpar Histórico
 };
 
 // ── CONFIGURAÇÃO BOTÃO REINICIAR SISTEMA ──
@@ -5923,7 +6421,7 @@ function renderPessoas(){
   ).sort((a,b)=>a.nome.localeCompare(b.nome));
 
   if(!lista.length){
-    list.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h3>${f?'Nenhuma pessoa encontrada':'Nenhuma pessoa cadastrada ainda'}</h3><p>${f?'Tente outro termo de busca':'Clique em "Nova Pessoa" para começar o cadastro central'}</p></div>`;
+    list.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h3>${f?tp('emptyPessoaFiltradaTitle'):tp('emptyPessoaTitle')}</h3><p>${f?tp('emptyPessoaFiltradaSub'):tp('emptyPessoaSub')}</p></div>`;
     return;
   }
 
