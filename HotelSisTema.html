@@ -514,6 +514,57 @@
   .date-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
   .date-display { font-weight: 600; font-size: 14px; color: var(--navy); min-width: 200px; text-align: center; background: white; border: 1.5px solid var(--border); border-radius: 9px; padding: 8px 14px; text-transform: capitalize; }
 
+  /* HISTÓRICO DE REFEIÇÕES POR DIA */
+  .food-view-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+  .food-view-btn { padding: 8px 18px; border-radius: 20px; font-size: 12.5px; font-weight: 600; border: 1.5px solid var(--border); background: white; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; color: var(--gray); }
+  .food-view-btn.active { border-color: var(--food-teal); background: var(--food-light); color: var(--food-teal); }
+  .food-hist-list { display: flex; flex-direction: column; gap: 10px; }
+  .food-hist-day {
+    background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; cursor: pointer; transition: box-shadow 0.15s;
+  }
+  .food-hist-day:hover { box-shadow: 0 4px 18px rgba(26,35,64,0.09); }
+  .food-hist-day.today-day { border-color: var(--food-teal); border-width: 2px; }
+  .food-hist-day-header {
+    display: flex; align-items: center; gap: 16px; padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .food-hist-day.collapsed .food-hist-day-header { border-bottom: none; }
+  .food-hist-date-badge {
+    background: linear-gradient(135deg, var(--food-teal) 0%, #22A090 100%);
+    color: white; border-radius: 10px; padding: 8px 12px; text-align: center; min-width: 52px; flex-shrink: 0;
+  }
+  .food-hist-date-badge.today-badge { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); color: var(--navy); }
+  .food-hist-day-num { font-size: 20px; font-weight: 700; font-family: 'Playfair Display', serif; line-height: 1; }
+  .food-hist-mon { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; margin-top: 2px; }
+  .food-hist-day-info { flex: 1; }
+  .food-hist-day-label { font-weight: 600; font-size: 14px; color: var(--navy); text-transform: capitalize; }
+  .food-hist-day-sub { font-size: 11.5px; color: var(--gray); margin-top: 2px; }
+  .food-hist-pills { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+  .food-pill {
+    display: flex; align-items: center; gap: 5px; padding: 5px 12px;
+    border-radius: 20px; font-size: 12px; font-weight: 700;
+  }
+  .food-pill.almoco { background: #FFF8E6; color: var(--amber); border: 1px solid #F0E0BB; }
+  .food-pill.jantar { background: #EDF2FB; color: var(--reserva-blue); border: 1px solid #C5D5EC; }
+  .food-pill.zero   { background: var(--cream); color: var(--gray); border: 1px solid var(--border); }
+  .food-hist-chevron { font-size: 14px; color: var(--gray); transition: transform 0.2s; flex-shrink: 0; }
+  .food-hist-day:not(.collapsed) .food-hist-chevron { transform: rotate(90deg); }
+  .food-hist-day-body { padding: 14px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .food-hist-day.collapsed .food-hist-day-body { display: none; }
+  .food-hist-col-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .food-hist-col-title.almoco { color: var(--amber); }
+  .food-hist-col-title.jantar { color: var(--reserva-blue); }
+  .food-hist-name { font-size: 12.5px; padding: 5px 0; border-bottom: 1px solid #F0EDE8; color: var(--navy); display: flex; align-items: center; gap: 6px; }
+  .food-hist-name:last-child { border-bottom: none; }
+  .food-hist-name::before { content: '✓'; font-size: 10px; color: var(--green); font-weight: 700; }
+  .food-hist-empty-col { font-size: 12px; color: var(--gray); font-style: italic; }
+  .food-hist-month-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .food-hist-month-display { font-weight: 600; font-size: 14px; color: var(--navy); flex: 1; text-align: center; background: white; border: 1.5px solid var(--border); border-radius: 9px; padding: 8px 14px; text-transform: capitalize; }
+  .food-hist-empty { text-align: center; padding: 40px 20px; color: var(--gray); }
+  .food-hist-empty .empty-icon { font-size: 36px; margin-bottom: 10px; }
+  .food-hist-empty p { font-size: 13px; }
+
   /* EMPTY STATE */
   .empty-state { text-align: center; padding: 56px 20px; color: var(--gray); }
   .empty-icon  { font-size: 44px; margin-bottom: 12px; }
@@ -916,17 +967,35 @@
       <div class="section-logo">🍽️</div>
     </div>
     <div class="stats" id="statsRefeicoes"></div>
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input class="search-input" type="text" placeholder="Buscar por nome ou número do quarto..." oninput="filterRefeicoes(this.value)" id="refeicoesSearch">
+    <div class="food-view-toggle">
+      <button class="food-view-btn active" id="btnViewDia" onclick="setFoodView('dia')">📅 Dia a Dia</button>
+      <button class="food-view-btn" id="btnViewHist" onclick="setFoodView('hist')">📋 Histórico</button>
     </div>
-    <div class="date-nav">
-      <button class="date-nav-btn" onclick="navDay(-1)">‹</button>
-      <div class="date-display" id="foodDateDisplay"></div>
-      <button class="date-nav-btn" onclick="navDay(1)">›</button>
-      <button class="btn btn-food" style="margin-left:auto" onclick="openRefeicaoModal()">+ <span data-i18n="btnAddRefeicao">Adicionar Refeição</span></button>
+
+    <!-- VISTA DIA A DIA -->
+    <div id="foodViewDia">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" placeholder="Buscar por nome ou número do quarto..." oninput="filterRefeicoes(this.value)" id="refeicoesSearch">
+      </div>
+      <div class="date-nav">
+        <button class="date-nav-btn" onclick="navDay(-1)">‹</button>
+        <div class="date-display" id="foodDateDisplay"></div>
+        <button class="date-nav-btn" onclick="navDay(1)">›</button>
+        <button class="btn btn-food" style="margin-left:auto" onclick="openRefeicaoModal()">+ <span data-i18n="btnAddRefeicao">Adicionar Refeição</span></button>
+      </div>
+      <div id="refeicoesList"></div>
     </div>
-    <div id="refeicoesList"></div>
+
+    <!-- VISTA HISTÓRICO -->
+    <div id="foodViewHist" style="display:none">
+      <div class="food-hist-month-nav">
+        <button class="date-nav-btn" onclick="navHistMonth(-1)">‹</button>
+        <div class="food-hist-month-display" id="histMonthDisplay"></div>
+        <button class="date-nav-btn" onclick="navHistMonth(1)">›</button>
+      </div>
+      <div id="foodHistList"></div>
+    </div>
   </div>
 
   <!-- QUARTOS TAB -->
@@ -1675,23 +1744,18 @@
     <div class="modal-title">📥 Importar Planilha BRF</div>
     <p style="font-size:12.5px;color:var(--gray);margin-bottom:14px;line-height:1.5;">
       Envie um arquivo Excel (.xlsx) com as colunas <b>Quarto</b> e <b>Nome</b> — uma linha por pessoa.
-      Quartos que ainda não existem serão criados automaticamente. Se a planilha tiver uma coluna <b>Diária</b>, ela será usada; caso contrário, o valor padrão abaixo será aplicado.
+      Quartos que ainda não existem serão criados automaticamente, com capacidade igual à
+      quantidade de pessoas daquele quarto na planilha.
     </p>
-    <div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:14px;flex-wrap:wrap;">
-      <div class="form-group" style="flex:1;min-width:200px;margin-bottom:0;">
-        <label class="form-label">Arquivo Excel (.xlsx)</label>
-        <input type="file" id="importBrfFile" accept=".xlsx,.xls,.csv" class="form-input" onchange="handleImportBrfFile(event)">
-      </div>
-      <div class="form-group" style="width:160px;margin-bottom:0;">
-        <label class="form-label">Diária padrão (R$)</label>
-        <input type="number" id="importBrfDiariaDefault" class="form-input" value="110" min="0" placeholder="0" style="text-align:right;">
-      </div>
+    <div class="form-group" style="margin-bottom:14px;">
+      <input type="file" id="importBrfFile" accept=".xlsx,.xls,.csv" class="form-input" onchange="handleImportBrfFile(event)">
+    </div>
     <div id="importBrfPreviewWrap" style="display:none;">
       <div id="importBrfResumo" style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px;"></div>
       <div style="max-height:280px;overflow:auto;border:1px solid var(--border);border-radius:10px;">
         <table style="width:100%;font-size:12.5px;">
           <thead style="position:sticky;top:0;background:var(--cream);">
-            <tr><th style="text-align:left;padding:8px 10px;">Quarto</th><th style="text-align:left;padding:8px 10px;">Nome</th><th style="text-align:left;padding:8px 10px;">Diária</th><th style="text-align:left;padding:8px 10px;">Situação</th></tr>
+            <tr><th style="text-align:left;padding:8px 10px;">Quarto</th><th style="text-align:left;padding:8px 10px;">Nome</th><th style="text-align:left;padding:8px 10px;">Situação</th></tr>
           </thead>
           <tbody id="importBrfPreviewBody"></tbody>
         </table>
@@ -2858,82 +2922,38 @@ window._trashConfirm = CONFIG.confirmarExclusao;
 
 // ── PRINT MODAL HELPERS ──
 let _lastPrintHTML = '';
-let _lastPrintBlobURL = '';
-
 function openPrintModal(htmlContent) {
   _lastPrintHTML = htmlContent;
-
-  // Libera blob anterior para evitar memory leak
-  if (_lastPrintBlobURL) {
-    URL.revokeObjectURL(_lastPrintBlobURL);
-    _lastPrintBlobURL = '';
-  }
-
   const overlay = document.getElementById('printModalOverlay');
-  const frame   = document.getElementById('printFrame');
+  const frame = document.getElementById('printFrame');
   overlay.classList.add('open');
-
-  // ── Estratégia 1: srcdoc (suportado em todos navegadores modernos)
-  // Evita o bloqueio de document.write() em iframes em arquivos locais / CSP.
-  try {
-    frame.srcdoc = htmlContent;
-    return;
-  } catch(e) { /* fallback abaixo */ }
-
-  // ── Estratégia 2: Blob URL como src (fallback para Safari antigo)
-  try {
-    const blob = new Blob([htmlContent], { type: 'text/html; charset=utf-8' });
-    _lastPrintBlobURL = URL.createObjectURL(blob);
-    frame.src = _lastPrintBlobURL;
-  } catch(e) {
-    // Estratégia 3: document.write clássico (último recurso)
-    const doc = frame.contentDocument || frame.contentWindow.document;
-    doc.open(); doc.write(htmlContent); doc.close();
-  }
+  // Write content into iframe
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open();
+  doc.write(htmlContent);
+  doc.close();
 }
-
 function closePrintModal() {
   document.getElementById('printModalOverlay').classList.remove('open');
 }
-
-// Imprime abrindo o conteúdo numa nova aba via Blob URL.
-// Usar Blob URL em vez de window.open('','_blank') + document.write evita:
-//   • bloqueio de pop-up (o href num <a> clicado diretamente não é pop-up)
-//   • bloqueio de document.write cross-origin em browsers modernos
+// Em muitos navegadores móveis, chamar print() dentro de um iframe a partir
+// do documento pai não é tratado como "ação direta do usuário" e é ignorado
+// silenciosamente. Por isso, abrimos o recibo numa nova aba e imprimimos a
+// partir de dentro dela mesma — isso funciona de forma confiável em qualquer
+// navegador (celular, tablet ou desktop).
 function imprimirViaNovaAba() {
   if (!_lastPrintHTML) return;
-
-  // Cria (ou reutiliza) o Blob URL
-  let blobURL = _lastPrintBlobURL;
-  if (!blobURL) {
-    try {
-      const blob = new Blob([_lastPrintHTML], { type: 'text/html; charset=utf-8' });
-      blobURL = URL.createObjectURL(blob);
-      _lastPrintBlobURL = blobURL;
-    } catch(e) { blobURL = null; }
-  }
-
-  if (blobURL) {
-    // Abre a nova aba com o Blob URL — não é tratado como pop-up pelo browser
-    const win = window.open(blobURL, '_blank');
-    if (win) {
-      win.onload = function () {
-        setTimeout(function () { win.print(); }, 300);
-      };
-      return;
-    }
-  }
-
-  // Fallback final: tenta window.open clássico
   const printWin = window.open('', '_blank');
   if (!printWin) {
-    showNotif('Permita pop-ups neste site para imprimir.', 'warn');
+    showNotif('Permita pop-ups neste site para imprimir o recibo.', 'warn');
     return;
   }
   printWin.document.open();
   printWin.document.write(_lastPrintHTML);
   printWin.document.close();
   printWin.focus();
+  // Aguarda o documento (e fontes) carregarem antes de chamar print(),
+  // chamado a partir da própria janela — sempre permitido pelo navegador.
   printWin.onload = function () {
     setTimeout(function () { printWin.print(); }, 300);
   };
@@ -3682,9 +3702,8 @@ function handleImportBrfFile(ev){
       }
       // Identifica as colunas de Quarto e Nome (tolerante a maiúsculas/variações)
       const colunas = Object.keys(linhas[0]);
-      const colQuarto  = colunas.find(c => /quarto/i.test(c));
-      const colNome    = colunas.find(c => /nome/i.test(c));
-      const colDiaria  = colunas.find(c => /di[aá]ria|diaria|pre[cç]o|valor|rate|price/i.test(c));
+      const colQuarto = colunas.find(c => /quarto/i.test(c));
+      const colNome   = colunas.find(c => /nome/i.test(c));
       if(!colQuarto || !colNome){
         erroEl.textContent = 'Não encontrei as colunas "Quarto" e "Nome" na planilha. Verifique o cabeçalho da primeira linha.';
         erroEl.style.display = 'block';
@@ -3695,7 +3714,6 @@ function handleImportBrfFile(ev){
         .map(l => ({
           quarto: String(l[colQuarto]||'').trim(),
           nome:   String(l[colNome]  ||'').trim(),
-          diaria: colDiaria ? (parseFloat(String(l[colDiaria]||'').replace(',','.')) || 0) : (parseFloat(document.getElementById('importBrfDiariaDefault').value)||0),
         }))
         .filter(l => l.quarto && l.nome);
 
@@ -3736,7 +3754,7 @@ function renderImportBrfPreview(){
     let situacao;
     if(jaExistePessoa){ situacao = '<span style="color:var(--amber);">Já cadastrado(a) — será ignorado</span>'; duplicadas++; }
     else { situacao = '<span style="color:var(--green);">Novo</span>'; novasPessoas++; }
-    return `<tr><td style="padding:6px 10px;">${r.quarto}</td><td style="padding:6px 10px;">${r.nome}</td><td style="padding:6px 10px;">${r.diaria>0?'R$ '+r.diaria.toFixed(2):'—'}</td><td style="padding:6px 10px;">${situacao}</td></tr>`;
+    return `<tr><td style="padding:6px 10px;">${r.quarto}</td><td style="padding:6px 10px;">${r.nome}</td><td style="padding:6px 10px;">${situacao}</td></tr>`;
   }).join('');
 
   novosQuartos = Object.keys(contagem).filter(num => !quartos.some(q=>q.numero===num)).length;
@@ -3816,7 +3834,7 @@ function confirmarImportBrf(){
       checkin: today(),
       checkinHora: horaAtual,
       checkout: '',
-      diaria: r.diaria || 0,
+      diaria: 0,
       diasPagos: 0,
       obs: 'Importado(a) via planilha',
       matricula: '',
@@ -4257,7 +4275,7 @@ function gerarReciboBRF(h, dias, valorTotal, valorPago, saldo, saidaISO){
     <div class="ass-item">Responsável Don Pita Hotel</div>
   </div>
 
-  <button class="btn-print" onclick="window.print()">🖨️ Imprimir Recibo</button>
+  <button class="btn-print" onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()">🖨️ Imprimir Recibo</button>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Recibo gerado automaticamente em ${emissao}</div>
   </body></html>`);
 }
@@ -4505,7 +4523,7 @@ function gerarReciboPagamento(cat, h, diasPagos, forma, valorConsumo){
   </div>
 
   <div style="text-align:center;margin-top:28px;">
-    <button onclick="window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Recibo</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Recibo</button>
   </div>
   <div class="footer">Don Pita Hotel — Recibo gerado automaticamente em ${emissao}</div>
   </body></html>`);
@@ -4804,7 +4822,7 @@ function imprimirFichaHospede(cat, id){
   </div>
 
   <div style="text-align:center;margin-top:28px;">
-    <button onclick="window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Ficha</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir Ficha</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Ficha gerada em ${emissao}</div>
   </body></html>`);
@@ -5593,7 +5611,119 @@ function salvarRefeicao(){
   const f=mbrfs.find(x=>x.id===mbrfId);
   refeicoes.push({id:Date.now(),mbrfId,nome:f?f.nome:'',tipo,data,obs});
   saveRefeicoes(); foodDate=data; closeRefeicaoModal(); renderAll();
+
   showNotif(`Refeição registrada para ${f?f.nome:''}!`);
+}
+
+// ── HISTÓRICO DE REFEIÇÕES ──
+let foodView = 'dia';
+let histMonth = new Date().toISOString().slice(0,7); // YYYY-MM
+let expandedDays = new Set();
+
+function setFoodView(view){
+  foodView = view;
+  document.getElementById('foodViewDia').style.display  = view==='dia'  ? '' : 'none';
+  document.getElementById('foodViewHist').style.display = view==='hist' ? '' : 'none';
+  document.getElementById('btnViewDia').classList.toggle('active', view==='dia');
+  document.getElementById('btnViewHist').classList.toggle('active', view==='hist');
+  if(view==='hist') renderFoodHist();
+}
+
+function navHistMonth(dir){
+  const d = new Date(histMonth+'-01');
+  d.setMonth(d.getMonth()+dir);
+  histMonth = d.toISOString().slice(0,7);
+  renderFoodHist();
+}
+
+function toggleDayExpand(dateStr){
+  if(expandedDays.has(dateStr)) expandedDays.delete(dateStr);
+  else expandedDays.add(dateStr);
+  renderFoodHist();
+}
+
+function renderFoodHist(){
+  // Auto-expand today if not yet set
+  const todayD = today();
+  if(!expandedDays._initialized){
+    expandedDays.add(todayD);
+    expandedDays._initialized = true;
+  }
+  const monthDisp = document.getElementById('histMonthDisplay');
+  const listEl    = document.getElementById('foodHistList');
+  if(!monthDisp || !listEl) return;
+
+  // Format month display
+  const [yr, mo] = histMonth.split('-');
+  const monthDate = new Date(parseInt(yr), parseInt(mo)-1, 1);
+  monthDisp.textContent = monthDate.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+
+  // Get all days in this month that have meals
+  const mealsThisMonth = refeicoes.filter(r => r.data && r.data.startsWith(histMonth));
+
+  // Get unique days with meals
+  const daysWithMeals = [...new Set(mealsThisMonth.map(r=>r.data))].sort().reverse();
+
+  if(!daysWithMeals.length){
+    listEl.innerHTML = `<div class="food-hist-empty"><div class="empty-icon">🍽️</div><p>Nenhuma refeição registrada em ${monthDate.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}.</p></div>`;
+    return;
+  }
+
+  const todayStr = today();
+
+  listEl.innerHTML = daysWithMeals.map(dateStr => {
+    const almocosDia  = mealsThisMonth.filter(r=>r.data===dateStr&&r.tipo==='almoco');
+    const jantaresDia = mealsThisMonth.filter(r=>r.data===dateStr&&r.tipo==='jantar');
+    const isToday     = dateStr === todayStr;
+    const isExpanded  = expandedDays.has(dateStr);
+
+    // Format date parts
+    const d = new Date(dateStr+'T12:00:00');
+    const dayNum   = d.toLocaleDateString('pt-BR',{day:'2-digit'});
+    const monAbbr  = d.toLocaleDateString('pt-BR',{month:'short'}).replace('.','');
+    const weekDay  = d.toLocaleDateString('pt-BR',{weekday:'long'});
+    const fullDate = d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+
+    const almNomes  = almocosDia.map(r=>`<div class="food-hist-name">${r.nome||'—'}</div>`).join('');
+    const janNomes  = jantaresDia.map(r=>`<div class="food-hist-name">${r.nome||'—'}</div>`).join('');
+
+    return `<div class="food-hist-day ${isExpanded?'':'collapsed'} ${isToday?'today-day':''}">
+      <div class="food-hist-day-header" onclick="toggleDayExpand('${dateStr}')">
+        <div class="food-hist-date-badge ${isToday?'today-badge':''}">
+          <div class="food-hist-day-num">${dayNum}</div>
+          <div class="food-hist-mon">${monAbbr}</div>
+        </div>
+        <div class="food-hist-day-info">
+          <div class="food-hist-day-label">${fullDate}${isToday?' <span style="color:var(--food-teal);font-size:11px;font-weight:700;"> • Hoje</span>':''}</div>
+          <div class="food-hist-day-sub">${almocosDia.length} almoços · ${jantaresDia.length} jantares</div>
+        </div>
+        <div class="food-hist-pills">
+          <div class="food-pill almoco ${almocosDia.length?'':'zero'}">🌞 ${almocosDia.length}</div>
+          <div class="food-pill jantar ${jantaresDia.length?'':'zero'}">🌙 ${jantaresDia.length}</div>
+        </div>
+        <div class="food-hist-chevron">›</div>
+      </div>
+      <div class="food-hist-day-body">
+        <div>
+          <div class="food-hist-col-title almoco">🌞 Almoço (${almocosDia.length})</div>
+          ${almNomes || '<div class="food-hist-empty-col">Nenhum almoço registrado</div>'}
+        </div>
+        <div>
+          <div class="food-hist-col-title jantar">🌙 Jantar (${jantaresDia.length})</div>
+          ${janNomes || '<div class="food-hist-empty-col">Nenhum jantar registrado</div>'}
+        </div>
+      </div>
+      <div style="padding:0 18px 14px;text-align:right;">
+        <button onclick="goToFoodDay('${dateStr}')" style="font-size:11.5px;font-weight:600;color:var(--food-teal);background:var(--food-light);border:1px solid var(--food-teal);border-radius:7px;padding:5px 12px;cursor:pointer;">📅 Ver este dia</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function goToFoodDay(dateStr){
+  foodDate = dateStr;
+  setFoodView('dia');
+  renderRefeicoes();
 }
 
 // ── MODAL HÓSPEDE / MBRF ──
@@ -6398,7 +6528,7 @@ function imprimirRelatorioBRF(){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#5B3A8C;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#5B3A8C;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -6494,7 +6624,7 @@ function imprimirRelatorioEstoque(){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A6B3A;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -6632,7 +6762,7 @@ function imprimirHospedes(periodo='diario'){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
@@ -6887,7 +7017,7 @@ function imprimirCaixa(periodo='diario'){
   </div>
 
   <div style="text-align:center;margin-top:24px;">
-    <button onclick="window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
+    <button onclick="(window.top||window.parent).imprimirViaNovaAba?(window.top||window.parent).imprimirViaNovaAba():window.print()" style="background:#1A2340;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:700;">🖨️ Imprimir</button>
   </div>
   <div class="footer">Don Pita Hotel — Sistema de Gestão · Relatório gerado em ${dataHoje} às ${horaHoje}</div>
   </body></html>`);
