@@ -915,6 +915,10 @@
       <div class="section-logo">🍽️</div>
     </div>
     <div class="stats" id="statsRefeicoes"></div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Buscar por nome ou número do quarto..." oninput="filterRefeicoes(this.value)" id="refeicoesSearch">
+    </div>
     <div class="date-nav">
       <button class="date-nav-btn" onclick="navDay(-1)">‹</button>
       <div class="date-display" id="foodDateDisplay"></div>
@@ -5307,6 +5311,8 @@ function editReserva(id){ openReservaModal(id); }
 function removerReserva(id){ reservas=reservas.filter(r=>r.id!==id); saveReservas(); renderAll(); showNotif('Reserva removida.','warn'); }
 
 // ── REFEIÇÕES ──
+let refeicoesSearch='';
+function filterRefeicoes(val){ refeicoesSearch=(val||'').trim().toLowerCase(); renderRefeicoes(); }
 function navDay(dir){ const d=new Date(foodDate+'T12:00:00'); d.setDate(d.getDate()+dir); foodDate=d.toISOString().split('T')[0]; renderRefeicoes(); }
 function renderRefeicoes(){
   const display=document.getElementById('foodDateDisplay');
@@ -5314,10 +5320,15 @@ function renderRefeicoes(){
   const list=document.getElementById('refeicoesList');
   if(!list) return;
   if(!mbrfs.length){ list.innerHTML=`<div class="empty-state"><div class="empty-icon">👥</div><h3>${tp('emptyMbrfTitle')}</h3><p>${tp('emptyMbrfSub')}</p></div>`; return; }
+  const mbrfsFiltrados = mbrfs.filter(f=>{
+    if(!refeicoesSearch) return true;
+    return (f.nome||'').toLowerCase().includes(refeicoesSearch) || String(f.quarto||'').toLowerCase().includes(refeicoesSearch);
+  });
+  if(refeicoesSearch && !mbrfsFiltrados.length){ list.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div><h3>Nenhum resultado</h3><p>Nenhum funcionário encontrado para "${refeicoesSearch}".</p></div>`; return; }
   const refDia=refeicoes.filter(r=>r.data===foodDate);
   const almocos=refDia.filter(r=>r.tipo==='almoco');
   const jantares=refDia.filter(r=>r.tipo==='jantar');
-  const makeList=(tipo,lista)=>mbrfs.map(f=>{
+  const makeList=(tipo,lista)=>mbrfsFiltrados.map(f=>{
     const m=lista.find(r=>r.mbrfId===f.id);
     return `<div class="meal-person">
       <div><div style="font-weight:500;">${f.nome}</div><div style="font-size:11px;color:#8A8F9E;">Quarto ${f.quarto||'—'}${f.setor?' · '+f.setor:''}</div></div>
