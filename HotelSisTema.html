@@ -849,6 +849,7 @@
       </div>
       <button class="btn btn-mbrf" onclick="openModal('mbrf')">+ <span data-i18n="btnNovoFuncionario">Novo Funcionário BRF</span></button>
       <button class="btn btn-outline" onclick="openImportBrfModal()">📥 Importar Planilha</button>
+      <button id="btnApagarTodosMbrf" class="btn btn-danger" style="display:none;" onclick="apagarTodosMbrf()">🗑️ Apagar Todos BRF</button>
     </div>
     <div class="table-wrap">
       <table>
@@ -1674,18 +1675,23 @@
     <div class="modal-title">📥 Importar Planilha BRF</div>
     <p style="font-size:12.5px;color:var(--gray);margin-bottom:14px;line-height:1.5;">
       Envie um arquivo Excel (.xlsx) com as colunas <b>Quarto</b> e <b>Nome</b> — uma linha por pessoa.
-      Quartos que ainda não existem serão criados automaticamente, com capacidade igual à
-      quantidade de pessoas daquele quarto na planilha.
+      Quartos que ainda não existem serão criados automaticamente. Se a planilha tiver uma coluna <b>Diária</b>, ela será usada; caso contrário, o valor padrão abaixo será aplicado.
     </p>
-    <div class="form-group" style="margin-bottom:14px;">
-      <input type="file" id="importBrfFile" accept=".xlsx,.xls,.csv" class="form-input" onchange="handleImportBrfFile(event)">
-    </div>
+    <div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:14px;flex-wrap:wrap;">
+      <div class="form-group" style="flex:1;min-width:200px;margin-bottom:0;">
+        <label class="form-label">Arquivo Excel (.xlsx)</label>
+        <input type="file" id="importBrfFile" accept=".xlsx,.xls,.csv" class="form-input" onchange="handleImportBrfFile(event)">
+      </div>
+      <div class="form-group" style="width:160px;margin-bottom:0;">
+        <label class="form-label">Diária padrão (R$)</label>
+        <input type="number" id="importBrfDiariaDefault" class="form-input" value="110" min="0" placeholder="0" style="text-align:right;">
+      </div>
     <div id="importBrfPreviewWrap" style="display:none;">
       <div id="importBrfResumo" style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px;"></div>
       <div style="max-height:280px;overflow:auto;border:1px solid var(--border);border-radius:10px;">
         <table style="width:100%;font-size:12.5px;">
           <thead style="position:sticky;top:0;background:var(--cream);">
-            <tr><th style="text-align:left;padding:8px 10px;">Quarto</th><th style="text-align:left;padding:8px 10px;">Nome</th><th style="text-align:left;padding:8px 10px;">Situação</th></tr>
+            <tr><th style="text-align:left;padding:8px 10px;">Quarto</th><th style="text-align:left;padding:8px 10px;">Nome</th><th style="text-align:left;padding:8px 10px;">Diária</th><th style="text-align:left;padding:8px 10px;">Situação</th></tr>
           </thead>
           <tbody id="importBrfPreviewBody"></tbody>
         </table>
@@ -3191,6 +3197,7 @@ function renderAll(){
   renderPessoas();
   renderPedidosReserva();
   renderZonaReset();
+  renderBtnApagarTodosMbrf();
   document.getElementById('hotelBadge').textContent=hospedes.length;
   document.getElementById('mbrfBadge').textContent=mbrfs.length;
   document.getElementById('reservasBadge').textContent=reservas.length;
@@ -3631,8 +3638,9 @@ function handleImportBrfFile(ev){
       }
       // Identifica as colunas de Quarto e Nome (tolerante a maiúsculas/variações)
       const colunas = Object.keys(linhas[0]);
-      const colQuarto = colunas.find(c => /quarto/i.test(c));
-      const colNome   = colunas.find(c => /nome/i.test(c));
+      const colQuarto  = colunas.find(c => /quarto/i.test(c));
+      const colNome    = colunas.find(c => /nome/i.test(c));
+      const colDiaria  = colunas.find(c => /di[aá]ria|diaria|pre[cç]o|valor|rate|price/i.test(c));
       if(!colQuarto || !colNome){
         erroEl.textContent = 'Não encontrei as colunas "Quarto" e "Nome" na planilha. Verifique o cabeçalho da primeira linha.';
         erroEl.style.display = 'block';
@@ -3643,6 +3651,7 @@ function handleImportBrfFile(ev){
         .map(l => ({
           quarto: String(l[colQuarto]||'').trim(),
           nome:   String(l[colNome]  ||'').trim(),
+          diaria: colDiaria ? (parseFloat(String(l[colDiaria]||'').replace(',','.')) || 0) : (parseFloat(document.getElementById('importBrfDiariaDefault').value)||0),
         }))
         .filter(l => l.quarto && l.nome);
 
@@ -3683,7 +3692,7 @@ function renderImportBrfPreview(){
     let situacao;
     if(jaExistePessoa){ situacao = '<span style="color:var(--amber);">Já cadastrado(a) — será ignorado</span>'; duplicadas++; }
     else { situacao = '<span style="color:var(--green);">Novo</span>'; novasPessoas++; }
-    return `<tr><td style="padding:6px 10px;">${r.quarto}</td><td style="padding:6px 10px;">${r.nome}</td><td style="padding:6px 10px;">${situacao}</td></tr>`;
+    return `<tr><td style="padding:6px 10px;">${r.quarto}</td><td style="padding:6px 10px;">${r.nome}</td><td style="padding:6px 10px;">${r.diaria>0?'R$ '+r.diaria.toFixed(2):'—'}</td><td style="padding:6px 10px;">${situacao}</td></tr>`;
   }).join('');
 
   novosQuartos = Object.keys(contagem).filter(num => !quartos.some(q=>q.numero===num)).length;
@@ -3763,7 +3772,7 @@ function confirmarImportBrf(){
       checkin: today(),
       checkinHora: horaAtual,
       checkout: '',
-      diaria: 110,
+      diaria: r.diaria || 0,
       diasPagos: 0,
       obs: 'Importado(a) via planilha',
       matricula: '',
@@ -5835,6 +5844,25 @@ function removerHospede(cat,id){
   else { mbrfs=mbrfs.filter(h=>h.id!==id); saveMbrf(); }
   renderAll(); showNotif('Hóspede removido.','warn');
 }
+
+function apagarTodosMbrf(){
+  if(!mbrfs.length){ showNotif('Nenhum funcionário BRF para apagar.','warn'); return; }
+  const total = mbrfs.length;
+  const confirmTxt = prompt(`⚠️ ATENÇÃO! Isso vai apagar TODOS os ${total} funcionário(s) BRF ativos PERMANENTEMENTE.\n\nEsta ação não pode ser desfeita!\n\nDigite APAGAR para confirmar:`);
+  if(confirmTxt !== 'APAGAR'){
+    if(confirmTxt !== null) showNotif('Cancelado — texto de confirmação incorreto.','warn');
+    return;
+  }
+  mbrfs = [];
+  saveMbrf();
+  renderAll();
+  showNotif(`🗑️ ${total} funcionário(s) BRF removidos.`, 'warn');
+}
+
+function renderBtnApagarTodosMbrf(){
+  const btn = document.getElementById('btnApagarTodosMbrf');
+  if(btn) btn.style.display = apagarTodosMbrfHabilitado ? '' : 'none';
+}
 function editHospede(cat,id){ openModal(cat,id); }
 
 // ── NOTIFICATION ──
@@ -6826,11 +6854,16 @@ function imprimirCaixa(periodo='diario'){
 // Para ocultar (produção), coloque false.
 const lixoState = {
   hotel:     false,   // 🗑️ botão deletar hóspedes Hotel
-  mbrf:      true,   // 🗑️ botão deletar funcionários BRF
+  mbrf:      false,   // 🗑️ botão deletar funcionários BRF (individual)
   estoque:  true,   // 🗑️ botão deletar produtos do Estoque
   quartos:   true,   // 🗑️ botão deletar Quartos
   historico: true,   // 🗑️ botão Limpar Histórico
 };
+
+// ── CONFIGURAÇÃO BOTÃO APAGAR TODOS BRF ──
+// true  = mostra o botão "Apagar Todos BRF" na aba MBRF
+// false = oculta o botão completamente (recomendado em produção)
+const apagarTodosMbrfHabilitado = false;
 
 // ── CONFIGURAÇÃO BOTÃO REINICIAR SISTEMA ──
 // true  = mostra o botão "Reiniciar Sistema" na aba Relatórios (uso em testes)
